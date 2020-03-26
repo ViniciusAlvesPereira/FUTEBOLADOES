@@ -13,7 +13,7 @@ int Playbook_DoNothing::maxNumPlayer() {
 
 void Playbook_DoNothing::configure(int numPlayers) {
     for(int i = 0; i < numPlayers; i++) {
-        Role_Default *rl_def = new Role_Default();
+        Role_Defender *rl_def = new Role_Defender();
         usesRole(rl_def);
         _rl_def.push_back(rl_def);
     }
