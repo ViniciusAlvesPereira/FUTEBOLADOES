@@ -15,7 +15,9 @@ void Behaviour_Sweeper::configure() {
 void Behaviour_Sweeper::run() {
     _skill_GoToLookTo->setAimPosition(loc()->ball());
     float x = PlayerBus::ourPlayer(_id)->position().x();
-    float y = -0.1 * x * x + 0.6 * x -1.8;
-    Position coverPosition = Position(true, y, PlayerBus::ourPlayer(_id)->position().y() / 2, 0.0);
-    _skill_GoToLookTo->setDesiredPosition(coverPosition);
+    if (loc()->ourGoal().x() > 0) x = -x;
+    float y = -0.1 * x * x + 0.6 * x -1.8;  //Equação característica: y = -0.1x² + 0.6x - 1.8
+    if (loc()->ourGoal().x() > 0) y = -y;
+    Position sweeperPosition = Position(true, y, PlayerBus::ourPlayer(_id)->position().y() / 2, 0.0);
+    _skill_GoToLookTo->setDesiredPosition(sweeperPosition);
 }
