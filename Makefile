@@ -800,6 +800,7 @@ moc_playbook.cpp: entity/referee/SSLReferee/sslgameinfo.h \
 		entity/player/baseplayer.h \
 		utils/fields/fields.hh \
 		entity/world/worldmapupdater.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -854,6 +855,7 @@ moc_behaviour_receiver.cpp: entity/player/behaviour/behaviour.h \
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -899,6 +901,7 @@ moc_behaviour_attacker.cpp: entity/player/behaviour/behaviour.h \
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -931,6 +934,7 @@ moc_role.cpp: entity/player/baseplayer.h \
 		entity/baseentity.h \
 		utils/fields/fields.hh \
 		entity/world/worldmapupdater.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -962,6 +966,7 @@ moc_mainwindow.cpp: entity/entity.h \
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -992,6 +997,7 @@ moc_samico.cpp: entity/coachview/qsfmlwidget.h \
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -1033,6 +1039,7 @@ ui_mainwindow.h: entity/coachview/mainwindow.ui \
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -1084,6 +1091,7 @@ behaviour_cover.o: entity/player/behaviour/basics/behaviour_cover.cpp entity/pla
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -1124,6 +1132,7 @@ behaviour_goalkeeper.o: entity/player/behaviour/basics/behaviour_goalkeeper.cpp 
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -1166,6 +1175,7 @@ behaviour_markball.o: entity/player/behaviour/basics/behaviour_markball.cpp enti
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -1206,6 +1216,7 @@ behaviour_penalty_cf.o: entity/player/behaviour/basics/behaviour_penalty_cf.cpp 
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -1249,6 +1260,7 @@ behaviour_sweeper.o: entity/player/behaviour/basics/behaviour_sweeper.cpp entity
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -1291,6 +1303,7 @@ role_defender.o: entity/player/role/basics/role_defender.cpp entity/player/role/
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -1345,6 +1358,7 @@ skill_aroundtheball.o: entity/player/skills/basics/skill_aroundtheball.cpp entit
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -1381,6 +1395,7 @@ skill_dribble.o: entity/player/skills/basics/skill_dribble.cpp entity/player/ski
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -1417,6 +1432,7 @@ skill_goto.o: entity/player/skills/basics/skill_goto.cpp entity/player/skills/ba
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -1453,6 +1469,7 @@ skill_gotolookto.o: entity/player/skills/basics/skill_gotolookto.cpp entity/play
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -1489,6 +1506,7 @@ skill_interceptball.o: entity/player/skills/basics/skill_interceptball.cpp entit
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -1525,6 +1543,7 @@ skill_rotateto.o: entity/player/skills/basics/skill_rotateto.cpp entity/player/s
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -1548,6 +1567,7 @@ world.o: entity/world/world.cpp entity/world/world.h \
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		entity/contromodule/mrcteam.h \
 		utils/fieldside/fieldside.hh \
@@ -1583,6 +1603,7 @@ worldmapupdater.o: entity/world/worldmapupdater.cpp entity/world/worldmapupdater
 		include/3rd_party/game_event.pb.h \
 		entity/referee/SSLReferee/sslgameinfo.h \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/locations.h \
 		utils/basics/wall.hh \
 		entity/player/control/pid.h \
@@ -1682,6 +1703,7 @@ main.o: main.cpp suassuna.h \
 		entity/baseentity.h \
 		entity/player/baseplayer.h \
 		entity/world/worldmapupdater.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		entity/contromodule/mrcteam.h \
 		entity/player/player.h \
@@ -1718,6 +1740,7 @@ suassuna.o: suassuna.cpp suassuna.h \
 		entity/baseentity.h \
 		entity/player/baseplayer.h \
 		entity/world/worldmapupdater.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		entity/contromodule/mrcteam.h \
 		entity/player/player.h \
@@ -1830,6 +1853,7 @@ freeangles.o: utils/freeangles/freeangles.cpp utils/freeangles/freeangles.h \
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -1883,6 +1907,7 @@ player.o: entity/player/player.cpp entity/player/player.h \
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -1921,6 +1946,7 @@ mrcteam.o: entity/contromodule/mrcteam.cpp entity/contromodule/mrcteam.h \
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -1948,6 +1974,7 @@ skill.o: entity/player/skills/skill.cpp entity/player/skills/skill.h \
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/player/control/pid.h \
@@ -1972,6 +1999,7 @@ locations.o: entity/locations.cpp entity/locations.h \
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/player/control/pid.h \
@@ -2004,6 +2032,7 @@ coach.o: entity/contromodule/coach.cpp entity/contromodule/coach.h \
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -2033,6 +2062,7 @@ playerbus.o: entity/player/playerbus.cpp entity/player/playerbus.h \
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -2055,6 +2085,7 @@ playeraccess.o: entity/player/playeraccess.cpp entity/player/playeraccess.h \
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -2086,6 +2117,7 @@ strategy.o: entity/contromodule/strategy/strategy.cpp entity/contromodule/strate
 		entity/world/worldmapupdater.h \
 		entity/referee/SSLReferee/sslreferee.h \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -2115,6 +2147,7 @@ playersdistribution.o: entity/contromodule/playersdistribution.cpp entity/contro
 		entity/player/baseplayer.h \
 		utils/fields/fields.hh \
 		entity/world/worldmapupdater.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		entity/locations.h \
 		utils/basics/wall.hh \
@@ -2142,6 +2175,7 @@ strategystate.o: entity/contromodule/strategy/strategystate.cpp entity/contromod
 		entity/player/baseplayer.h \
 		utils/fields/fields.hh \
 		entity/world/worldmapupdater.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -2174,6 +2208,7 @@ coachutils.o: entity/contromodule/coachutils.cpp entity/contromodule/coachutils.
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -2199,6 +2234,7 @@ playbook.o: entity/contromodule/playbook/playbook.cpp entity/contromodule/playbo
 		entity/player/baseplayer.h \
 		utils/fields/fields.hh \
 		entity/world/worldmapupdater.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -2231,6 +2267,7 @@ behaviour.o: entity/player/behaviour/behaviour.cpp entity/player/behaviour/behav
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -2271,6 +2308,7 @@ behaviour_donothing.o: entity/player/behaviour/basics/behaviour_donothing.cpp en
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -2307,6 +2345,7 @@ skill_donothing.o: entity/player/skills/basics/skill_donothing.cpp entity/player
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -2337,6 +2376,7 @@ knn.o: utils/knn/knn.cc utils/knn/knn.hh \
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		entity/locations.h \
 		utils/basics/wall.hh \
@@ -2370,6 +2410,7 @@ mrcstrategy.o: entity/contromodule/strategy/basics/mrcstrategy.cpp entity/contro
 		entity/player/baseplayer.h \
 		utils/fields/fields.hh \
 		entity/world/worldmapupdater.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -2449,6 +2490,7 @@ sslstrategy_halt.o: entity/contromodule/strategy/basics/sslstrategy_halt.cpp ent
 		entity/player/baseplayer.h \
 		utils/fields/fields.hh \
 		entity/world/worldmapupdater.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -2512,6 +2554,7 @@ playbook_donothing.o: entity/contromodule/playbook/basics/playbook_donothing.cpp
 		entity/player/baseplayer.h \
 		utils/fields/fields.hh \
 		entity/world/worldmapupdater.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -2587,6 +2630,7 @@ behaviour_followball.o: entity/player/behaviour/basics/behaviour_followball.cpp 
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -2627,6 +2671,7 @@ behaviour_timeout.o: entity/player/behaviour/basics/behaviour_timeout.cpp entity
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -2670,6 +2715,7 @@ skill_kick.o: entity/player/skills/basics/skill_kick.cpp entity/player/skills/ba
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -2706,6 +2752,7 @@ skill_gkick.o: entity/player/skills/basics/skill_gkick.cpp entity/player/skills/
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -2746,6 +2793,7 @@ behaviour_receiver.o: entity/player/behaviour/basics/behaviour_receiver.cpp enti
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -2790,6 +2838,7 @@ behaviour_attacker.o: entity/player/behaviour/basics/behaviour_attacker.cpp enti
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -2833,6 +2882,7 @@ behaviour_barrier.o: entity/player/behaviour/basics/behaviour_barrier.cpp entity
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -2873,6 +2923,7 @@ behaviour_markplayer.o: entity/player/behaviour/basics/behaviour_markplayer.cpp 
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -2913,6 +2964,7 @@ behaviour_penalty_gk.o: entity/player/behaviour/basics/behaviour_penalty_gk.cpp 
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -2951,6 +3003,7 @@ skill_pushball.o: entity/player/skills/basics/skill_pushball.cpp entity/player/s
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -2978,6 +3031,7 @@ role.o: entity/player/role/role.cpp entity/referee/SSLReferee/sslgameinfo.h \
 		entity/player/baseplayer.h \
 		utils/fields/fields.hh \
 		entity/world/worldmapupdater.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -3024,6 +3078,7 @@ role_default.o: entity/player/role/basics/role_default.cpp entity/player/role/ba
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -3071,6 +3126,7 @@ coachview.o: entity/coachview/coachview.cpp entity/coachview/coachview.h \
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		utils/utils.hh \
 		entity/locations.h \
 		utils/basics/wall.hh \
@@ -3097,6 +3153,7 @@ mainwindow.o: entity/coachview/mainwindow.cpp entity/coachview/mainwindow.h \
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -3126,6 +3183,7 @@ samico.o: entity/coachview/samico.cpp entity/coachview/samico.h \
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \
@@ -3163,6 +3221,7 @@ skill_sample.o: entity/player/skills/basics/skill_sample.cpp entity/player/skill
 		entity/referee/SSLReferee/sslgameinfo.h \
 		utils/basics/color.hh \
 		entity/referee/referee.h \
+		const/constants.h \
 		entity/coachview/coachview.h \
 		utils/utils.hh \
 		entity/locations.h \

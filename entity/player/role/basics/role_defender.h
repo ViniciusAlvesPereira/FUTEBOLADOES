@@ -11,7 +11,7 @@ class Role_Defender : public Role
 private:
     // Behaviours
     Behaviour_Sweeper *_bh_swp;
-    Behaviour_Barrier *_bh_brr;
+    Behaviour_Attacker *_bh_brr;
 
     // Behaviours ids!
     enum{

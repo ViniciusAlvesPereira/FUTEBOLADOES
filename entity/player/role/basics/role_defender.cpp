@@ -11,7 +11,7 @@ void Role_Defender::initializeBehaviours(){
     // Aqui são inseridos os behaviours possíveis de serem usados
     // na ordem: ID do behaviour, instanciação dele
     usesBehaviour(BHV_SWEEPER, _bh_swp = new Behaviour_Sweeper());
-    usesBehaviour(BHV_BARRIER, _bh_brr = new Behaviour_Barrier());
+    usesBehaviour(BHV_BARRIER, _bh_brr = new Behaviour_Attacker());
 }
 
 void Role_Defender::configure(){
