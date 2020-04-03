@@ -46,6 +46,7 @@ bool Role_Defender::ourTeamPossession() {
             return true;
         }
     }
+    printf("Vou quebrar tua perna, puto\n");
     return false;
 }
 
@@ -57,5 +58,4 @@ int Role_Defender::playerWithPoss() {
             //printf("Ei ei ei, quem roubar minha bola é gay\n");
         }
     }
-    return BALLPOSS_NONE;
 }
