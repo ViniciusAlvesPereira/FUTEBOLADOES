@@ -11,12 +11,14 @@ class Role_Defender : public Role
 private:
     // Behaviours
     Behaviour_Sweeper *_bh_swp;
-    Behaviour_Attacker *_bh_brr;
+    Behaviour_Barrier *_bh_brr;
+    Behaviour_Passing *_bh_psg;
 
     // Behaviours ids!
     enum{
         BHV_SWEEPER,
-        BHV_BARRIER
+        BHV_BARRIER,
+        BHV_PASSING
     };
 
     // Inherited functions

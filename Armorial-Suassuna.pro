@@ -26,6 +26,7 @@ SOURCES += \
     entity/player/behaviour/basics/behaviour_cover.cpp \
     entity/player/behaviour/basics/behaviour_goalkeeper.cpp \
     entity/player/behaviour/basics/behaviour_markball.cpp \
+    entity/player/behaviour/basics/behaviour_passing.cpp \
     entity/player/behaviour/basics/behaviour_penalty_cf.cpp \
     entity/player/behaviour/basics/behaviour_sweeper.cpp \
     entity/player/role/basics/role_defender.cpp \
@@ -126,6 +127,7 @@ HEADERS += \
 	entity/entity.h \
     entity/player/behaviour/basics/behaviour_cover.h \
     entity/player/behaviour/basics/behaviour_markball.h \
+    entity/player/behaviour/basics/behaviour_passing.h \
     entity/player/behaviour/basics/behaviour_penalty_cf.h \
     entity/player/behaviour/basics/behaviour_sweeper.h \
     entity/player/role/basics/role_defender.h \

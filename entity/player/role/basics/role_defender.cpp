@@ -11,7 +11,8 @@ void Role_Defender::initializeBehaviours(){
     // Aqui são inseridos os behaviours possíveis de serem usados
     // na ordem: ID do behaviour, instanciação dele
     usesBehaviour(BHV_SWEEPER, _bh_swp = new Behaviour_Sweeper());
-    usesBehaviour(BHV_BARRIER, _bh_brr = new Behaviour_Attacker());
+    usesBehaviour(BHV_BARRIER, _bh_brr = new Behaviour_Barrier());
+    //usesBehaviour(BHV_PASSING, _bh_psg = new Behaviour_Passing());
 }
 
 void Role_Defender::configure(){
@@ -25,12 +26,21 @@ void Role_Defender::run(){
      * na classe da role, sete-os aqui e envie para o behaviour (usando as funções
      * set presentes neles)
     */
+    int idWithPoss = playerWithPoss();
+    //printf("ID COM POSSE: %i\n", idWithPoss);
 
-    if (ourTeamPossession()) {
-        _bh_swp->setIdOfPoss(playerWithPoss());
-        setBehaviour(BHV_SWEEPER);
+    if (ourTeamPossession() == false) {
+        setBehaviour(BHV_BARRIER);
     }
-    else setBehaviour(BHV_BARRIER);
+    else {
+        if (idWithPoss == player()->playerId()) {
+            _bh_psg->setPlayerId(idWithPoss);
+            setBehaviour(BHV_PASSING);
+        } else {
+            _bh_swp->setIdOfPoss(playerWithPoss());
+            setBehaviour(BHV_SWEEPER);
+        }
+    }
 
 }
 
@@ -40,9 +50,11 @@ bool Role_Defender::ourTeamPossession() {
     for(it = players.constBegin(); it != players.end(); it++){
         const Player* player = *it;
         if(player->hasBallPossession()){
+            printf("Tô com a bola, otário\n");
             return true;
         }
     }
+    printf("Vou quebrar tua perna, puto\n");
     return false;
 }
 
@@ -53,7 +65,10 @@ int Role_Defender::playerWithPoss() {
         const Player* player = *it;
         if(player->hasBallPossession()){
             return player->playerId();
+            printf("Ei ei ei, quem roubar minha bola é gay\n");
+        } else {
+            printf("VAAAAAAAAAAAAAI\n");
+            return BALLPOSS_NONE;
         }
     }
-    return BALLPOSS_NONE;
 }
