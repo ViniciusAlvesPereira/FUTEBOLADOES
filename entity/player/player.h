@@ -39,6 +39,9 @@ public:
     Angle orientation() const;
     Angle nextOrientation() const;
 
+    // Team
+    MRCTeam* playerTeam();
+
     // Velocity
     Velocity velocity() const;
     float lastSpeed() const;

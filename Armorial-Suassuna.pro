@@ -29,6 +29,7 @@ SOURCES += \
     entity/player/behaviour/basics/behaviour_passing.cpp \
     entity/player/behaviour/basics/behaviour_penalty_cf.cpp \
     entity/player/behaviour/basics/behaviour_sweeper.cpp \
+    entity/player/role/basics/role_def_midfielder.cpp \
     entity/player/role/basics/role_defender.cpp \
     entity/player/skills/basics/skill_aroundtheball.cpp \
     entity/player/skills/basics/skill_dribble.cpp \
@@ -130,6 +131,7 @@ HEADERS += \
     entity/player/behaviour/basics/behaviour_passing.h \
     entity/player/behaviour/basics/behaviour_penalty_cf.h \
     entity/player/behaviour/basics/behaviour_sweeper.h \
+    entity/player/role/basics/role_def_midfielder.h \
     entity/player/role/basics/role_defender.h \
     entity/player/skills/basics/skill_aroundtheball.h \
     entity/player/skills/basics/skill_dribble.h \

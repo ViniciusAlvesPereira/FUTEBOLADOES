@@ -1,24 +1,24 @@
-#include "role_default.h"
+#include "role_def_midfielder.h"
 
-QString Role_Default::name(){
-    return "Role_Default";
+QString Role_Def_Midfielder::name(){
+    return "Role_Def_Midfielder";
 }
 
-Role_Default::Role_Default() {
+Role_Def_Midfielder::Role_Def_Midfielder() {
 }
 
-void Role_Default::initializeBehaviours(){
+void Role_Def_Midfielder::initializeBehaviours(){
     // Aqui são inseridos os behaviours possíveis de serem usados
     // na ordem: ID do behaviour, instanciação dele
-    usesBehaviour(BHV_DONOTHING, _bh_dn = new Behaviour_DoNothing());
+    usesBehaviour(BHV_ATTACKER, _bh_atk = new Behaviour_Attacker());
     //usesBehaviour(BHV_BARRIER, _bh_def = new Behaviour_Attacker());
 }
 
-void Role_Default::configure(){
+void Role_Def_Midfielder::configure(){
     // Aqui são setados parametros que devem ser configurados
 }
 
-void Role_Default::run(){
+void Role_Def_Midfielder::run(){
     /*
      * Aqui devem ocorrer os sets de parametros de acordo com o behaviour
      * que estiver sendo executado, de preferencia declare todos os parametros
@@ -29,7 +29,7 @@ void Role_Default::run(){
     //switch(getActualBehaviour()){
     //case BHV_DONOTHING:{
         //if(player()->position().x() >= 0)
-    setBehaviour(BHV_DONOTHING);
+    setBehaviour(BHV_ATTACKER);
     //}
     //break;
     //case BHV_BARRIER:{

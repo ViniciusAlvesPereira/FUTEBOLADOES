@@ -25,12 +25,6 @@ private:
     void configure();
     void run();
 
-    // Mutex
-    QMutex _mutex;
-
-    // Players
-    QHash<quint8, Player*> _players;
-
     // Auxiliary functions
     bool ourTeamPossession();
     int playerWithPoss();

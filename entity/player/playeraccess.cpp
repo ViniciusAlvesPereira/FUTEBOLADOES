@@ -29,6 +29,10 @@ quint8 PlayerAccess::opTeamId() const {
     return _player->opTeamId();
 }
 
+MRCTeam* PlayerAccess::team() const {
+    return _player->playerTeam();
+}
+
 Position PlayerAccess::position() const {
     return _player->position();
 }

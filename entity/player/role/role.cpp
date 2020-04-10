@@ -3,6 +3,7 @@
 #include <entity/contromodule/mrcteam.h>
 #include <entity/contromodule/playersdistribution.h>
 #include <entity/player/behaviour/behaviour.h>
+#include <entity/player/behaviour/mrcbehaviours.h>
 
 #include "role.h"
 

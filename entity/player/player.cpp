@@ -63,6 +63,10 @@ quint8 Player::playerId() const{
     return _playerId;
 }
 
+MRCTeam* Player::playerTeam(){
+    return _team;
+}
+
 quint8 Player::teamId() const{
     return _team->teamId();
 }
@@ -400,7 +404,7 @@ void Player::aroundTheBall(double robot_x, double robot_y, double point_x, doubl
 
 void Player::kick(bool isPass, float kickZPower){
     if(isPass)
-        _grSim->setKickSpeed(_team->teamId(), playerId(), 2.0, kickZPower);
+        _grSim->setKickSpeed(_team->teamId(), playerId(), 3.0, kickZPower);
     else
         _grSim->setKickSpeed(_team->teamId(), playerId(), 6.0, kickZPower);
 }

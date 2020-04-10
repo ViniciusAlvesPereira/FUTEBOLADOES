@@ -1,19 +1,19 @@
-#ifndef ROLE_DEFAULT_H
-#define ROLE_DEFAULT_H
+#ifndef ROLE_DEF_MIDFIELDER_H
+#define ROLE_DEF_MIDFIELDER_H
 
 #include <entity/player/behaviour/mrcbehaviours.h>
 #include <entity/player/role/role.h>
 
-class Role_Default : public Role
+class Role_Def_Midfielder : public Role
 {
 private:
     // Behaviours
-    Behaviour_DoNothing *_bh_dn;
+    Behaviour_Attacker *_bh_atk;
     //Behaviour_Attacker *_bh_def;
 
     // Behaviours ids!
     enum{
-        BHV_DONOTHING
+        BHV_ATTACKER
         //BHV_BARRIER
     };
 
@@ -25,9 +25,9 @@ private:
     QMutex _mutex;
 
 public:
-    Role_Default();
+    Role_Def_Midfielder();
     void initializeBehaviours();
     QString name();
 };
 
-#endif // ROLE_DEFAULT_H
+#endif // ROLE_DEF_MIDFIELDER_H

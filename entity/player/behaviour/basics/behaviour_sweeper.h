@@ -8,7 +8,6 @@ class Behaviour_Sweeper : public Behaviour {
 private:
     void configure();
     void run();
-    int _state;
 
     // Skills
     Skill_GoToLookTo *_skill_GoToLookTo;
@@ -16,17 +15,11 @@ private:
     // Parameters
     int _id;
 
-    // Players
-    QHash<quint8, Player*> _players;
-
-    // Auxiliary functions
-    bool ourTeamPossession();
-
 public:
     Behaviour_Sweeper();
     QString name();
 
-    void setIdOfPoss (int idWithPoss) { _id == idWithPoss; }
+    void setIdOfPoss (int idWithPoss) { _id = idWithPoss; }
 };
 
 #endif // BEHAVIOUR_SWEEPER_H
