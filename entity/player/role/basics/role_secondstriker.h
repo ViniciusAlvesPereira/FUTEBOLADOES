@@ -4,7 +4,7 @@
 #include <entity/player/behaviour/mrcbehaviours.h>
 #include <entity/player/role/role.h>
 
-class Role_Secondstriker : public Role
+class Role_SecondStriker : public Role
 {
 private:
     // Behaviours
@@ -41,7 +41,7 @@ private:
     float menDistPlayer();
 
 public:
-    Role_Secondstriker();
+    Role_SecondStriker();
     void initializeBehaviours();
     QString name();
 };

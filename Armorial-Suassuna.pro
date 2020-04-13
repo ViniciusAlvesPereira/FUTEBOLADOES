@@ -29,8 +29,11 @@ SOURCES += \
     entity/player/behaviour/basics/behaviour_passing.cpp \
     entity/player/behaviour/basics/behaviour_penalty_cf.cpp \
     entity/player/behaviour/basics/behaviour_sweeper.cpp \
+    entity/player/role/role.cpp \
+    entity/player/role/basics/role_default.cpp \
     entity/player/role/basics/role_def_midfielder.cpp \
     entity/player/role/basics/role_defender.cpp \
+    entity/player/role/basics/role_secondstriker.cpp \
     entity/player/skills/basics/skill_aroundtheball.cpp \
     entity/player/skills/basics/skill_dribble.cpp \
     entity/player/skills/basics/skill_goto.cpp \
@@ -109,8 +112,6 @@ SOURCES += \
     entity/player/behaviour/basics/behaviour_markplayer.cpp \
     entity/player/behaviour/basics/behaviour_penalty_gk.cpp \
     entity/player/skills/basics/skill_pushball.cpp \
-    entity/player/role/role.cpp \
-    entity/player/role/basics/role_default.cpp \
     entity/coachview/coachview.cpp \
     entity/coachview/mainwindow.cpp \
     entity/coachview/samico.cpp \
@@ -131,8 +132,12 @@ HEADERS += \
     entity/player/behaviour/basics/behaviour_passing.h \
     entity/player/behaviour/basics/behaviour_penalty_cf.h \
     entity/player/behaviour/basics/behaviour_sweeper.h \
+    entity/player/role/role.h \
+    entity/player/role/basics/role_default.h \
     entity/player/role/basics/role_def_midfielder.h \
     entity/player/role/basics/role_defender.h \
+    entity/player/role/basics/role_secondstriker.h \
+    entity/player/role/mrcroles.h \
     entity/player/skills/basics/skill_aroundtheball.h \
     entity/player/skills/basics/skill_dribble.h \
     entity/player/skills/basics/skill_goto.h \
@@ -220,9 +225,6 @@ HEADERS += \
     entity/player/behaviour/basics/behaviour_markplayer.h \
     entity/player/behaviour/basics/behaviour_penalty_gk.h \
     entity/player/skills/basics/skill_pushball.h \
-    entity/player/role/role.h \
-    entity/player/role/basics/role_default.h \
-    entity/player/role/mrcroles.h \
     entity/coachview/coachview.h \
     entity/coachview/mainwindow.h \
     entity/coachview/samico.h \

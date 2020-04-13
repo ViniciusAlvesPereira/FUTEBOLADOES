@@ -1,13 +1,13 @@
 #include "role_secondstriker.h"
 
-QString Role_Secondstriker::name(){
-    return "Role_Secondstriker";
+QString Role_SecondStriker::name(){
+    return "Role_SecondStriker";
 }
 
-Role_Secondstriker::Role_Secondstriker() {
+Role_SecondStriker::Role_SecondStriker() {
 }
 
-void Role_Secondstriker::initializeBehaviours(){
+void Role_SecondStriker::initializeBehaviours(){
     // Aqui são inseridos os behaviours possíveis de serem usados
     // na ordem: ID do behaviour, instanciação dele
     usesBehaviour(BHV_DONOTHING, _bh_dn = new Behaviour_DoNothing());
@@ -18,11 +18,11 @@ void Role_Secondstriker::initializeBehaviours(){
     usesBehaviour(BHV_RECIEVER, _bh_rec = new Behaviour_Receiver());
 }
 
-void Role_Secondstriker::configure(){
+void Role_SecondStriker::configure(){
     // Aqui são setados parametros que devem ser configurados
 }
 
-void Role_Secondstriker::run(){
+void Role_SecondStriker::run(){
     /*
      * Aqui devem ocorrer os sets de parametros de acordo com o behaviour
      * que estiver sendo executado, de preferencia declare todos os parametros
@@ -36,18 +36,19 @@ void Role_Secondstriker::run(){
         }else{
             setBehaviour(BHV_RECIEVER);
         }
-    }else{
-        if (distPlayer(0) < distPlayer(1)){
+    } else {
+        int id = playerWithPoss();
+        if (id == BALLPOSS_NONE || player()->distanceTo(PlayerBus::theirPlayer(1)->position()) < 0.5) {
             setBehaviour(BHV_MARKBALL);
-        }else{
-            _bh_mkp->setTargetID(playerWithPoss())
+        } else {
+            _bh_mkp->setTargetID(2);
             setBehaviour(BHV_MARKPLAYER);
         }
     }
 
 }
 
-bool Role_Secondstriker::ourTeamPossession() {
+bool Role_SecondStriker::ourTeamPossession() {
     const QList<Player*> players = _players.values();
     QList<Player*>::const_iterator it;
     for(it = players.constBegin(); it != players.end(); it++){
@@ -59,7 +60,7 @@ bool Role_Secondstriker::ourTeamPossession() {
     return false;
 }
 
-int Role_Secondstriker::playerWithPoss() {
+int Role_SecondStriker::playerWithPoss() {
     const QList<Player*> players = _players.values();
     QList<Player*>::const_iterator it;
     for(it = players.constBegin(); it != players.end(); it++){
@@ -71,7 +72,7 @@ int Role_Secondstriker::playerWithPoss() {
     return BALLPOSS_NONE;
 }
 
-float Role_Secondstriker::menDistPlayer(){
+/*float Role_SecondStriker::menDistPlayer(){
     float dist, mendist = 1000;
     const QList<Player*> players = _players.values();
     QList<Player*>::const_iterator it;
@@ -81,4 +82,4 @@ float Role_Secondstriker::menDistPlayer(){
     }
 
     return   ;
-}
+}*/
