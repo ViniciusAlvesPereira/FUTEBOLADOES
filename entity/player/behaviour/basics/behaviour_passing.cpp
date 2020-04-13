@@ -41,7 +41,7 @@ int Behaviour_Passing::getBestPassOption(Position &watcher) {
 
     // get the largest interval
     if(freeAngles.size() == 0){
-        printf("Término no FreeAngles");
+        //printf("Término no FreeAngles");
         return -1;
     } else {
         QList<int> receptors; //List of avaliable receptors
@@ -71,7 +71,7 @@ int Behaviour_Passing::getBestPassOption(Position &watcher) {
 
         //Choice logic
         if (receptors.size() == 0) {
-            printf("Término no receptor\n");
+            //printf("Término no receptor\n");
             return -1;
         } else {
             float standardDistance = loc()->ourGoal().x() - loc()->theirGoal().x();
