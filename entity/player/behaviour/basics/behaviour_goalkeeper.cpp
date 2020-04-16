@@ -1,3 +1,24 @@
+/***
+ * Maracatronics Robotics
+ * Federal University of Pernambuco (UFPE) at Recife
+ * http://www.maracatronics.com/
+ *
+ * This file is part of Armorial project.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ***/
+
 #include "behaviour_goalkeeper.h"
 #include <utils/knn/knn.hh>
 #include <entity/player/playerbus.h>
@@ -50,10 +71,10 @@ void Behaviour_Goalkeeper::run() {
     // goToLookTo (posicionamento do goleiro
     Position desiredPosition = getAttackerInterceptPosition();
 
-    if(loc()->ourSide().isRight() && desiredPosition.x() > loc()->ourGoal().x()-GOALPOSTS_ERROR){        // cobrir angulos certos (manter goleiro na area do gol!)
+    if (loc()->ourSide().isRight() && desiredPosition.x() > loc()->ourGoal().x()-GOALPOSTS_ERROR) {        // cobrir angulos certos (manter goleiro na area do gol!)
         desiredPosition.setPosition(loc()->ourGoal().x()-GOALPOSTS_ERROR, desiredPosition.y(), 0.0);     // varia de lado pra lado, com erros nas barras p precisao
     }
-    else if(loc()->ourSide().isLeft() && desiredPosition.x() < loc()->ourGoal().x()+GOALPOSTS_ERROR){
+    else if (loc()->ourSide().isLeft() && desiredPosition.x() < loc()->ourGoal().x()+GOALPOSTS_ERROR) {
         desiredPosition.setPosition(loc()->ourGoal().x()+GOALPOSTS_ERROR, desiredPosition.y(), 0.0);
     }
 
@@ -61,17 +82,18 @@ void Behaviour_Goalkeeper::run() {
     _skill_goToLookTo->setAimPosition(loc()->ball());
 
     // machine if state begins for transitionsss
-    if(player()->distBall() > _radius && isBallComingToGoal(INTERCEPT_MINBALLVELOCITY)){ // bola nao ta em posse do goleiro e ta indo pro gol
+    if (player()->distBall() > _radius && isBallComingToGoal(INTERCEPT_MINBALLVELOCITY)) { // bola nao ta em posse do goleiro e ta indo pro gol
         enableTransition(STATE_GK); // defende!
-    } else if(_takeoutEnabled) { // caso n esteja em posse, n esteja indo pro gol ou nenhum dos dois
+    } else if (_takeoutEnabled) { // caso n esteja em posse, n esteja indo pro gol ou nenhum dos dois
         if (loc()->isInsideOurArea(loc()->ball(), _takeoutFactor)){ // ve se ta na nossa area com fator de takeout (uma area maiorzinha)
             enableTransition(STATE_KICK); // se tiver perto e na nossa area, chuta!!!!
-        } else if (loc()->isInsideOurArea(loc()->ball(), 1.1 * _takeoutFactor) == false){ // evitar oscilação (ruido) do visao
-                    enableTransition(STATE_GOTO); // goTo na bolota se n estiver na area
-                }
-        } else {
-        enableTransition(STATE_GOTO); // caso n usemos takeout, fica dando só goToLookTo mesmo (tentativa de dominar bola)
+        } else if (loc()->isInsideOurArea(loc()->ball(), 1.1 * _takeoutFactor) == false) { // evitar oscilação (ruido) do visao
+            enableTransition(STATE_GOTO); // goTo na bolota se n estiver na area
         }
+    } else {
+        enableTransition(STATE_GOTO); // caso n usemos takeout, fica dando só goToLookTo mesmo (tentativa de dominar bola)
+    }
+
 }
 
 bool Behaviour_Goalkeeper::isBallComingToGoal(float minSpeed, float postsFactor){
@@ -81,7 +103,7 @@ bool Behaviour_Goalkeeper::isBallComingToGoal(float minSpeed, float postsFactor)
     const Position posLeftPost(true, loc()->ourGoalLeftPost().x(), loc()->ourGoalLeftPost().y()*postsFactor, 0.0);
 
     // Check ball velocity
-    if(loc()->ballVelocity().abs()<minSpeed)
+    if (loc()->ballVelocity().abs()<minSpeed)
          return false;
 
     // Angle ball velocity
@@ -100,7 +122,7 @@ bool Behaviour_Goalkeeper::isBallComingToGoal(float minSpeed, float postsFactor)
 Position Behaviour_Goalkeeper::getAttackerInterceptPosition() {
     // Defense position
     Position interceptPosition = WR::Utils::threePoints(loc()->ourGoal(), loc()->ball(), _radius, 0.0);
-    if(_useAttackerOri==false)
+    if (_useAttackerOri==false)
         return interceptPosition;
 
     float goal_left = loc()->ourGoalLeftPost().y();
@@ -109,7 +131,7 @@ Position Behaviour_Goalkeeper::getAttackerInterceptPosition() {
     // Calc ball impact based on attacker ori and check if its going to the goal
     Position posImpact = calcAttackerBallImpact();
 
-    if(loc()->ourSide().isRight()) {
+    if (loc()->ourSide().isRight()) {
         goal_left += GOALPOSTS_ERROR;
         goal_right -= GOALPOSTS_ERROR;
         if(goal_left >= posImpact.y() && posImpact.y() >= goal_right)

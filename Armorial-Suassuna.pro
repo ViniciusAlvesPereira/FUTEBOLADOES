@@ -1,3 +1,17 @@
+QT -= gui
+
+
+TEMPLATE = app
+DESTDIR  = ../bin
+TARGET   = Armorial-Suassuna
+VERSION  = 0.0.5
+
+# Temporary dirs
+OBJECTS_DIR = tmp/obj
+MOC_DIR = tmp/moc
+UI_DIR = tmp/moc
+RCC_DIR = tmp/rc
+
 CONFIG += c++14 console
 CONFIG -= app_bundle
 QT += core \
@@ -22,18 +36,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+	const/constants.cpp \
 	entity/entity.cpp \
-    entity/player/behaviour/basics/behaviour_cover.cpp \
-    entity/player/behaviour/basics/behaviour_goalkeeper.cpp \
-    entity/player/behaviour/basics/behaviour_markball.cpp \
-    entity/player/behaviour/basics/behaviour_passing.cpp \
-    entity/player/behaviour/basics/behaviour_penalty_cf.cpp \
-    entity/player/behaviour/basics/behaviour_sweeper.cpp \
-    entity/player/role/role.cpp \
-    entity/player/role/basics/role_default.cpp \
-    entity/player/role/basics/role_def_midfielder.cpp \
-    entity/player/role/basics/role_defender.cpp \
-    entity/player/role/basics/role_secondstriker.cpp \
+    entity/player/navigation/fpp/fastpathplanning.cpp \
+    entity/player/navigation/navalgorithm.cpp \
+	entity/player/navigation/navigation.cpp \
+    entity/player/skills/basics/skill_pushball.cpp \
     entity/player/skills/basics/skill_aroundtheball.cpp \
     entity/player/skills/basics/skill_dribble.cpp \
     entity/player/skills/basics/skill_goto.cpp \
@@ -67,9 +75,13 @@ SOURCES += \
 	utils/basics/wall.cc \
 	utils/fields/field_ssl2014.cc \
 	utils/fields/field_ssl2015.cc \
+    utils/fields/field_ssl2020.cc \
 	utils/fields/field_vss2008.cc \
 	utils/fields/fields.cc \
 	utils/fieldside/fieldside.cc \
+    utils/filters/kalman/kalman.cpp \
+    utils/filters/kalman/kalmanstate.cpp \
+    utils/filters/kalman/matrix.cpp \
     utils/freeangles/freeangles.cpp \
     utils/freeangles/obstacle.cpp \
 	utils/graph/edge.cc \
@@ -81,8 +93,7 @@ SOURCES += \
     entity/player/player.cpp \
 	entity/contromodule/mrcteam.cpp \
     entity/player/skills/skill.cpp \
-    entity/locations.cpp \
-    entity/contromodule/grsSimulator/grsSimulator.cpp \
+	entity/locations.cpp \
     entity/contromodule/coach.cpp \
     entity/player/playerbus.cpp \
     entity/player/playeraccess.cpp \
@@ -111,13 +122,22 @@ SOURCES += \
     entity/player/behaviour/basics/behaviour_barrier.cpp \
     entity/player/behaviour/basics/behaviour_markplayer.cpp \
     entity/player/behaviour/basics/behaviour_penalty_gk.cpp \
-    entity/player/skills/basics/skill_pushball.cpp \
+    entity/player/behaviour/basics/behaviour_cover.cpp \
+    entity/player/behaviour/basics/behaviour_goalkeeper.cpp \
+    entity/player/behaviour/basics/behaviour_markball.cpp \
+    entity/player/behaviour/basics/behaviour_passing.cpp \
+    entity/player/behaviour/basics/behaviour_penalty_cf.cpp \
+    entity/player/behaviour/basics/behaviour_sweeper.cpp \
+    entity/player/role/role.cpp \
+    entity/player/role/basics/role_default.cpp \
+    entity/player/role/basics/role_def_midfielder.cpp \
+    entity/player/role/basics/role_defender.cpp \
+    entity/player/role/basics/role_secondstriker.cpp \
     entity/coachview/coachview.cpp \
     entity/coachview/mainwindow.cpp \
     entity/coachview/samico.cpp \
     entity/coachview/qsfmlwidget.cpp \
-    entity/player/skills/basics/skill_sample.cpp \
-	const/constants.cpp
+    entity/player/skills/basics/skill_sample.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -125,19 +145,13 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+	const/constants.h \
 	entity/baseentity.h \
 	entity/entity.h \
-    entity/player/behaviour/basics/behaviour_cover.h \
-    entity/player/behaviour/basics/behaviour_markball.h \
-    entity/player/behaviour/basics/behaviour_passing.h \
-    entity/player/behaviour/basics/behaviour_penalty_cf.h \
-    entity/player/behaviour/basics/behaviour_sweeper.h \
-    entity/player/role/role.h \
-    entity/player/role/basics/role_default.h \
-    entity/player/role/basics/role_def_midfielder.h \
-    entity/player/role/basics/role_defender.h \
-    entity/player/role/basics/role_secondstriker.h \
-    entity/player/role/mrcroles.h \
+    entity/player/navigation/fpp/fastpathplanning.h \
+    entity/player/navigation/navalgorithm.h \
+    entity/player/navigation/navigation.h \
+    entity/player/skills/basics/skill_pushball.h \
     entity/player/skills/basics/skill_aroundtheball.h \
     entity/player/skills/basics/skill_dribble.h \
     entity/player/skills/basics/skill_goto.h \
@@ -149,8 +163,7 @@ HEADERS += \
 	exithandler.h \
 	include/3rd_party/netraw.h \
 	include/3rd_party/robocup_ssl_client.h \
-	include/3rd_party/util.h \
-	include/filters.h \
+        include/3rd_party/util.h \
 	include/3rd_party/messages_robocup_ssl_detection.pb.h \
 	include/3rd_party/messages_robocup_ssl_geometry.pb.h \
 	include/3rd_party/messages_robocup_ssl_wrapper.pb.h \
@@ -172,10 +185,14 @@ HEADERS += \
 	utils/basics/wall.hh \
 	utils/fields/field_ssl2014.hh \
 	utils/fields/field_ssl2015.hh \
+    utils/fields/field_ssl2020.hh \
 	utils/fields/field_vss2008.hh \
 	utils/fields/fields.hh \
 	utils/fields/wrfields.hh \
 	utils/fieldside/fieldside.hh \
+    utils/filters/kalman/kalman.hpp \
+    utils/filters/kalman/kalmanstate.h \
+    utils/filters/kalman/matrix.h \
     utils/freeangles/freeangles.h \
     utils/freeangles/obstacle.h \
 	utils/graph/basegraph.hh \
@@ -189,8 +206,7 @@ HEADERS += \
 	entity/contromodule/mrcteam.h \
     entity/player/skills/skill.h \
     entity/locations.h \
-    entity/player/skills/skills_include.h \
-    entity/contromodule/grsSimulator/grsSimulator.h \
+	entity/player/skills/skills_include.h \
     entity/contromodule/coach.h \
     entity/player/playerbus.h \
     entity/player/playeraccess.h \
@@ -224,17 +240,29 @@ HEADERS += \
     entity/player/behaviour/basics/behaviour_barrier.h \
     entity/player/behaviour/basics/behaviour_markplayer.h \
     entity/player/behaviour/basics/behaviour_penalty_gk.h \
-    entity/player/skills/basics/skill_pushball.h \
+    entity/player/behaviour/basics/behaviour_cover.h \
+    entity/player/behaviour/basics/behaviour_markball.h \
+    entity/player/behaviour/basics/behaviour_passing.h \
+    entity/player/behaviour/basics/behaviour_penalty_cf.h \
+    entity/player/behaviour/basics/behaviour_sweeper.h \
+    entity/player/role/role.h \
+    entity/player/role/basics/role_default.h \
+    entity/player/role/basics/role_def_midfielder.h \
+    entity/player/role/basics/role_defender.h \
+    entity/player/role/basics/role_secondstriker.h \
+    entity/player/role/mrcroles.h \
     entity/coachview/coachview.h \
     entity/coachview/mainwindow.h \
     entity/coachview/samico.h \
 	entity/coachview/qsfmlwidget.h \
-    entity/coachview/ui_mainwindow.h \
-    entity/player/skills/basics/skill_sample.h \
-	const/constants.h
+	build/tmp/moc/ui_mainwindow.h \
+	entity/player/skills/basics/skill_sample.h
 
 FORMS += \
 	entity/coachview/mainwindow.ui
 
 RESOURCES += \
     rsc.qrc
+
+DISTFILES += \
+	constraints/agressivity_clusters.json
