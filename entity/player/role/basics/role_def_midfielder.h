@@ -29,18 +29,26 @@ class Role_Def_Midfielder : public Role
 {
 private:
     // Behaviours
-    Behaviour_Attacker *_bh_atk;
-    //Behaviour_Attacker *_bh_def;
+    Behaviour_Barrier *_bh_brr;
+    Behaviour_Cover *_bh_cvr;
+    Behaviour_Passing *_bh_psg;
+    Behaviour_MarkBall *_bh_mkb;
 
     // Behaviours ids!
     enum{
-        BHV_ATTACKER
-        //BHV_BARRIER
+        BHV_BARRIER,
+        BHV_COVER,
+        BHV_PASSING,
+        BHV_MARKBALL
     };
 
     // Inherited functions
     void configure();
     void run();
+
+    // Auxiliary functions
+    bool ourTeamPossession();
+    int playerWithPoss();
 
     // Mutex
     QMutex _mutex;

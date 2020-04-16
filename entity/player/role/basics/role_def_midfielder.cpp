@@ -29,10 +29,10 @@ Role_Def_Midfielder::Role_Def_Midfielder() {
 }
 
 void Role_Def_Midfielder::initializeBehaviours(){
-    // Aqui são inseridos os behaviours possíveis de serem usados
-    // na ordem: ID do behaviour, instanciação dele
-    usesBehaviour(BHV_ATTACKER, _bh_atk = new Behaviour_Attacker());
-    //usesBehaviour(BHV_BARRIER, _bh_def = new Behaviour_Attacker());
+   usesBehaviour(BHV_BARRIER, _bh_brr = new Behaviour_Barrier());
+   usesBehaviour(BHV_COVER, _bh_cvr = new Behaviour_Cover());
+   usesBehaviour(BHV_PASSING, _bh_psg = new Behaviour_Passing());
+   usesBehaviour(BHV_MARKBALL, _bh_mkb = new Behaviour_MarkBall());
 }
 
 void Role_Def_Midfielder::configure(){
@@ -40,23 +40,43 @@ void Role_Def_Midfielder::configure(){
 }
 
 void Role_Def_Midfielder::run(){
-    /*
-     * Aqui devem ocorrer os sets de parametros de acordo com o behaviour
-     * que estiver sendo executado, de preferencia declare todos os parametros
-     * na classe da role, sete-os aqui e envie para o behaviour (usando as funções
-     * set presentes neles)
-    */
+    bool ourPoss = ourTeamPossession();
+    int idWithPoss = playerWithPoss();
+    //printf("ID COM POSSE: %i\n", idWithPoss);
 
-    //switch(getActualBehaviour()){
-    //case BHV_DONOTHING:{
-        //if(player()->position().x() >= 0)
-    setBehaviour(BHV_ATTACKER);
-    //}
-    //break;
-    //case BHV_BARRIER:{
-    //    if(player()->position().x() < 0) setBehaviour(BHV_DONOTHING);
-    //}
-    //break;
-    //}
+    if (ourPoss == false) {
+        if (PlayerBus::theirPlayer(0)->distanceTo(player()->position()) < 1.0) {
+            setBehaviour(BHV_MARKBALL);
+        } else {
+            setBehaviour(BHV_BARRIER);
+        }
+    } else {
+        if (idWithPoss == player()->playerId()) {
+            _bh_psg->setPlayerId(idWithPoss);
+            setBehaviour(BHV_PASSING);
+        } else {
+            _bh_cvr->setIdOfPoss(idWithPoss);
+            setBehaviour(BHV_COVER);
+        }
+    }
+}
 
+bool Role_Def_Midfielder::ourTeamPossession() {
+    for (quint8 i = 0; i < 6; i++) {
+        float distanceToBall = PlayerBus::ourPlayer(i)->distanceTo(loc()->ball());
+        if (distanceToBall < 0.3) {
+            return true;
+        }
+    }
+    return false;
+}
+
+int Role_Def_Midfielder::playerWithPoss() {
+    for (quint8 i = 0; i < 6; i++) {
+        float distanceToBall = PlayerBus::ourPlayer(i)->distanceTo(loc()->ball());
+        if(distanceToBall < 0.3){
+            return PlayerBus::ourPlayer(i)->playerId();
+        }
+    }
+    return BALLPOSS_NONE;
 }
