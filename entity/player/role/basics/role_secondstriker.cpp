@@ -51,7 +51,7 @@ void Role_SecondStriker::run(){
      * set presentes neles)
     */
 
-    if (ourTeamPossession()) {
+    /*if (ourTeamPossession()) {
         if (playerWithPoss() == 0){
             setBehaviour(BHV_ATTACKER);
         }else{
@@ -65,8 +65,8 @@ void Role_SecondStriker::run(){
             _bh_mkp->setTargetID(2);
             setBehaviour(BHV_MARKPLAYER);
         }
-    }
-
+    }*/
+    setBehaviour(BHV_ATTACKER);
 }
 
 bool Role_SecondStriker::ourTeamPossession() {

@@ -31,6 +31,7 @@ private:
     QList<Role_Default*> _rl_default;
     Role_Defender *_rl_df;
     Role_Def_Midfielder* _rl_dmf;
+    Role_SecondStriker* _rl_ss;
 
     void configure(int numPlayers);
     void run(int numPlayers);
