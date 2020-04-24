@@ -33,13 +33,15 @@ private:
     Behaviour_Cover *_bh_cvr;
     Behaviour_Passing *_bh_psg;
     Behaviour_MarkBall *_bh_mkb;
+    Behaviour_DoNothing *_bh_dnt;
 
     // Behaviours ids!
     enum{
         BHV_BARRIER,
         BHV_COVER,
         BHV_PASSING,
-        BHV_MARKBALL
+        BHV_MARKBALL,
+        BHV_DONOTHING
     };
 
     // Inherited functions
@@ -48,7 +50,7 @@ private:
 
     // Auxiliary functions
     bool ourTeamPossession();
-    int playerWithPoss();
+    int playerWithPoss(bool ourPoss);
 
     // Mutex
     QMutex _mutex;

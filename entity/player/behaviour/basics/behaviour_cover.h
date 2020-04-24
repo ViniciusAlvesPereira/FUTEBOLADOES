@@ -35,12 +35,16 @@ private:
 
     // Parameters
     int _id;
+    int _a, _b, _c;
 
 public:
     Behaviour_Cover();
     QString name();
 
     void setIdOfPoss (int idWithPoss) { _id = idWithPoss; }
+    void setACoeficient (float a) { _a = a; }
+    void setBCoeficient (float b) { _b = b; }
+    void setCCoeficient (float c) { _c = c; }
 };
 
 #endif // BEHAVIOUR_COVER_H

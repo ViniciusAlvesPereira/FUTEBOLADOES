@@ -37,7 +37,10 @@ void Behaviour_Cover::run() {
     _skill_GoToLookTo->setAimPosition(loc()->ball());
     float x = PlayerBus::ourPlayer(_id)->position().x();
     if (loc()->ourGoal().x() > 0) x = -x;
-    x = -0.13 * x * x + 0.7 * x - 0.1;    //Equação característica: y = -0.13x² + 0.7x - 0.1
+
+    //Equação característica: y = a*x² + b*x + c
+    x = _a * x * x + _b * x + _c;
+
     if (loc()->ourGoal().x() > 0) x = -x;
     Position coverPosition = Position(true, x, PlayerBus::ourPlayer(_id)->position().y() / 2, 0.0);
     _skill_GoToLookTo->setDesiredPosition(coverPosition);

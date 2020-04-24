@@ -29,48 +29,79 @@ Role_Defender::Role_Defender() {
 }
 
 void Role_Defender::initializeBehaviours(){
-    usesBehaviour(BHV_SWEEPER, _bh_swp = new Behaviour_Sweeper());
+    usesBehaviour(BHV_COVER, _bh_cvr = new Behaviour_Cover());
     usesBehaviour(BHV_BARRIER, _bh_brr = new Behaviour_Barrier());
     usesBehaviour(BHV_PASSING, _bh_psg = new Behaviour_Passing());
+    usesBehaviour(BHV_DONOTHING, _bh_dnt = new Behaviour_DoNothing());
 }
 
 void Role_Defender::configure(){
 }
 
 void Role_Defender::run(){
+    //printf("ROLE_DEFENDER: Correspondent ID is %i\n", player()->playerId());
     bool ourPoss = ourTeamPossession();
-    int idWithPoss = playerWithPoss();
+    static bool previousPoss = false;
     //printf("ID COM POSSE: %i\n", idWithPoss);
 
     if (ourPoss == false) {
-        setBehaviour(BHV_BARRIER);
-    }
-    else {
+        int idWithPoss = playerWithPoss(ourPoss);
+        if (idWithPoss == BALLPOSS_NONE && previousPoss == true) {
+            setBehaviour(BHV_DONOTHING);
+            //printf("ROLE_DEFENDER: Behaviour DoNothing active\n");
+        } else {
+            setBehaviour(BHV_BARRIER);
+            //printf("ROLE_DEFENDER: Behaviour Barrier active\n");
+            previousPoss = false;
+        }
+    } else {
+        int idWithPoss = playerWithPoss(ourPoss);
         if (idWithPoss == player()->playerId()) {
             _bh_psg->setPlayerId(idWithPoss);
             setBehaviour(BHV_PASSING);
+            //printf("ROLE_DEFENDER: Behaviour Passing active\n");
+            previousPoss = true;
         } else {
-            _bh_swp->setIdOfPoss(idWithPoss);
-            setBehaviour(BHV_SWEEPER);
+            _bh_cvr->setIdOfPoss(idWithPoss);
+
+            //Equação característica: y = -0.06x² + 0.35x - 1.45
+            _bh_cvr->setACoeficient(-0.06);
+            _bh_cvr->setBCoeficient(0.35);
+            _bh_cvr->setCCoeficient(-1.45);
+
+            setBehaviour(BHV_COVER);
+            //printf("ROLE_DEFENDER: Behaviour Cover active\n");
+            previousPoss = true;
         }
     }
+    printf("\n");
 }
 
 bool Role_Defender::ourTeamPossession() {
     for (quint8 i = 0; i < 6; i++) {
         float distanceToBall = PlayerBus::ourPlayer(i)->distanceTo(loc()->ball());
-        if (distanceToBall < 0.5) {
+        if (distanceToBall < 0.3) {
             return true;
         }
     }
     return false;
 }
 
-int Role_Defender::playerWithPoss() {
-    for (quint8 i = 0; i < 6; i++) {
-        float distanceToBall = PlayerBus::ourPlayer(i)->distanceTo(loc()->ball());
-        if(distanceToBall < 0.5){
-            return PlayerBus::ourPlayer(i)->playerId();
+int Role_Defender::playerWithPoss(bool ourPoss) {
+    int ourId, theirId;
+    if (ourPoss == true) {
+        for (quint8 i = 0; i < 6; i++) {
+            float distanceToBall = PlayerBus::ourPlayer(i)->distanceTo(loc()->ball());
+            if(distanceToBall < 0.3){
+                return i;
+            }
+        }
+    } else {
+        for (quint8 i = 0; i < 6; i++) {
+            float distanceToBall = PlayerBus::theirPlayer(i)->distanceTo(loc()->ball());
+            if(distanceToBall < 0.3){
+                return i;
+            }
         }
     }
     return BALLPOSS_NONE;

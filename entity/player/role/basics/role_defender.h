@@ -31,15 +31,17 @@ class Role_Defender : public Role
 {
 private:
     // Behaviours
-    Behaviour_Sweeper *_bh_swp;
+    Behaviour_Cover *_bh_cvr;
     Behaviour_Barrier *_bh_brr;
     Behaviour_Passing *_bh_psg;
+    Behaviour_DoNothing *_bh_dnt;
 
     // Behaviours ids!
     enum{
-        BHV_SWEEPER,
+        BHV_COVER,
         BHV_BARRIER,
-        BHV_PASSING
+        BHV_PASSING,
+        BHV_DONOTHING
     };
 
     // Inherited functions
@@ -48,7 +50,7 @@ private:
 
     // Auxiliary functions
     bool ourTeamPossession();
-    int playerWithPoss();
+    int playerWithPoss(bool ourPoss);
 
 public:
     Role_Defender();
