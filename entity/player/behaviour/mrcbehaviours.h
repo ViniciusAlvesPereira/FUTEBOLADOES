@@ -34,7 +34,6 @@
 #include <entity/player/behaviour/basics/behaviour_penalty_gk.h>
 #include <entity/player/behaviour/basics/behaviour_penalty_cf.h>
 #include <entity/player/behaviour/basics/behaviour_cover.h>
-#include <entity/player/behaviour/basics/behaviour_sweeper.h>
 #include <entity/player/behaviour/basics/behaviour_passing.h>
 
 #endif // MRCBEHAVIOURS_H

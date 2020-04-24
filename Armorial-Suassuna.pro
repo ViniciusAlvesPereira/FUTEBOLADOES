@@ -127,7 +127,6 @@ SOURCES += \
     entity/player/behaviour/basics/behaviour_markball.cpp \
     entity/player/behaviour/basics/behaviour_passing.cpp \
     entity/player/behaviour/basics/behaviour_penalty_cf.cpp \
-    entity/player/behaviour/basics/behaviour_sweeper.cpp \
     entity/player/role/role.cpp \
     entity/player/role/basics/role_default.cpp \
     entity/player/role/basics/role_def_midfielder.cpp \
@@ -244,7 +243,6 @@ HEADERS += \
     entity/player/behaviour/basics/behaviour_markball.h \
     entity/player/behaviour/basics/behaviour_passing.h \
     entity/player/behaviour/basics/behaviour_penalty_cf.h \
-    entity/player/behaviour/basics/behaviour_sweeper.h \
     entity/player/role/role.h \
     entity/player/role/basics/role_default.h \
     entity/player/role/basics/role_def_midfielder.h \

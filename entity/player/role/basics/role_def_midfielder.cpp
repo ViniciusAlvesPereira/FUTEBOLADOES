@@ -41,7 +41,6 @@ void Role_Def_Midfielder::configure(){
 }
 
 void Role_Def_Midfielder::run(){
-    printf("ROLE_DEFENSIVE_MIDFIELDER: Correspondent ID is %i\n", player()->playerId());
     bool ourPoss = ourTeamPossession();
     static bool previousPoss = false;
     //printf("ID COM POSSE: %i\n", idWithPoss);
@@ -49,17 +48,13 @@ void Role_Def_Midfielder::run(){
     if (ourPoss == false) {
         int idWithPoss = playerWithPoss(ourPoss);
         if (idWithPoss == BALLPOSS_NONE) {
-            //if (previousPoss == true) setBehaviour(BHV_DONOTHING);
-            printf("ROLE_DEFENSIVE_MIDFIELDER: Behaviour DoNothing active\n");
+            if (previousPoss == true) setBehaviour(BHV_DONOTHING);
         } else {
             if (PlayerBus::theirPlayer(idWithPoss)->distanceTo(player()->position()) < 1.0) {
                 setBehaviour(BHV_MARKBALL);
-                printf("ROLE_DEFENSIVE_MIDFIELDER: Behaviour Markball active\n");
-                printf("ROLE_DEFENSIVE_MIDFIELDER: Enemy target has ID %i\n", idWithPoss);
                 previousPoss = false;
             } else {
                 setBehaviour(BHV_BARRIER);
-                printf("ROLE_DEFENSIVE_MIDFIELDER: Behaviour Barrier active\n");
                 previousPoss = false;
             }
         }
@@ -68,7 +63,6 @@ void Role_Def_Midfielder::run(){
         if (idWithPoss == player()->playerId()) {
             _bh_psg->setPlayerId(idWithPoss);
             setBehaviour(BHV_PASSING);
-            printf("ROLE_DEFENSIVE_MIDFIELDER: Behaviour Passing active\n");
             previousPoss = true;
         } else {
             _bh_cvr->setIdOfPoss(idWithPoss);
@@ -79,7 +73,6 @@ void Role_Def_Midfielder::run(){
             _bh_cvr->setCCoeficient(-0.1);
 
             setBehaviour(BHV_COVER);
-            printf("ROLE_DEFENSIVE_MIDFIELDER: Behaviour Cover active\n");
             previousPoss = true;
         }
     }

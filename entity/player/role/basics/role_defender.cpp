@@ -39,7 +39,6 @@ void Role_Defender::configure(){
 }
 
 void Role_Defender::run(){
-    //printf("ROLE_DEFENDER: Correspondent ID is %i\n", player()->playerId());
     bool ourPoss = ourTeamPossession();
     static bool previousPoss = false;
     //printf("ID COM POSSE: %i\n", idWithPoss);
@@ -48,10 +47,8 @@ void Role_Defender::run(){
         int idWithPoss = playerWithPoss(ourPoss);
         if (idWithPoss == BALLPOSS_NONE && previousPoss == true) {
             setBehaviour(BHV_DONOTHING);
-            //printf("ROLE_DEFENDER: Behaviour DoNothing active\n");
         } else {
             setBehaviour(BHV_BARRIER);
-            //printf("ROLE_DEFENDER: Behaviour Barrier active\n");
             previousPoss = false;
         }
     } else {
@@ -59,7 +56,6 @@ void Role_Defender::run(){
         if (idWithPoss == player()->playerId()) {
             _bh_psg->setPlayerId(idWithPoss);
             setBehaviour(BHV_PASSING);
-            //printf("ROLE_DEFENDER: Behaviour Passing active\n");
             previousPoss = true;
         } else {
             _bh_cvr->setIdOfPoss(idWithPoss);
@@ -70,11 +66,9 @@ void Role_Defender::run(){
             _bh_cvr->setCCoeficient(-1.45);
 
             setBehaviour(BHV_COVER);
-            //printf("ROLE_DEFENDER: Behaviour Cover active\n");
             previousPoss = true;
         }
     }
-    printf("\n");
 }
 
 bool Role_Defender::ourTeamPossession() {

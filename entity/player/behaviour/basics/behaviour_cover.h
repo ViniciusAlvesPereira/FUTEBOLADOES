@@ -35,7 +35,7 @@ private:
 
     // Parameters
     int _id;
-    int _a, _b, _c;
+    float _a, _b, _c;
 
 public:
     Behaviour_Cover();
