@@ -95,13 +95,12 @@ int Behaviour_Passing::getBestPassOption(Position &watcher) {
             //printf("Término no receptor\n");
             return -1;
         } else {
-            float standardDistance = loc()->ourGoal().x() - loc()->theirGoal().x();
-            if (standardDistance < 0) standardDistance = -standardDistance;
             int idChoice = -1;
             for (int id = 0; id < receptors.size(); id++) {
                 if (receptors[id] == player()->playerId()) {
                     continue;
                 } else {
+                    float standardDistance = abs(loc()->ourGoal().x() - loc()->theirGoal().x());
                     float distanceToWatcher = PlayerBus::ourPlayer(receptors[id])->distanceTo(watcher);
                     if (distanceToWatcher < standardDistance) {
                         standardDistance = distanceToWatcher;

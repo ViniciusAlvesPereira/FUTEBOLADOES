@@ -25,41 +25,38 @@
 #include <entity/player/behaviour/mrcbehaviours.h>
 #include <entity/player/role/role.h>
 
-class Role_SecondStriker : public Role
-{
+class Role_SecondStriker : public Role {
+    Q_OBJECT
 private:
     // Behaviours
-    Behaviour_DoNothing *_bh_dn;
-    Behaviour_MarkPlayer *_bh_mkp;
     Behaviour_MarkBall *_bh_mkb;
-    Behaviour_FollowBall *_bh_flb;
-    Behaviour_Attacker *_bh_att;
-    Behaviour_Receiver *_bh_rec;
+    Behaviour_MarkPlayer *_bh_mkp;
+    Behaviour_Receiver *_bh_rcv;
+    Behaviour_Attacker *_bh_atk;
+    Behaviour_DoNothing *_bh_dnt;
 
     // Behaviours ids!
     enum{
-        BHV_DONOTHING,
-        BHV_MARKPLAYER,
         BHV_MARKBALL,
-        BHV_FOLLOWBALL,
+        BHV_MARKPLAYER,
+        BHV_RECEIVER,
         BHV_ATTACKER,
-        BHV_RECIEVER
+        BHV_DONOTHING
     };
 
     // Inherited functions
     void configure();
     void run();
 
-    // Mutex
-    QMutex _mutex;
-
-    // Players
-    QHash<quint8, Player*> _players;
-
     // Auxiliary functions
     bool ourTeamPossession();
-    int playerWithPoss();
-    float menDistPlayer();
+    int playerWithPoss(bool ourPoss);
+
+signals:
+    void sendAttackerID(int id);
+
+public slots:
+    void receiveAttackerID(int id);
 
 public:
     Role_SecondStriker();

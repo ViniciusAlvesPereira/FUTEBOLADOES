@@ -19,16 +19,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ***/
 
-#include "role_secondstriker.h"
+#include "role_centreforward.h"
 
-QString Role_SecondStriker::name(){
-    return "Role_SecondStriker";
+QString Role_CentreForward::name(){
+    return "Role_Defender";
 }
 
-Role_SecondStriker::Role_SecondStriker() {
+Role_CentreForward::Role_CentreForward() {
 }
 
-void Role_SecondStriker::initializeBehaviours(){
+void Role_CentreForward::initializeBehaviours(){
     usesBehaviour(BHV_MARKBALL, _bh_mkb = new Behaviour_MarkBall());
     usesBehaviour(BHV_MARKPLAYER, _bh_mkp = new Behaviour_MarkPlayer());
     usesBehaviour(BHV_RECEIVER, _bh_rcv = new Behaviour_Receiver());
@@ -36,10 +36,10 @@ void Role_SecondStriker::initializeBehaviours(){
     usesBehaviour(BHV_DONOTHING, _bh_dnt = new Behaviour_DoNothing());
 }
 
-void Role_SecondStriker::configure(){
+void Role_CentreForward::configure(){
 }
 
-void Role_SecondStriker::run(){
+void Role_CentreForward::run(){
     bool ourPoss = ourTeamPossession();
     bool previousPoss = false;
 
@@ -82,7 +82,7 @@ void Role_SecondStriker::run(){
     }
 }
 
-bool Role_SecondStriker::ourTeamPossession() {
+bool Role_CentreForward::ourTeamPossession() {
     for (quint8 i = 0; i < 6; i++) {
         float distanceToBall = PlayerBus::ourPlayer(i)->distanceTo(loc()->ball());
         if (distanceToBall < 0.3) {
@@ -92,7 +92,7 @@ bool Role_SecondStriker::ourTeamPossession() {
     return false;
 }
 
-int Role_SecondStriker::playerWithPoss(bool ourPoss) {
+int Role_CentreForward::playerWithPoss(bool ourPoss) {
     if (ourPoss == true) {
         for (quint8 i = 0; i < 6; i++) {
             float distanceToBall = PlayerBus::ourPlayer(i)->distanceTo(loc()->ball());
@@ -111,7 +111,8 @@ int Role_SecondStriker::playerWithPoss(bool ourPoss) {
     return BALLPOSS_NONE;
 }
 
-void Role_SecondStriker::receiveAttackerID(int id) {
+void Role_CentreForward::receiveAttackerID(int id) {
     _bh_rcv->setAttackerId(id);
-    //printf("[SS] AttackerId: %i\n", id);
+    //printf("[CF] AttackerId: %i\n", id);
 }
+

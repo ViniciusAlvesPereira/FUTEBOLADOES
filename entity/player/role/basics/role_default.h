@@ -25,8 +25,7 @@
 #include <entity/player/behaviour/mrcbehaviours.h>
 #include <entity/player/role/role.h>
 
-class Role_Default : public Role
-{
+class Role_Default : public Role {
 private:
     // Behaviours
     Behaviour_DoNothing *_bh_dn;

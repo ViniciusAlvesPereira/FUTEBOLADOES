@@ -32,6 +32,7 @@ private:
     Role_Defender *_rl_df;
     Role_Def_Midfielder* _rl_dmf;
     Role_SecondStriker* _rl_ss;
+    Role_CentreForward* _rl_cf;
 
     void configure(int numPlayers);
     void run(int numPlayers);

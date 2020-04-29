@@ -82,7 +82,6 @@ bool Role_Defender::ourTeamPossession() {
 }
 
 int Role_Defender::playerWithPoss(bool ourPoss) {
-    int ourId, theirId;
     if (ourPoss == true) {
         for (quint8 i = 0; i < 6; i++) {
             float distanceToBall = PlayerBus::ourPlayer(i)->distanceTo(loc()->ball());

@@ -25,8 +25,7 @@
 #include <entity/player/behaviour/mrcbehaviours.h>
 #include <entity/player/role/role.h>
 
-class Role_Def_Midfielder : public Role
-{
+class Role_Def_Midfielder : public Role {
 private:
     // Behaviours
     Behaviour_Barrier *_bh_brr;

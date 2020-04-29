@@ -19,25 +19,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ***/
 
-#ifndef ROLE_DEFENDER_H
-#define ROLE_DEFENDER_H
+#ifndef ROLE_CENTREFORWARD_H
+#define ROLE_CENTREFORWARD_H
 
 #include <entity/player/behaviour/mrcbehaviours.h>
 #include <entity/player/role/role.h>
 
-class Role_Defender : public Role {
+class Role_CentreForward : public Role {
+    Q_OBJECT
 private:
     // Behaviours
-    Behaviour_Cover *_bh_cvr;
-    Behaviour_Barrier *_bh_brr;
-    Behaviour_Passing *_bh_psg;
+    Behaviour_MarkBall *_bh_mkb;
+    Behaviour_MarkPlayer *_bh_mkp;
+    Behaviour_Receiver *_bh_rcv;
+    Behaviour_Attacker *_bh_atk;
     Behaviour_DoNothing *_bh_dnt;
 
     // Behaviours ids!
     enum{
-        BHV_COVER,
-        BHV_BARRIER,
-        BHV_PASSING,
+        BHV_MARKBALL,
+        BHV_MARKPLAYER,
+        BHV_RECEIVER,
+        BHV_ATTACKER,
         BHV_DONOTHING
     };
 
@@ -49,10 +52,16 @@ private:
     bool ourTeamPossession();
     int playerWithPoss(bool ourPoss);
 
+signals:
+    void sendAttackerID(int id);
+
+public slots:
+    void receiveAttackerID(int id);
+
 public:
-    Role_Defender();
+    Role_CentreForward();
     void initializeBehaviours();
     QString name();
 };
 
-#endif // ROLE_DEFENDER_H
+#endif // ROLE_CENTREFORWARD_H

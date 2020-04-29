@@ -46,7 +46,9 @@ SOURCES += \
     entity/player/behaviour/basics/behaviour_penalty_cf.cpp \
     entity/player/navigation/fpp/fastpathplanning.cpp \
     entity/player/navigation/navalgorithm.cpp \
-    entity/player/navigation/navigation.cpp \
+	entity/player/navigation/navigation.cpp \
+    entity/player/role/basics/role_centreforward.cpp \
+    entity/player/skills/basics/skill_pushball.cpp \
     entity/player/skills/basics/skill_aroundtheball.cpp \
     entity/player/skills/basics/skill_dribble.cpp \
     entity/player/skills/basics/skill_goto.cpp \
@@ -159,8 +161,8 @@ HEADERS += \
     entity/player/navigation/fpp/fastpathplanning.h \
     entity/player/navigation/navalgorithm.h \
     entity/player/navigation/navigation.h \
-    entity/player/behaviour/basics/behaviour_markball.h \
-    entity/player/behaviour/basics/behaviour_penalty_cf.h \
+    entity/player/role/basics/role_centreforward.h \
+    entity/player/skills/basics/skill_pushball.h \
     entity/player/skills/basics/skill_aroundtheball.h \
     entity/player/skills/basics/skill_dribble.h \
     entity/player/skills/basics/skill_goto.h \
