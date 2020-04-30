@@ -138,6 +138,7 @@ SOURCES += \
     entity/player/role/basics/role_def_midfielder.cpp \
     entity/player/role/basics/role_defender.cpp \
     entity/player/role/basics/role_secondstriker.cpp \
+    entity/player/role/basics/role_advancedMidfielder.cpp \
     entity/coachview/coachview.cpp \
     entity/coachview/mainwindow.cpp \
     entity/player/skills/basics/skill_sample.cpp
@@ -261,6 +262,7 @@ HEADERS += \
     entity/player/role/basics/role_def_midfielder.h \
     entity/player/role/basics/role_defender.h \
     entity/player/role/basics/role_secondstriker.h \
+    entity/player/role/basics/role_advancedMidfielder.h \
     entity/player/role/mrcroles.h \
     entity/coachview/coachview.h \
     entity/coachview/mainwindow.h \

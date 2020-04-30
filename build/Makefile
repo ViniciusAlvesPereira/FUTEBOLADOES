@@ -152,6 +152,7 @@ SOURCES       = ../const/constants.cpp \
 		../entity/player/role/basics/role_def_midfielder.cpp \
 		../entity/player/role/basics/role_defender.cpp \
 		../entity/player/role/basics/role_secondstriker.cpp \
+		../entity/player/role/basics/role_advancedMidfielder.cpp \
 		../entity/coachview/coachview.cpp \
 		../entity/coachview/mainwindow.cpp \
 		../entity/player/skills/basics/skill_sample.cpp tmp/rc/qrc_rsc.cpp \
@@ -269,6 +270,7 @@ OBJECTS       = tmp/obj/constants.o \
 		tmp/obj/role_def_midfielder.o \
 		tmp/obj/role_defender.o \
 		tmp/obj/role_secondstriker.o \
+		tmp/obj/role_advancedMidfielder.o \
 		tmp/obj/coachview.o \
 		tmp/obj/mainwindow.o \
 		tmp/obj/skill_sample.o \
@@ -340,7 +342,7 @@ DIST          = ../constraints/agressivity_clusters.json \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf \
-		../.qmake.stash \
+		../../.qmake.stash \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
@@ -472,6 +474,7 @@ DIST          = ../constraints/agressivity_clusters.json \
 		../entity/player/role/basics/role_def_midfielder.h \
 		../entity/player/role/basics/role_defender.h \
 		../entity/player/role/basics/role_secondstriker.h \
+		../entity/player/role/basics/role_advancedMidfielder.h \
 		../entity/player/role/mrcroles.h \
 		../entity/coachview/coachview.h \
 		../entity/coachview/mainwindow.h \
@@ -578,6 +581,7 @@ DIST          = ../constraints/agressivity_clusters.json \
 		../entity/player/role/basics/role_def_midfielder.cpp \
 		../entity/player/role/basics/role_defender.cpp \
 		../entity/player/role/basics/role_secondstriker.cpp \
+		../entity/player/role/basics/role_advancedMidfielder.cpp \
 		../entity/coachview/coachview.cpp \
 		../entity/coachview/mainwindow.cpp \
 		../entity/player/skills/basics/skill_sample.cpp
@@ -647,7 +651,7 @@ Makefile: ../Armorial-Suassuna.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf \
-		.qmake.stash \
+		../.qmake.stash \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
@@ -728,7 +732,7 @@ Makefile: ../Armorial-Suassuna.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf:
-.qmake.stash:
+../.qmake.stash:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf:
@@ -782,7 +786,6 @@ clean: compiler_clean
 
 distclean: clean 
 	-$(DEL_FILE) $(TARGET) 
-	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) Makefile
 
 
@@ -1668,14 +1671,15 @@ tmp/obj/soccerview.o: ../entity/coachview/soccerview/soccerview.cpp ../entity/co
 		../utils/filters/kalman/kalman.hpp \
 		../utils/filters/kalman/kalmanstate.h \
 		../utils/filters/kalman/matrix.h \
-		../entity/coachview/soccerview/util/field_default_constants.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/soccerview.o ../entity/coachview/soccerview/soccerview.cpp
+		../entity/coachview/samico.h \
+		tmp/moc/moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include tmp/moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/flavio/Documents/Macaratronics/FUTEBOLADOES -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../entity/coachview/samico.h -o tmp/moc/moc_samico.cpp
 
-tmp/obj/field.o: ../entity/coachview/soccerview/util/field.cpp ../entity/coachview/soccerview/util/field.h \
-		../entity/coachview/soccerview/util/field_default_constants.h \
-		../entity/coachview/soccerview/util/gvector.h \
-		../entity/coachview/soccerview/util/util.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/field.o ../entity/coachview/soccerview/util/field.cpp
+tmp/moc/moc_qsfmlwidget.cpp: ../entity/coachview/qsfmlwidget.h \
+		tmp/moc/moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include tmp/moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/flavio/Documents/Macaratronics/FUTEBOLADOES -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../entity/coachview/qsfmlwidget.h -o tmp/moc/moc_qsfmlwidget.cpp
 
 tmp/obj/entity.o: ../entity/entity.cpp ../entity/entity.h \
 		../utils/wrtimer/wrtimer.hh
@@ -4921,6 +4925,76 @@ tmp/obj/role_secondstriker.o: ../entity/player/role/basics/role_secondstriker.cp
 		../entity/contromodule/playersdistribution.h \
 		../utils/wrtimer/wrtimer.hh
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/role_secondstriker.o ../entity/player/role/basics/role_secondstriker.cpp
+
+tmp/obj/role_advancedMidfielder.o: ../entity/player/role/basics/role_advancedMidfielder.cpp ../entity/player/role/basics/role_advancedMidfielder.h \
+		../entity/player/behaviour/mrcbehaviours.h \
+		../entity/player/behaviour/basics/behaviour_donothing.h \
+		../entity/player/behaviour/behaviour.h \
+		../entity/player/baseplayer.h \
+		../entity/player/playeraccess.h \
+		../entity/player/playerbus.h \
+		../entity/player/skills/skills_include.h \
+		../entity/player/skills/basics/skill_donothing.h \
+		../entity/player/skills/skill.h \
+		../entity/player/skills/basics/skill_goto.h \
+		../entity/player/skills/basics/skill_rotateto.h \
+		../entity/player/skills/basics/skill_gotolookto.h \
+		../entity/player/skills/basics/skill_aroundtheball.h \
+		../entity/player/skills/basics/skill_kick.h \
+		../entity/player/skills/basics/skill_gkick.h \
+		../entity/player/skills/basics/skill_dribble.h \
+		../entity/player/skills/basics/skill_interceptball.h \
+		../entity/player/skills/basics/skill_pushball.h \
+		../entity/player/player.h \
+		../entity/entity.h \
+		../entity/world/world.h \
+		../entity/baseentity.h \
+		../utils/fields/fields.hh \
+		../entity/world/worldmapupdater.h \
+		../entity/referee/SSLReferee/sslreferee.h \
+		../include/3rd_party/referee.pb.h \
+		../include/3rd_party/game_event.pb.h \
+		../entity/referee/referee.h \
+		../utils/basics/color.hh \
+		../entity/referee/SSLReferee/sslgameinfo.h \
+		../entity/coachview/coachview.h \
+		../entity/contromodule/coach.h \
+		../entity/contromodule/basecoach.h \
+		../entity/contromodule/controlmodule.h \
+		../entity/coachview/mainwindow.h \
+		../entity/contromodule/mrcteam.h \
+		../utils/fieldside/fieldside.hh \
+		../utils/basics/side.hh \
+		../entity/coachview/samico.h \
+		../entity/coachview/qsfmlwidget.h \
+		../const/constants.h \
+		../utils/utils.hh \
+		../entity/locations.h \
+		../utils/basics/wall.hh \
+		../entity/player/control/pid.h \
+		../include/timer.h \
+		../utils/filters/kalman/kalman.hpp \
+		../utils/filters/kalman/kalmanstate.h \
+		../utils/filters/kalman/matrix.h \
+		../entity/player/behaviour/basics/behaviour_followball.h \
+		../entity/player/behaviour/basics/behaviour_timeout.h \
+		../entity/player/behaviour/basics/behaviour_goalkeeper.h \
+		../entity/player/behaviour/basics/behaviour_attacker.h \
+		../utils/mrctimer/mrctimer.h \
+		../entity/player/behaviour/basics/behaviour_receiver.h \
+		../utils/freeangles/freeangles.h \
+		../utils/freeangles/obstacle.h \
+		../entity/player/behaviour/basics/behaviour_barrier.h \
+		../entity/player/behaviour/basics/behaviour_markplayer.h \
+		../entity/player/behaviour/basics/behaviour_markball.h \
+		../entity/player/behaviour/basics/behaviour_penalty_gk.h \
+		../entity/player/behaviour/basics/behaviour_penalty_cf.h \
+		../entity/player/behaviour/basics/behaviour_cover.h \
+		../entity/player/behaviour/basics/behaviour_passing.h \
+		../entity/player/role/role.h \
+		../entity/contromodule/playersdistribution.h \
+		../utils/wrtimer/wrtimer.hh
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/role_advancedMidfielder.o ../entity/player/role/basics/role_advancedMidfielder.cpp
 
 tmp/obj/coachview.o: ../entity/coachview/coachview.cpp ../entity/coachview/coachview.h \
 		../entity/entity.h \
