@@ -28,6 +28,17 @@
 class Role_SecondStriker : public Role {
     Q_OBJECT
 private:
+    //Variaveis
+    int _actualState;
+    int _beforeState;
+    int _actualPayer;
+    bool _ourPlayer;
+    Position _receveirPosition;
+    //quint8 _ourPlayerID;
+    //float _distMin[6];
+    //float _distSecondStriker;
+    //bool _ativarMarkBall;
+
     // Behaviours
     Behaviour_MarkBall *_bh_mkb;
     Behaviour_MarkPlayer *_bh_mkp;

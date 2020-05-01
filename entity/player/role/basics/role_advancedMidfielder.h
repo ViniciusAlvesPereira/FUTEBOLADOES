@@ -4,6 +4,7 @@
 #include <entity/player/behaviour/mrcbehaviours.h>
 #include <entity/player/role/role.h>
 #include <entity/player/behaviour/basics/behaviour_receiver.h>
+#include <entity/player/skills/skills_include.h>
 
 class Role_AdvancedMidfielder : public Role
 {
@@ -13,8 +14,10 @@ private:
     int _beforeState;
     int _actualPayer;
     bool _ourPlayer;
+    Position _receveirPosition;
 
-
+    // Skills
+    Skill_GoToLookTo *_skill_GoToLookTo;
 
     // Behaviours
     Behaviour_MarkBall *_bh_mb;

@@ -75,7 +75,12 @@ void Role_AdvancedMidfielder::run(){
     case BHV_RECEIVER:{
         _actualState = getActualBehaviour();
 
-        _bh_re->setAttackerId(1);
+        _bh_re->setAttackerId(1);        
+
+
+        player()->position() = Position(true, PlayerBus::ourPlayer(1)->position().x() + 0.5, PlayerBus::ourPlayer(1)->position().y() + 0.5,0.0);
+        //_skill_GoToLookTo->setDesiredPosition(_receveirPosition);
+        player()->position().setPosition(_receveirPosition.x(),_receveirPosition.y(),0.0);
 
         if(!ourTeamPossession())
             setBehaviour(BHV_MARKBALL);

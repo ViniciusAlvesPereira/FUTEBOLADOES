@@ -49,6 +49,54 @@ void Role_SecondStriker::configure(){
     _isPassComing = false;
 }
 
+bool Role_SecondStriker::ourTeamPossession() {
+    for (quint8 i = 0; i < 6; i++) {
+        if(PlayerBus::ourPlayerAvailable(i)){
+            float distanceToBall = PlayerBus::ourPlayer(i)->distanceTo(loc()->ball());
+            if (distanceToBall < 0.3) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+bool Role_SecondStriker::ourPlayerPoss() {
+
+    _ourPlayer = player()->playerId();
+    float distanceToBall = PlayerBus::ourPlayer(_ourPlayer)->distanceTo(loc()->ball());
+    if (distanceToBall < 0.3)
+        return true;
+
+    return false;
+
+}
+
+bool Role_SecondStriker::ourPlayerDist(){
+
+    float _distMin[6];
+    float _distSecondStriker;
+    quint8 _ourPlayerID = player()->playerId();
+
+    for(quint8 i = 0; i < 6; i++){
+        if(PlayerBus::ourPlayerAvailable(i) && i != _ourPlayerID){
+            _distMin[i] = WR::Utils::distance(loc()->ball(), PlayerBus::ourPlayer(i)->position());
+        }
+        else{
+            _distMin[i] = 1000;
+        }
+    }
+
+    _distSecondStriker = WR::Utils::distance(loc()->ball(),player()->position());
+    for(int i = 0; i <6 ; i++){
+       if(_distSecondStriker > _distMin[i]){
+           return false;
+       }
+    }
+
+    return true;
+}
+
 void Role_SecondStriker::run(){
     bool ourPoss = ourTeamPossession();
     static bool previousPoss = false;
@@ -112,7 +160,7 @@ bool Role_SecondStriker::ourTeamPossession() {
         }
     }
     return false;
-}
+}*/
 
 int Role_SecondStriker::playerWithPoss(bool ourPoss) {
     if (ourPoss == true) {
