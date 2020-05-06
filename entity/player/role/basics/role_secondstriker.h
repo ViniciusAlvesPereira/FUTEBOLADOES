@@ -48,15 +48,21 @@ private:
     void configure();
     void run();
 
+    //Global variables
+    float standardDistance;
+    bool markChoice;
+
     // Auxiliary functions
     bool ourTeamPossession();
     int playerWithPoss(bool ourPoss);
 
 signals:
     void sendAttackerID(int id);
+    void sendMarkInformation(float distance);
 
 public slots:
     void receiveAttackerID(int id);
+    void receiveMarkInformation(float distance);
 
 public:
     Role_SecondStriker();

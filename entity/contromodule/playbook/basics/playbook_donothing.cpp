@@ -64,9 +64,15 @@ void Playbook_DoNothing::run(int numPlayers) {
         }
     }
 
-    //Centre Forward is the actual attacker
-    connect(_rl_cf, SIGNAL(sendAttackerID(int)), _rl_ss, SLOT(receiveAttackerID(int)), Qt::DirectConnection);
+    //MarkPlayer Communication:
+        //CF
+    connect(_rl_cf, SIGNAL(sendMarkInformation(float)), _rl_ss, SLOT(receiveMarkInformation(float)), Qt::DirectConnection);
+        //SS
+    connect(_rl_ss, SIGNAL(sendMarkInformation(float)), _rl_cf, SLOT(receiveMarkInformation(float)), Qt::DirectConnection);
 
-    //Second Striker is the actual attacker
+    //Attacker/Receiver Communication:
+        //CF
+    connect(_rl_cf, SIGNAL(sendAttackerID(int)), _rl_ss, SLOT(receiveAttackerID(int)), Qt::DirectConnection);
+        //SS
     connect(_rl_ss, SIGNAL(sendAttackerID(int)), _rl_cf, SLOT(receiveAttackerID(int)), Qt::DirectConnection);
 }

@@ -21,6 +21,11 @@
 
 #include "role_secondstriker.h"
 
+struct marking {
+    float distance;
+    int id;
+};
+
 QString Role_SecondStriker::name(){
     return "Role_SecondStriker";
 }
@@ -37,11 +42,13 @@ void Role_SecondStriker::initializeBehaviours(){
 }
 
 void Role_SecondStriker::configure(){
+    standardDistance = abs(loc()->ourGoal().x() - loc()->theirGoal().x());
+    markChoice = false;
 }
 
 void Role_SecondStriker::run(){
     bool ourPoss = ourTeamPossession();
-    bool previousPoss = false;
+    static bool previousPoss = false;
 
     if (ourPoss == false) {
         int idWithPoss = playerWithPoss(ourPoss);
@@ -52,19 +59,24 @@ void Role_SecondStriker::run(){
                 setBehaviour(BHV_MARKBALL);
                 previousPoss = false;
             } else {
-                int idChoice = -1;
-                for (quint8 i = 0; i < 6; i++) {
-                    if (i == idWithPoss) continue;
-                    else {
-                        float standardDistance = abs(loc()->ourGoal().x() - loc()->theirGoal().x());
-                        float distanceToBall = PlayerBus::theirPlayer(i)->distanceTo(loc()->ball());
-                        if (distanceToBall < standardDistance) {
-                            standardDistance < distanceToBall;
-                            idChoice = i;
-                        }
+                QList<marking> markOptions;
+                for (int i = 0; i < 6; i++) {
+                    if (i != idWithPoss) {
+                        marking fon;
+                        fon.distance = PlayerBus::theirPlayer(i)->distanceTo(PlayerBus::theirPlayer(idWithPoss)->position());
+                        fon.id = i;
+                        markOptions.push_back(fon);
                     }
                 }
-                _bh_mkp->setTargetID(idChoice);
+                for (int x = 0; x < markOptions.size() - 1; x++) {
+                    for (int y = x; y < markOptions.size(); y++) {
+                        if (markOptions[x].distance > markOptions[y].distance) markOptions.swap(x, y);
+                    }
+                }
+                standardDistance = PlayerBus::theirPlayer(markOptions[0].id)->distanceTo(player()->position());
+                emit sendMarkInformation(standardDistance);
+                if (markChoice == true) _bh_mkp->setTargetID(markOptions[0].id);
+                else _bh_mkp->setTargetID(markOptions[1].id);
                 setBehaviour(BHV_MARKPLAYER);
                 previousPoss = false;
             }
@@ -114,4 +126,11 @@ int Role_SecondStriker::playerWithPoss(bool ourPoss) {
 void Role_SecondStriker::receiveAttackerID(int id) {
     _bh_rcv->setAttackerId(id);
     //printf("[SS] AttackerId: %i\n", id);
+}
+
+void Role_SecondStriker::receiveMarkInformation(float distance) {
+    if (standardDistance < distance) {
+        markChoice = true;
+        //printf("[SS] Obtendo vantagem posicional\n");
+    } else markChoice = false;
 }
