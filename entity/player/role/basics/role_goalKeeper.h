@@ -9,7 +9,7 @@ private:
     // variaveis
     int _actualState;
     int _beforeState;
-    quint8 _actualPayer;
+    quint8 _actualPlayer;
     bool state_Penalty;
 
 

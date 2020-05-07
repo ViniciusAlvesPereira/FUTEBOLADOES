@@ -31,7 +31,7 @@ private:
     //Variaveis
     int _actualState;
     int _beforeState;
-    int _actualPayer;
+    int _actualPlayer;
     bool _ourPlayer;
     Position _receveirPosition;
     //quint8 _ourPlayerID;

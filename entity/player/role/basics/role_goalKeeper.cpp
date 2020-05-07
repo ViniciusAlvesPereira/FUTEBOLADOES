@@ -22,6 +22,7 @@ void Role_GoalKeeper::configure(){
     _beforeState = 200;
     setBehaviour(BHV_GOALKEEPER);
     state_Penalty = false;
+    _actualPlayer = player()->playerId();
 }
 
 bool Role_GoalKeeper::ourPlayerPoss() {
@@ -47,6 +48,7 @@ void Role_GoalKeeper::run(){
     switch(getActualBehaviour()){
     case BHV_GOALKEEPER:{
 
+        _actualState = getActualBehaviour();
         //Definir State Penalty
         if(state_Penalty)
            setBehaviour(BHV_PENALTYGK);
@@ -58,13 +60,17 @@ void Role_GoalKeeper::run(){
     break;
 
     case BHV_PASSING:{
-        if(!ourPlayerPoss())
+
+        _actualState = getActualBehaviour();
+        if(!(loc()->isInsideOurArea(loc()->ball(), 1.0)))
             setBehaviour(BHV_GOALKEEPER);
 
     }
     break;
 
     case BHV_PENALTYGK:{
+
+        _actualState = getActualBehaviour();
         if(loc()->isInsideOurArea(loc()->ball(), 1.0))
             setBehaviour(BHV_PASSING);
         else
@@ -74,6 +80,8 @@ void Role_GoalKeeper::run(){
 
     case BHV_DONOTHING:{
 
+        _actualState = getActualBehaviour();
+
     }
     break;
     }
@@ -81,11 +89,10 @@ void Role_GoalKeeper::run(){
     //Printar o behaviours atual
     if(_actualState != _beforeState){
 
-        _actualPayer = player()->playerId();
-        if(_actualState == BHV_GOALKEEPER){ std::cout<<"\n Behaviour GoalKeeper - PlayerId:"<< _actualPayer<<std::endl; }
-        if(_actualState == BHV_PASSING){ std::cout<<"\n Behaviour Passing - PlayerId:"<< _actualPayer<<std::endl; }
-        if(_actualState == BHV_PENALTYGK){ std::cout<<"\n Behaviour PenaltyGK - PlayerId:"<< _actualPayer<<std::endl; }
-        if(_actualState == BHV_DONOTHING){ std::cout<<"\n Behaviour Donothing - PlayerId:"<< _actualPayer<<std::endl; }
+        if(_actualState == BHV_GOALKEEPER){ std::cout<<"\n Behaviour GoalKeeper - PlayerId:"<< _actualPlayer<<std::endl; }
+        if(_actualState == BHV_PASSING){ std::cout<<"\n Behaviour Passing - PlayerId:"<< _actualPlayer<<std::endl; }
+        if(_actualState == BHV_PENALTYGK){ std::cout<<"\n Behaviour PenaltyGK - PlayerId:"<< _actualPlayer<<std::endl; }
+        if(_actualState == BHV_DONOTHING){ std::cout<<"\n Behaviour Donothing - PlayerId:"<< _actualPlayer<<std::endl; }
          _beforeState = _actualState;
     }
 
