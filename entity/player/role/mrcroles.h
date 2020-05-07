@@ -28,5 +28,6 @@
 #include <entity/player/role/basics/role_secondstriker.h>
 #include <entity/player/role/basics/role_centreforward.h>
 #include <entity/player/role/basics/role_advancedMidfielder.h>
+#include <entity/player/role/basics/role_goalKeeper.h>
 
 #endif // MRCROLES_H

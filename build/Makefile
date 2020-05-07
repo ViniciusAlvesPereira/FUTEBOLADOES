@@ -1995,7 +1995,78 @@ tmp/obj/navalgorithm.o: ../entity/player/navigation/navalgorithm.cpp ../entity/p
 		../utils/filters/kalman/matrix.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/navalgorithm.o ../entity/player/navigation/navalgorithm.cpp
 
-tmp/obj/navigation.o: ../entity/player/navigation/navigation.cpp ../entity/player/navigation/navigation.h \
+tmp/obj/role_goalKeeper.o: ../entity/player/role/basics/role_goalKeeper.cpp ../entity/player/role/basics/role_goalKeeper.h \
+		../entity/player/role/role.h \
+		../entity/player/baseplayer.h \
+		../entity/player/playeraccess.h \
+		../entity/player/playerbus.h \
+		../entity/referee/SSLReferee/sslgameinfo.h \
+		../utils/basics/color.hh \
+		../include/3rd_party/referee.pb.h \
+		../include/3rd_party/game_event.pb.h \
+		../entity/baseentity.h \
+		../entity/referee/SSLReferee/sslreferee.h \
+		../entity/referee/referee.h \
+		../entity/entity.h \
+		../entity/coachview/coachview.h \
+		../entity/contromodule/coach.h \
+		../entity/contromodule/basecoach.h \
+		../entity/contromodule/controlmodule.h \
+		../entity/coachview/mainwindow.h \
+		../entity/contromodule/mrcteam.h \
+		../utils/fieldside/fieldside.hh \
+		../utils/basics/side.hh \
+		../entity/player/player.h \
+		../entity/world/world.h \
+		../utils/fields/fields.hh \
+		../entity/world/worldmapupdater.h \
+		../const/constants.h \
+		../utils/utils.hh \
+		../entity/locations.h \
+		../utils/basics/wall.hh \
+		../entity/player/control/pid.h \
+		../include/timer.h \
+		../utils/filters/kalman/kalman.hpp \
+		../utils/filters/kalman/kalmanstate.h \
+		../utils/filters/kalman/matrix.h \
+		../entity/coachview/samico.h \
+		../entity/coachview/qsfmlwidget.h \
+		../entity/contromodule/playersdistribution.h \
+		../utils/wrtimer/wrtimer.hh \
+		../entity/player/behaviour/behaviour.h \
+		../entity/player/behaviour/mrcbehaviours.h \
+		../entity/player/behaviour/basics/behaviour_donothing.h \
+		../entity/player/skills/skills_include.h \
+		../entity/player/skills/basics/skill_donothing.h \
+		../entity/player/skills/skill.h \
+		../entity/player/skills/basics/skill_goto.h \
+		../entity/player/skills/basics/skill_rotateto.h \
+		../entity/player/skills/basics/skill_gotolookto.h \
+		../entity/player/skills/basics/skill_aroundtheball.h \
+		../entity/player/skills/basics/skill_kick.h \
+		../entity/player/skills/basics/skill_gkick.h \
+		../entity/player/skills/basics/skill_dribble.h \
+		../entity/player/skills/basics/skill_interceptball.h \
+		../entity/player/skills/basics/skill_pushball.h \
+		../entity/player/behaviour/basics/behaviour_followball.h \
+		../entity/player/behaviour/basics/behaviour_timeout.h \
+		../entity/player/behaviour/basics/behaviour_goalkeeper.h \
+		../entity/player/behaviour/basics/behaviour_attacker.h \
+		../utils/mrctimer/mrctimer.h \
+		../entity/player/behaviour/basics/behaviour_receiver.h \
+		../utils/freeangles/freeangles.h \
+		../utils/freeangles/obstacle.h \
+		../entity/player/behaviour/basics/behaviour_barrier.h \
+		../entity/player/behaviour/basics/behaviour_markplayer.h \
+		../entity/player/behaviour/basics/behaviour_markball.h \
+		../entity/player/behaviour/basics/behaviour_penalty_gk.h \
+		../entity/player/behaviour/basics/behaviour_penalty_cf.h \
+		../entity/player/behaviour/basics/behaviour_cover.h \
+		../entity/player/behaviour/basics/behaviour_passing.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/role_goalKeeper.o ../entity/player/role/basics/role_goalKeeper.cpp
+
+tmp/obj/skill_pushball.o: ../entity/player/skills/basics/skill_pushball.cpp ../entity/player/skills/basics/skill_pushball.h \
+		../entity/player/skills/skill.h \
 		../entity/player/baseplayer.h \
 		../entity/player/navigation/navalgorithm.h \
 		../entity/locations.h \

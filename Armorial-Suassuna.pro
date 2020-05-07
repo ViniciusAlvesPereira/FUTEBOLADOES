@@ -50,6 +50,7 @@ SOURCES += \
     entity/player/navigation/navalgorithm.cpp \
 	entity/player/navigation/navigation.cpp \
     entity/player/role/basics/role_centreforward.cpp \
+    entity/player/role/basics/role_goalKeeper.cpp \
     entity/player/skills/basics/skill_pushball.cpp \
     entity/player/skills/basics/skill_aroundtheball.cpp \
     entity/player/skills/basics/skill_dribble.cpp \
@@ -166,6 +167,7 @@ HEADERS += \
     entity/player/navigation/navalgorithm.h \
     entity/player/navigation/navigation.h \
     entity/player/role/basics/role_centreforward.h \
+    entity/player/role/basics/role_goalKeeper.h \
     entity/player/skills/basics/skill_pushball.h \
     entity/player/skills/basics/skill_aroundtheball.h \
     entity/player/skills/basics/skill_dribble.h \
