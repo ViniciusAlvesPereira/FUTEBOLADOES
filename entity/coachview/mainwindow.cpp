@@ -25,9 +25,11 @@
 #include <QVBoxLayout>
 #include <QScrollArea>
 #include <chrono>
+#include <QStyle>
+#include <QStyleFactory>
 
 void MainWindow::resetRobots(){
-    for(quint8 x = 0; x < maxRobots; x++){
+    for(quint8 x = 0; x < MRCConstants::_qtPlayers; x++){
         setPlayerBattery(x, 0);
         setPlayerKickCharge(x, 0);
         setPlayerRole(x, "none");
@@ -46,28 +48,41 @@ void MainWindow::disableRobot(quint8 id){
     else return ;
 }
 
+void MainWindow::updateGUI(MRCTeam *ourTeam, MRCTeam *theirTeam, Locations *loc){
+    ui->openGLWidget->updateDetection(ourTeam, theirTeam);
+    ui->openGLWidget->updateFieldGeometry(loc);
+
+    ui->openGLWidget->setDrawBallVel(enableBallVelocityVector());
+    ui->openGLWidget->setDrawAllieVel(enableAllieVelocityVector());
+    ui->openGLWidget->setDrawEnemyVel(enableEnemyVelocityVector());
+    ui->openGLWidget->setDrawPlayerConfidency(enablePlayerConfidency());
+
+}
+
 void MainWindow::setAgressivity(QString agressivity){
     QPixmap pixmp;
 
+    if(agressivity.toLower() == ui->agressivity_txt->text().toLower()) return;
+
     if(agressivity == "high_attack"){
-        ui->agressivity_txt->setText("High Agressive");
-        pixmp.load(":/textures/textures/ag.png");
+        ui->agressivity_txt->setText("High_Attack");
+        pixmp.load(":/textures/textures/ui/ag.png");
     }
     else if(agressivity == "medium_attack"){
-        ui->agressivity_txt->setText("Medium Agressive");
-        pixmp.load(":/textures/textures/ag.png");
+        ui->agressivity_txt->setText("Medium_Attack");
+        pixmp.load(":/textures/textures/ui/ag.png");
     }
     else if(agressivity == "equilibrated"){
         ui->agressivity_txt->setText("Equilibrated");
-        pixmp.load(":/textures/textures/eq.png");
+        pixmp.load(":/textures/textures/ui/eq.png");
     }
     else if(agressivity == "medium_defense"){
-        ui->agressivity_txt->setText("Medium Defensive");
-        pixmp.load(":/textures/textures/def.png");
+        ui->agressivity_txt->setText("Medium_Defense");
+        pixmp.load(":/textures/textures/ui/def.png");
     }
     else if(agressivity == "high_defense"){
-        ui->agressivity_txt->setText("High Defensive");
-        pixmp.load(":/textures/textures/def.png");
+        ui->agressivity_txt->setText("High_Defense");
+        pixmp.load(":/textures/textures/ui/def.png");
     }
 
     ui->agressivity_img->setPixmap(pixmp);
@@ -92,24 +107,26 @@ void MainWindow::setRadioConnect(quint8 id, bool isOnline){
 void MainWindow::setPlayerRole(quint8 id, QString role){
     QPixmap pixmp;
 
+    if(role.toLower() == playerRoles.at(id).second->text().toLower()) return;
+
     if(role.toLower() == "role_default"){ // teste
-        pixmp.load(":/textures/textures/gk.png");
+        pixmp.load(":/textures/textures/ui/gk.png");
         playerRoles.at(id).first->setPixmap(pixmp);
         playerRoles.at(id).second->setText(role);
     }else if(role.toLower() == "role_barrier"){
-        pixmp.load(":/textures/textures/bar.png");
+        pixmp.load(":/textures/textures/ui/bar.png");
         playerRoles.at(id).first->setPixmap(pixmp);
         playerRoles.at(id).second->setText(role);
     }else if(role.toLower() == "role_attacker"){
-        pixmp.load(":/textures/textures/atk.png");
+        pixmp.load(":/textures/textures/ui/atk.png");
         playerRoles.at(id).first->setPixmap(pixmp);
         playerRoles.at(id).second->setText(role);
     }else if(role.toLower() == "role_support"){
-        pixmp.load(":/textures/textures/sup.png");
+        pixmp.load(":/textures/textures/ui/sup.png");
         playerRoles.at(id).first->setPixmap(pixmp);
         playerRoles.at(id).second->setText(role);
     }else{
-        pixmp.load(":/textures/textures/none.png");
+        pixmp.load(":/textures/textures/ui/none.png");
         playerRoles.at(id).first->setPixmap(pixmp);
         playerRoles.at(id).second->setText("Undefined");
     }
@@ -127,37 +144,20 @@ void MainWindow::setupTeams(MRCTeam *our, MRCTeam *their, QString opTeam){
     _ourTeam = our;
     _theirTeam = their;
 
-    // Send teams to samico
-    MyCanvas::setTeams(_ourTeam, _theirTeam);
-
     if(_ourTeam->teamColor() == Colors::Color::YELLOW){
-        ui->yellow_name->setText("<Maracatronics>");
-        if(opTeam != "") ui->blue_name->setText(opTeam);
+        ui->team_y->setPixmap(QPixmap(":/textures/textures/ui/armorial.ico"));
+        ui->team_b->setPixmap(QPixmap(":/textures/textures/ui/defaultteam.png"));
     }else{
-        ui->blue_name->setText("<Maracatronics>");
-        if(opTeam != "") ui->yellow_name->setText(opTeam);
+        ui->team_b->setPixmap(QPixmap(":/textures/textures/ui/armorial.ico"));
+        ui->team_y->setPixmap(QPixmap(":/textures/textures/ui/defaultteam.png"));
     }
-
-    // updating blue
-    ui->blue_name->setStyleSheet("font-weight: bold");
-    ui->t_score_b->setStyleSheet("color: #0000CD");
-    ui->t_yelc_b->setStyleSheet("color: #0000CD");
-    ui->t_redc_b->setStyleSheet("color: #0000CD");
-    ui->t_tout_b->setStyleSheet("color: #0000CD");
-
-    // updating yellow
-    ui->yellow_name->setStyleSheet("font-weight: bold");
-    ui->t_score_y->setStyleSheet("color: #999900");
-    ui->t_yelc_y->setStyleSheet("color: #999900");
-    ui->t_redc_y->setStyleSheet("color: #999900");
-    ui->t_tout_y->setStyleSheet("color: #999900");
 
     std::vector<QPixmap> pixmapVector;
 
-    for(int x = 0; x < maxRobots; x++){
+    for(int x = 0; x < MRCConstants::_qtPlayers; x++){
         char str[50];
-        if(_ourTeam->teamColor() == Colors::Color::YELLOW) sprintf(str, ":/textures/textures/y%d.png", x);
-        else sprintf(str, ":/textures/textures/b%d.png", x);
+        if(_ourTeam->teamColor() == Colors::Color::YELLOW) sprintf(str, ":/textures/textures/robots/yellow/y%d.png", x);
+        else sprintf(str, ":/textures/textures/robots/blue/b%d.png", x);
 
         pixmapVector.push_back(QPixmap(str));
     }
@@ -168,6 +168,12 @@ void MainWindow::setupTeams(MRCTeam *our, MRCTeam *their, QString opTeam){
     ui->sprite_4->setPixmap(pixmapVector.at(3));
     ui->sprite_5->setPixmap(pixmapVector.at(4));
     ui->sprite_6->setPixmap(pixmapVector.at(5));
+    ui->sprite_7->setPixmap(pixmapVector.at(6));
+    ui->sprite_8->setPixmap(pixmapVector.at(7));
+    ui->sprite_9->setPixmap(pixmapVector.at(8));
+    ui->sprite_10->setPixmap(pixmapVector.at(9));
+    ui->sprite_11->setPixmap(pixmapVector.at(10));
+    ui->sprite_12->setPixmap(pixmapVector.at(11));
 
     // Initial setups
     resetRobots();
@@ -176,9 +182,6 @@ void MainWindow::setupTeams(MRCTeam *our, MRCTeam *their, QString opTeam){
     updateGameStage("FIRST HALF");
     updateRefereeCommand("GAME_HALT");
     updateTimeLeft("0.0s");
-
-    //
-    ui->controllerBox->setEnabled(false);
 
     // test
     setAgressivity("equilibrated");
@@ -221,6 +224,22 @@ void MainWindow::updateTimeLeft(QString timeleft){
     ui->label_time->setText(timeleft);
 }
 
+bool MainWindow::enableAllieVelocityVector(){
+    return (ui->allievel->checkState() == Qt::CheckState::Checked) ? true : false;
+}
+
+bool MainWindow::enableEnemyVelocityVector(){
+    return (ui->enemyvel->checkState() == Qt::CheckState::Checked) ? true : false;
+}
+
+bool MainWindow::enableBallVelocityVector(){
+    return (ui->ballvel->checkState() == Qt::CheckState::Checked) ? true : false;
+}
+
+bool MainWindow::enablePlayerConfidency(){
+    return (ui->playerconf->checkState() == Qt::CheckState::Checked) ? true : false;
+}
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -234,6 +253,12 @@ MainWindow::MainWindow(QWidget *parent)
     playerBoxes.push_back(ui->groupBox_4);
     playerBoxes.push_back(ui->groupBox_5);
     playerBoxes.push_back(ui->groupBox_6);
+    playerBoxes.push_back(ui->groupBox_7);
+    playerBoxes.push_back(ui->groupBox_8);
+    playerBoxes.push_back(ui->groupBox_9);
+    playerBoxes.push_back(ui->groupBox_10);
+    playerBoxes.push_back(ui->groupBox_11);
+    playerBoxes.push_back(ui->groupBox_12);
 
     // creating vector for battery
     playerBatteries.push_back(ui->battery_1);
@@ -242,6 +267,12 @@ MainWindow::MainWindow(QWidget *parent)
     playerBatteries.push_back(ui->battery_4);
     playerBatteries.push_back(ui->battery_5);
     playerBatteries.push_back(ui->battery_6);
+    playerBatteries.push_back(ui->battery_7);
+    playerBatteries.push_back(ui->battery_8);
+    playerBatteries.push_back(ui->battery_9);
+    playerBatteries.push_back(ui->battery_10);
+    playerBatteries.push_back(ui->battery_11);
+    playerBatteries.push_back(ui->battery_12);
 
     // creating vector for kick chages
     playerKickCharges.push_back(ui->chute_1);
@@ -250,6 +281,12 @@ MainWindow::MainWindow(QWidget *parent)
     playerKickCharges.push_back(ui->chute_4);
     playerKickCharges.push_back(ui->chute_5);
     playerKickCharges.push_back(ui->chute_6);
+    playerKickCharges.push_back(ui->chute_7);
+    playerKickCharges.push_back(ui->chute_8);
+    playerKickCharges.push_back(ui->chute_9);
+    playerKickCharges.push_back(ui->chute_10);
+    playerKickCharges.push_back(ui->chute_11);
+    playerKickCharges.push_back(ui->chute_12);
 
     // creating vector for roles (label img and label text)
     playerRoles.push_back(std::make_pair(ui->imgrole_1, ui->role_1));
@@ -258,6 +295,12 @@ MainWindow::MainWindow(QWidget *parent)
     playerRoles.push_back(std::make_pair(ui->imgrole_4, ui->role_4));
     playerRoles.push_back(std::make_pair(ui->imgrole_5, ui->role_5));
     playerRoles.push_back(std::make_pair(ui->imgrole_6, ui->role_6));
+    playerRoles.push_back(std::make_pair(ui->imgrole_7, ui->role_7));
+    playerRoles.push_back(std::make_pair(ui->imgrole_8, ui->role_8));
+    playerRoles.push_back(std::make_pair(ui->imgrole_9, ui->role_9));
+    playerRoles.push_back(std::make_pair(ui->imgrole_10, ui->role_10));
+    playerRoles.push_back(std::make_pair(ui->imgrole_11, ui->role_11));
+    playerRoles.push_back(std::make_pair(ui->imgrole_12, ui->role_12));
 
     // creating vector for radio connection
     playerConnections.push_back(ui->status_1);
@@ -266,6 +309,12 @@ MainWindow::MainWindow(QWidget *parent)
     playerConnections.push_back(ui->status_4);
     playerConnections.push_back(ui->status_5);
     playerConnections.push_back(ui->status_6);
+    playerConnections.push_back(ui->status_7);
+    playerConnections.push_back(ui->status_8);
+    playerConnections.push_back(ui->status_9);
+    playerConnections.push_back(ui->status_10);
+    playerConnections.push_back(ui->status_11);
+    playerConnections.push_back(ui->status_12);
 
     // creating vector for dribble connection
     playerDribbles.push_back(ui->dribble_1);
@@ -274,6 +323,38 @@ MainWindow::MainWindow(QWidget *parent)
     playerDribbles.push_back(ui->dribble_4);
     playerDribbles.push_back(ui->dribble_5);
     playerDribbles.push_back(ui->dribble_6);
+    playerDribbles.push_back(ui->dribble_7);
+    playerDribbles.push_back(ui->dribble_8);
+    playerDribbles.push_back(ui->dribble_9);
+    playerDribbles.push_back(ui->dribble_10);
+    playerDribbles.push_back(ui->dribble_11);
+    playerDribbles.push_back(ui->dribble_12);
+
+    // dark pallete
+    this->setStyle(QStyleFactory::create("Fusion"));
+    QPalette darkPalette;
+    darkPalette.setColor(QPalette::Window,QColor(53,53,53));
+    darkPalette.setColor(QPalette::WindowText,Qt::white);
+    darkPalette.setColor(QPalette::Disabled,QPalette::WindowText,QColor(127,127,127));
+    darkPalette.setColor(QPalette::Base,QColor(42,42,42));
+    darkPalette.setColor(QPalette::AlternateBase,QColor(66,66,66));
+    darkPalette.setColor(QPalette::ToolTipBase,Qt::white);
+    darkPalette.setColor(QPalette::ToolTipText,Qt::white);
+    darkPalette.setColor(QPalette::Text,Qt::white);
+    darkPalette.setColor(QPalette::Disabled,QPalette::Text,QColor(127,127,127));
+    darkPalette.setColor(QPalette::Dark,QColor(35,35,35));
+    darkPalette.setColor(QPalette::Shadow,QColor(20,20,20));
+    darkPalette.setColor(QPalette::Button,QColor(53,53,53));
+    darkPalette.setColor(QPalette::ButtonText,Qt::white);
+    darkPalette.setColor(QPalette::Disabled,QPalette::ButtonText,QColor(127,127,127));
+    darkPalette.setColor(QPalette::BrightText,Qt::red);
+    darkPalette.setColor(QPalette::Link,QColor(42,130,218));
+    darkPalette.setColor(QPalette::Highlight,QColor(42,130,218));
+    darkPalette.setColor(QPalette::Disabled,QPalette::Highlight,QColor(80,80,80));
+    darkPalette.setColor(QPalette::HighlightedText,Qt::white);
+    darkPalette.setColor(QPalette::Disabled,QPalette::HighlightedText,QColor(127,127,127));
+
+    this->setPalette(darkPalette);
 }
 
 MainWindow::~MainWindow()

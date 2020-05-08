@@ -79,7 +79,8 @@ void World::initialization() {
         QList<Entity*> ents = entities->values();
         // Start entity thread
         for(QList<Entity*>::const_iterator ie=ents.constBegin(); ie!=ents.constEnd(); ie++) {
-            (*ie)->setLoopFrequency(MRCConstants::threadFrequency());
+            if ((*ie)->entityType() == EntityType::ENT_GUI) (*ie)->setLoopFrequency(MRCConstants::threadFrequency()/2);
+            else (*ie)->setLoopFrequency(MRCConstants::threadFrequency());
             (*ie)->start();
         }
     }
@@ -87,6 +88,7 @@ void World::initialization() {
 
 void World::loop() {
     _ctrModuleMutex.lock();
+
     // Lock for updating
     this->wmLockWrite();
 

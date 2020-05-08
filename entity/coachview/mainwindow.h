@@ -22,6 +22,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <const/constants.h>
 #include <entity/entity.h>
 #include <entity/contromodule/mrcteam.h>
 #include <QMainWindow>
@@ -29,7 +30,6 @@
 #include <QProgressBar>
 #include <QLabel>
 #include <QMutex>
-#include <entity/coachview/samico.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -66,6 +66,13 @@ public:
     void updateGameStage(QString stage);
     void updateRefereeCommand(QString command);
     void updateTimeLeft(QString timeleft);
+    void updateGUI(MRCTeam *ourTeam, MRCTeam *theirTeam, Locations *loc);
+
+    // getters
+    bool enableAllieVelocityVector();
+    bool enableEnemyVelocityVector();
+    bool enableBallVelocityVector();
+    bool enablePlayerConfidency();
 
 private:
     Ui::MainWindow *ui;

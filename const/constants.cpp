@@ -21,7 +21,7 @@
 
 #include "constants.h"
 
-int MRCConstants::_threadFrequency           = 45; // frequencia das threads criadas
+int MRCConstants::_threadFrequency           = 60; // frequencia das threads criadas
 
 /* Fast Path Planning */
 float MRCConstants::_FPPBallThreshHold       = 0.2f;
@@ -30,7 +30,7 @@ float MRCConstants::_FPPBreakDistance        = 0.42f;
 float MRCConstants::_FPPSmoothPathResolution = 0.3f;
 
 /* Soccer constants */
-int MRCConstants::_qtPlayers                 = 6;
+int MRCConstants::_qtPlayers                 = 12;
 
 MRCConstants::MRCConstants()
 {
