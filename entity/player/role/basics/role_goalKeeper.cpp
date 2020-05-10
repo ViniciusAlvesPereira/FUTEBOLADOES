@@ -22,7 +22,6 @@ void Role_GoalKeeper::configure(){
     _beforeState = 200;
     setBehaviour(BHV_GOALKEEPER);
     state_Penalty = false;
-    _actualPlayer = player()->playerId();
 }
 
 bool Role_GoalKeeper::ourPlayerPoss() {
@@ -89,6 +88,7 @@ void Role_GoalKeeper::run(){
     //Printar o behaviours atual
     if(_actualState != _beforeState){
 
+        _actualPlayer = player()->playerId();
         if(_actualState == BHV_GOALKEEPER){ std::cout<<"\n Behaviour GoalKeeper - PlayerId:"<< _actualPlayer<<std::endl; }
         if(_actualState == BHV_PASSING){ std::cout<<"\n Behaviour Passing - PlayerId:"<< _actualPlayer<<std::endl; }
         if(_actualState == BHV_PENALTYGK){ std::cout<<"\n Behaviour PenaltyGK - PlayerId:"<< _actualPlayer<<std::endl; }
