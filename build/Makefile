@@ -2907,6 +2907,8 @@ tmp/obj/suassuna.o: ../suassuna.cpp ../suassuna.h \
 		../entity/player/role/basics/role_def_midfielder.h \
 		../entity/player/role/basics/role_secondstriker.h \
 		../entity/player/role/basics/role_centreforward.h \
+		../entity/player/role/basics/role_advancedMidfielder.h \
+		../entity/player/role/basics/role_goalKeeper.h \
 		../entity/contromodule/strategy/strategy.h \
 		../entity/contromodule/strategy/strategystate.h \
 		../entity/contromodule/strategy/basics/mrcstrategy.h \
@@ -3840,6 +3842,8 @@ tmp/obj/mrcstrategy.o: ../entity/contromodule/strategy/basics/mrcstrategy.cpp ..
 		../entity/player/role/basics/role_def_midfielder.h \
 		../entity/player/role/basics/role_secondstriker.h \
 		../entity/player/role/basics/role_centreforward.h
+		../entity/player/role/basics/role_advancedMidfielder.h \
+		../entity/player/role/basics/role_goalKeeper.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/mrcstrategy.o ../entity/contromodule/strategy/basics/mrcstrategy.cpp
 
 tmp/obj/sslstrategy.o: ../entity/contromodule/strategy/basics/sslstrategy.cpp ../entity/contromodule/strategy/basics/sslstrategy.h \
@@ -3939,6 +3943,8 @@ tmp/obj/sslstrategy_halt.o: ../entity/contromodule/strategy/basics/sslstrategy_h
 		../entity/player/role/basics/role_def_midfielder.h \
 		../entity/player/role/basics/role_secondstriker.h \
 		../entity/player/role/basics/role_centreforward.h
+		../entity/player/role/basics/role_advancedMidfielder.h \
+		../entity/player/role/basics/role_goalKeeper.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/sslstrategy_halt.o ../entity/contromodule/strategy/basics/sslstrategy_halt.cpp
 
 tmp/obj/playbook_donothing.o: ../entity/contromodule/playbook/basics/playbook_donothing.cpp ../entity/contromodule/playbook/basics/playbook_donothing.h \
@@ -4022,6 +4028,8 @@ tmp/obj/playbook_donothing.o: ../entity/contromodule/playbook/basics/playbook_do
 		../entity/player/role/basics/role_def_midfielder.h \
 		../entity/player/role/basics/role_secondstriker.h \
 		../entity/player/role/basics/role_centreforward.h
+		../entity/player/role/basics/role_advancedMidfielder.h \
+		../entity/player/role/basics/role_goalKeeper.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/playbook_donothing.o ../entity/contromodule/playbook/basics/playbook_donothing.cpp
 
 tmp/obj/behaviour_followball.o: ../entity/player/behaviour/basics/behaviour_followball.cpp ../entity/player/behaviour/basics/behaviour_followball.h \

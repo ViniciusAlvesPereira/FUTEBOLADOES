@@ -8,6 +8,7 @@
 
 class Role_AdvancedMidfielder : public Role
 {
+    Q_OBJECT
 private:
     //Variaveis
     int _actualState;
@@ -43,6 +44,13 @@ private:
     //Time com posse de bola
     bool ourTeamPossession();
     bool ourPlayerPoss();
+    bool nearestPlayer();
+
+signals:
+    void sendAttackerID(quint8 id);
+
+public slots:
+    void receiveAttackerID(quint8 id);
 
 public:
     Role_AdvancedMidfielder();

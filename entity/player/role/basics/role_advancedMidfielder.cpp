@@ -47,6 +47,30 @@ bool Role_AdvancedMidfielder::ourPlayerPoss() {
 
 }
 
+bool Role_AdvancedMidfielder:: nearestPlayer(){
+
+    float _distMin[6];
+    float _distActualPlayer;
+
+    for(quint8 i = 0; i < 6; i++){
+        if(PlayerBus::ourPlayerAvailable(i) && i != player()->playerId()){
+            _distMin[i] = WR::Utils::distance(loc()->ball(), PlayerBus::ourPlayer(i)->position());
+        }
+        else{
+            _distMin[i] = 100;
+        }
+    }
+
+    _distActualPlayer = WR::Utils::distance(loc()->ball(), player()->position());
+
+    for(int i = 0; i < 6; i++){
+        if(_distActualPlayer > _distMin[i]){
+            return false;
+        }
+    }
+    return true;
+}
+
 void Role_AdvancedMidfielder::run(){
     /*
      * Aqui devem ocorrer os sets de parametros de acordo com o behaviour
@@ -75,14 +99,9 @@ void Role_AdvancedMidfielder::run(){
     case BHV_RECEIVER:{
         _actualState = getActualBehaviour();
 
-        _bh_re->setAttackerId(1);        
+        //_bh_re->setAttackerId(1);
 
-
-        player()->position() = Position(true, PlayerBus::ourPlayer(1)->position().x() + 0.5, PlayerBus::ourPlayer(1)->position().y() + 0.5,0.0);
-        //_skill_GoToLookTo->setDesiredPosition(_receveirPosition);
-        player()->position().setPosition(_receveirPosition.x(),_receveirPosition.y(),0.0);
-
-        if(!ourTeamPossession())
+        if(!ourTeamPossession() && nearestPlayer())
             setBehaviour(BHV_MARKBALL);
 
         if(ourPlayerPoss())
@@ -93,6 +112,8 @@ void Role_AdvancedMidfielder::run(){
 
     case BHV_ATTACKER:{
         _actualState = getActualBehaviour();
+        emit sendAttackerID(player()->playerId());
+
         if(!ourTeamPossession()){
             setBehaviour(BHV_MARKBALL);
         }
@@ -122,4 +143,9 @@ void Role_AdvancedMidfielder::run(){
         if(_actualState == BHV_DONOTHING){ std::cout<<"\n Behaviour Donothing - PlayerId:"<< _actualPayer<<std::endl; }
          _beforeState = _actualState;
     }
+}
+
+void Role_AdvancedMidfielder::receiveAttackerID(quint8 id) {
+    _bh_re->setAttackerId(id);
+    //printf("[CF] AttackerId: %i\n", id);
 }
