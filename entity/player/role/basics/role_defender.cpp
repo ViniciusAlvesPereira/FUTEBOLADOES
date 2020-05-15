@@ -33,9 +33,11 @@ void Role_Defender::initializeBehaviours(){
     usesBehaviour(BHV_BARRIER, _bh_brr = new Behaviour_Barrier());
     usesBehaviour(BHV_PASSING, _bh_psg = new Behaviour_Passing());
     usesBehaviour(BHV_DONOTHING, _bh_dnt = new Behaviour_DoNothing());
+    usesBehaviour(BHV_BALLRECEPTOR, _bh_brp = new Behaviour_BallReceptor());
 }
 
 void Role_Defender::configure(){
+    _isPassComing = false;
 }
 
 void Role_Defender::run(){
@@ -45,8 +47,9 @@ void Role_Defender::run(){
 
     if (ourPoss == false) {
         int idWithPoss = playerWithPoss(ourPoss);
-        if (idWithPoss == BALLPOSS_NONE && previousPoss == true) {
-            setBehaviour(BHV_DONOTHING);
+        if (idWithPoss == BALLPOSS_NONE) {
+            if (_isPassComing == true) setBehaviour(BHV_BALLRECEPTOR);
+            else setBehaviour(BHV_DONOTHING);
         } else {
             setBehaviour(BHV_BARRIER);
             previousPoss = false;
@@ -55,6 +58,8 @@ void Role_Defender::run(){
         int idWithPoss = playerWithPoss(ourPoss);
         if (idWithPoss == player()->playerId()) {
             _bh_psg->setPlayerId(idWithPoss);
+            int passId = _bh_psg->getPassId();
+            emit sendPassId(passId);
             setBehaviour(BHV_PASSING);
             previousPoss = true;
         } else {
@@ -98,4 +103,10 @@ int Role_Defender::playerWithPoss(bool ourPoss) {
         }
     }
     return BALLPOSS_NONE;
+}
+
+void Role_Defender::receivePassId(int passId) {
+    if (passId == player()->playerId()) {
+        _isPassComing = true;
+    } else _isPassComing = false;
 }

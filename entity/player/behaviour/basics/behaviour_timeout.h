@@ -30,7 +30,7 @@ private:
     void configure();
     void run();
     Position _desiredPosition;
-    Skill_GoToLookTo *_skill_GoToLookTo;
+    Skill_GoTo *_skill_GoTo;
     double _offsetBall;
 
 public:

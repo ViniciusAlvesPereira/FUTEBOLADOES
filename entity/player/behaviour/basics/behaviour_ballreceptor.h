@@ -19,33 +19,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ***/
 
-#ifndef BEHAVIOUR_PASSING_H
-#define BEHAVIOUR_PASSING_H
+#ifndef BEHAVIOUR_BALLRECEPTOR_H
+#define BEHAVIOUR_BALLRECEPTOR_H
 
 #include <entity/player/behaviour/behaviour.h>
 #include <entity/player/skills/skills_include.h>
 
-class Behaviour_Passing : public Behaviour {
+class Behaviour_BallReceptor : public Behaviour {
 private:
     void configure();
     void run();
+    int _state;
 
-    //Parameters
-    int _id;
-    int passId;
-
-    // Skills
-    Skill_Kick *_skill_kick;
-
-    // Functions
-    int getBestPassOption(Position &watcher);
-
+    //Skills
+    Skill_RotateTo *_sk_rotateto;
 public:
-    Behaviour_Passing();
+    Behaviour_BallReceptor();
     QString name();
-
-    void setPlayerId (int id) { _id = id; }
-    int getPassId() { return passId; }
 };
 
-#endif // BEHAVIOUR_PASSING_H
+#endif // BEHAVIOUR_BALLRECEPTOR_H

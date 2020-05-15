@@ -37,18 +37,18 @@ void Playbook_DoNothing::configure(int numPlayers) {
     usesRole(_rl_dmf = new Role_Def_Midfielder());
     usesRole(_rl_ss = new Role_SecondStriker());
     usesRole(_rl_cf = new Role_CentreForward());
-    for(int i = 0; i < numPlayers - 4; i++) {
-        Role_Default *rl_dft = new Role_Default();
-        usesRole(rl_dft);
-        _rl_default.push_back(rl_dft);
-    }
+    usesRole(_rl_default = new Role_Default());
+    usesRole(_rl_dft = new Role_Default());
 }
 
 void Playbook_DoNothing::run(int numPlayers) {
     for(int i = 0; i < numPlayers; i++){
         quint8 playerId = dist()->getPlayer();
-        if (i < numPlayers - 4) {
-            setPlayerRole(playerId, _rl_default.at(i));
+        if (i == numPlayers - 6) {
+            setPlayerRole(playerId, _rl_dft);
+        }
+        if (i == numPlayers - 5) {
+            setPlayerRole(playerId, _rl_default);
         }
         if (i == numPlayers - 4) {
             setPlayerRole(playerId, _rl_cf);
@@ -63,6 +63,22 @@ void Playbook_DoNothing::run(int numPlayers) {
             setPlayerRole(playerId, _rl_df);
         }
     }
+
+    //setPlayerRole(0, _rl_default);
+
+    //PassInformation:
+        //DF
+    connect(_rl_df, SIGNAL(sendPassId(int)), _rl_cf, SLOT(receivePassId(int)), Qt::DirectConnection);
+    connect(_rl_df, SIGNAL(sendPassId(int)), _rl_ss, SLOT(receivePassId(int)), Qt::DirectConnection);
+    connect(_rl_df, SIGNAL(sendPassId(int)), _rl_dmf, SLOT(receivePassId(int)), Qt::DirectConnection);
+    connect(_rl_df, SIGNAL(sendPassId(int)), _rl_dft, SLOT(receivePassId(int)), Qt::DirectConnection);
+    connect(_rl_df, SIGNAL(sendPassId(int)), _rl_default, SLOT(receivePassId(int)), Qt::DirectConnection);
+        //DMF
+    connect(_rl_dmf, SIGNAL(sendPassId(int)), _rl_cf, SLOT(receivePassId(int)), Qt::DirectConnection);
+    connect(_rl_dmf, SIGNAL(sendPassId(int)), _rl_ss, SLOT(receivePassId(int)), Qt::DirectConnection);
+    connect(_rl_dmf, SIGNAL(sendPassId(int)), _rl_df, SLOT(receivePassId(int)), Qt::DirectConnection);
+    connect(_rl_dmf, SIGNAL(sendPassId(int)), _rl_dft, SLOT(receivePassId(int)), Qt::DirectConnection);
+    connect(_rl_dmf, SIGNAL(sendPassId(int)), _rl_default, SLOT(receivePassId(int)), Qt::DirectConnection);
 
     //MarkPlayer Communication:
         //CF

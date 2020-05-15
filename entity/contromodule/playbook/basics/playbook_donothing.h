@@ -28,7 +28,8 @@
 class Playbook_DoNothing : public Playbook {
 private:
     // Roles
-    QList<Role_Default*> _rl_default;
+    Role_Default *_rl_default;
+    Role_Default *_rl_dft;
     Role_Defender *_rl_df;
     Role_Def_Midfielder* _rl_dmf;
     Role_SecondStriker* _rl_ss;

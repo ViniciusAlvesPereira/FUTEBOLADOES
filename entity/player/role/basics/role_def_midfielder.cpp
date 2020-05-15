@@ -34,10 +34,11 @@ void Role_Def_Midfielder::initializeBehaviours(){
    usesBehaviour(BHV_PASSING, _bh_psg = new Behaviour_Passing());
    usesBehaviour(BHV_MARKBALL, _bh_mkb = new Behaviour_MarkBall());
    usesBehaviour(BHV_DONOTHING, _bh_dnt = new Behaviour_DoNothing());
+   usesBehaviour(BHV_BALLRECEPTOR, _bh_brp = new Behaviour_BallReceptor());
 }
 
 void Role_Def_Midfielder::configure(){
-    // Aqui são setados parametros que devem ser configurados
+    _isPassComing = false;
 }
 
 void Role_Def_Midfielder::run(){
@@ -48,7 +49,8 @@ void Role_Def_Midfielder::run(){
     if (ourPoss == false) {
         int idWithPoss = playerWithPoss(ourPoss);
         if (idWithPoss == BALLPOSS_NONE) {
-            if (previousPoss == true) setBehaviour(BHV_DONOTHING);
+            if (_isPassComing == true) setBehaviour(BHV_BALLRECEPTOR);
+            else setBehaviour(BHV_DONOTHING);
         } else {
             if (PlayerBus::theirPlayer(idWithPoss)->distanceTo(player()->position()) < 1.0) {
                 setBehaviour(BHV_MARKBALL);
@@ -62,6 +64,8 @@ void Role_Def_Midfielder::run(){
         int idWithPoss = playerWithPoss(ourPoss);
         if (idWithPoss == player()->playerId()) {
             _bh_psg->setPlayerId(idWithPoss);
+            int passId = _bh_psg->getPassId();
+            emit sendPassId(passId);
             setBehaviour(BHV_PASSING);
             previousPoss = true;
         } else {
@@ -105,4 +109,10 @@ int Role_Def_Midfielder::playerWithPoss(bool ourPoss) {
         }
     }
     return BALLPOSS_NONE;
+}
+
+void Role_Def_Midfielder::receivePassId(int passId) {
+    if (passId == player()->playerId()) {
+        _isPassComing = true;
+    } else _isPassComing = false;
 }

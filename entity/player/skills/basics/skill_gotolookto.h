@@ -35,7 +35,7 @@ public:
     QString name();
 
     void setDesiredPosition(Position pos) { _desiredPosition = pos; }
-    void setAimPosition(Position pos) { _aimPosition = pos; }
+    void setAimPosition(Position aim) { _aimPosition = aim; }
     void setOffsetToBall(double value) { _offsetBall = value; }
 };
 

@@ -39,11 +39,13 @@ void Role_SecondStriker::initializeBehaviours(){
     usesBehaviour(BHV_RECEIVER, _bh_rcv = new Behaviour_Receiver());
     usesBehaviour(BHV_ATTACKER, _bh_atk = new Behaviour_Attacker());
     usesBehaviour(BHV_DONOTHING, _bh_dnt = new Behaviour_DoNothing());
+    usesBehaviour(BHV_BALLRECEPTOR, _bh_brp = new Behaviour_BallReceptor());
 }
 
 void Role_SecondStriker::configure(){
     standardDistance = abs(loc()->ourGoal().x() - loc()->theirGoal().x());
     markChoice = false;
+    _isPassComing = false;
 }
 
 void Role_SecondStriker::run(){
@@ -53,7 +55,8 @@ void Role_SecondStriker::run(){
     if (ourPoss == false) {
         int idWithPoss = playerWithPoss(ourPoss);
         if (idWithPoss == BALLPOSS_NONE) {
-            if (previousPoss == true) setBehaviour(BHV_DONOTHING);
+            if (previousPoss == true) setBehaviour(BHV_BALLRECEPTOR);
+            else setBehaviour(BHV_DONOTHING);
         } else {
             if (PlayerBus::theirPlayer(idWithPoss)->distanceTo(player()->position()) < 1.0) {
                 setBehaviour(BHV_MARKBALL);
@@ -133,4 +136,10 @@ void Role_SecondStriker::receiveMarkInformation(float distance) {
         markChoice = true;
         //printf("[SS] Obtendo vantagem posicional\n");
     } else markChoice = false;
+}
+
+void Role_SecondStriker::receivePassId(int passId) {
+    if (passId == player()->playerId()) {
+        _isPassComing = true;
+    } else _isPassComing = false;
 }

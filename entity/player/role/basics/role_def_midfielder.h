@@ -33,6 +33,7 @@ private:
     Behaviour_Passing *_bh_psg;
     Behaviour_MarkBall *_bh_mkb;
     Behaviour_DoNothing *_bh_dnt;
+    Behaviour_BallReceptor *_bh_brp;
 
     // Behaviours ids!
     enum{
@@ -40,8 +41,12 @@ private:
         BHV_COVER,
         BHV_PASSING,
         BHV_MARKBALL,
-        BHV_DONOTHING
+        BHV_DONOTHING,
+        BHV_BALLRECEPTOR
     };
+
+    //Parameters
+    bool _isPassComing;
 
     // Inherited functions
     void configure();
@@ -53,6 +58,12 @@ private:
 
     // Mutex
     QMutex _mutex;
+
+signals:
+    void sendPassId(int passId);
+
+public slots:
+    void receivePassId(int passId);
 
 public:
     Role_Def_Midfielder();

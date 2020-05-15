@@ -287,6 +287,19 @@ void Player::setSpeed(float x, float y, float theta) {
     WR::Utils::limitValue(&x, -2.5, 2.5);
     WR::Utils::limitValue(&y, -2.5, 2.5);
 
+    /*float module = sqrt(pow(x, 2) + pow(y, 2));
+
+    x *= 1.5 / module;    //Velocidade desejada é 2 m/s
+    y *= 1.5 / module;    //Velocidade desejada é 2 m/s
+
+    int nice = 0;
+    nice++;
+
+    float fon = sqrt(pow(x, 2) + pow(y, 2));
+    if (nice / 5 == 0) {
+        std::cout << fon << "\n";
+    }*/
+
     _ctr->setSpeed((int)_team->teamId(), (int)playerId(), x, y, theta);
     _ctr->kick(_team->teamId(), playerId(), 0.0);
 
@@ -323,6 +336,12 @@ std::pair<float, float> Player::goTo(Position targetPosition, double offset){
 
     float newVX = _vxPID->calculate(vxSaida, velocity().x());
     float newVY = _vyPID->calculate(vySaida, velocity().y());
+
+    /*if (newVX > 0.0) newVX = log2f(newVX + pow(2, -0.6)) + 0.6;
+    else newVX = -(log2f(-newVX + pow(2, -0.6)) + 0.6);
+
+    if (newVY > 0.0) newVY = log2f(newVY + pow(2, -0.6)) + 0.6;
+    else newVY = -(log2f(-newVY + pow(2, -0.6)) + 0.6);*/
 
     return std::make_pair(newVX, newVY);
 }

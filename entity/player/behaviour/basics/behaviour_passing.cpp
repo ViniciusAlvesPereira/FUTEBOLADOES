@@ -36,7 +36,7 @@ void Behaviour_Passing::configure() {
 
 void Behaviour_Passing::run() {
     Position playerPosition = PlayerBus::ourPlayer(_id)->position();
-    int passId = getBestPassOption(playerPosition);
+    passId = getBestPassOption(playerPosition);
     //printf("Id escolhido: %i\n", passId);
 
     if (passId == -1) {

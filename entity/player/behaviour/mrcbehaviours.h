@@ -35,5 +35,6 @@
 #include <entity/player/behaviour/basics/behaviour_penalty_cf.h>
 #include <entity/player/behaviour/basics/behaviour_cover.h>
 #include <entity/player/behaviour/basics/behaviour_passing.h>
+#include <entity/player/behaviour/basics/behaviour_ballreceptor.h>
 
 #endif // MRCBEHAVIOURS_H

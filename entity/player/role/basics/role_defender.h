@@ -32,14 +32,19 @@ private:
     Behaviour_Barrier *_bh_brr;
     Behaviour_Passing *_bh_psg;
     Behaviour_DoNothing *_bh_dnt;
+    Behaviour_BallReceptor *_bh_brp;
 
     // Behaviours ids!
     enum{
         BHV_COVER,
         BHV_BARRIER,
         BHV_PASSING,
-        BHV_DONOTHING
+        BHV_DONOTHING,
+        BHV_BALLRECEPTOR
     };
+
+    //Parameters
+    bool _isPassComing;
 
     // Inherited functions
     void configure();
@@ -48,6 +53,12 @@ private:
     // Auxiliary functions
     bool ourTeamPossession();
     int playerWithPoss(bool ourPoss);
+
+signals:
+    void sendPassId(int passId);
+
+public slots:
+    void receivePassId(int passId);
 
 public:
     Role_Defender();

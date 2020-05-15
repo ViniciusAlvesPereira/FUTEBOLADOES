@@ -31,12 +31,12 @@ Role_Default::Role_Default() {
 void Role_Default::initializeBehaviours(){
     // Aqui são inseridos os behaviours possíveis de serem usados
     // na ordem: ID do behaviour, instanciação dele
-    usesBehaviour(BHV_DONOTHING, _bh_dn = new Behaviour_DoNothing());
-    //usesBehaviour(BHV_BARRIER, _bh_def = new Behaviour_Attacker());
+    usesBehaviour(BHV_TIMEOUT, _bh_tmt = new Behaviour_TimeOut());
+    usesBehaviour(BHV_BALLRECEPTOR, _bh_brp = new Behaviour_BallReceptor());
 }
 
 void Role_Default::configure(){
-    // Aqui são setados parametros que devem ser configurados
+    _isPassComing = false;
 }
 
 void Role_Default::run(){
@@ -50,7 +50,8 @@ void Role_Default::run(){
     //switch(getActualBehaviour()){
     //case BHV_DONOTHING:{
         //if(player()->position().x() >= 0)
-    setBehaviour(BHV_DONOTHING);
+    if (_isPassComing) setBehaviour(BHV_BALLRECEPTOR);
+    else setBehaviour(BHV_TIMEOUT);
     //}
     //break;
     //case BHV_BARRIER:{
@@ -59,4 +60,10 @@ void Role_Default::run(){
     //break;
     //}
 
+}
+
+void Role_Default::receivePassId(int passId) {
+    if (passId == player()->playerId()) {
+        _isPassComing = true;
+    } else _isPassComing = false;
 }

@@ -34,6 +34,7 @@ private:
     Behaviour_Receiver *_bh_rcv;
     Behaviour_Attacker *_bh_atk;
     Behaviour_DoNothing *_bh_dnt;
+    Behaviour_BallReceptor *_bh_brp;
 
     // Behaviours ids!
     enum{
@@ -41,7 +42,8 @@ private:
         BHV_MARKPLAYER,
         BHV_RECEIVER,
         BHV_ATTACKER,
-        BHV_DONOTHING
+        BHV_DONOTHING,
+        BHV_BALLRECEPTOR
     };
 
     // Inherited functions
@@ -51,6 +53,7 @@ private:
     //Global variables
     float standardDistance;
     bool markChoice;
+    bool _isPassComing;
 
     // Auxiliary functions
     bool ourTeamPossession();
@@ -63,6 +66,7 @@ signals:
 public slots:
     void receiveAttackerID(int id);
     void receiveMarkInformation(float distance);
+    void receivePassId(int passId);
 
 public:
     Role_SecondStriker();

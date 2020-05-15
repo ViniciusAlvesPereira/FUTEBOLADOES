@@ -28,14 +28,19 @@
 class Role_Default : public Role {
 private:
     // Behaviours
-    Behaviour_DoNothing *_bh_dn;
-    //Behaviour_Attacker *_bh_def;
+    //Behaviour_DoNothing *_bh_dn;
+    Behaviour_TimeOut *_bh_tmt;
+    Behaviour_BallReceptor *_bh_brp;
 
     // Behaviours ids!
     enum{
-        BHV_DONOTHING
-        //BHV_BARRIER
+        //BHV_DONOTHING
+        BHV_TIMEOUT,
+        BHV_BALLRECEPTOR
     };
+
+    //Parameters
+    bool _isPassComing;
 
     // Inherited functions
     void configure();
@@ -43,6 +48,9 @@ private:
 
     // Mutex
     QMutex _mutex;
+
+public slots:
+    void receivePassId(int passId);
 
 public:
     Role_Default();

@@ -41,6 +41,7 @@ SOURCES += \
     entity/coachview/soccerview/soccerview.cpp \
     entity/coachview/soccerview/util/field.cpp \
     entity/entity.cpp \
+    entity/player/behaviour/basics/behaviour_ballreceptor.cpp \
     entity/player/behaviour/basics/behaviour_goalkeeper.cpp \
     entity/player/behaviour/basics/behaviour_markball.cpp \
     entity/player/behaviour/basics/behaviour_penalty_cf.cpp \
@@ -131,7 +132,6 @@ SOURCES += \
     entity/player/behaviour/basics/behaviour_penalty_gk.cpp \
     entity/player/behaviour/basics/behaviour_cover.cpp \
     entity/player/behaviour/basics/behaviour_passing.cpp \
-    entity/player/skills/basics/skill_pushball.cpp \
     entity/player/role/role.cpp \
     entity/player/role/basics/role_default.cpp \
     entity/player/role/basics/role_def_midfielder.cpp \
@@ -158,6 +158,7 @@ HEADERS += \
     entity/coachview/soccerview/util/timer.h \
     entity/coachview/soccerview/util/util.h \
     entity/entity.h \
+    entity/player/behaviour/basics/behaviour_ballreceptor.h \
     entity/player/navigation/fpp/fastpathplanning.h \
     entity/player/navigation/navalgorithm.h \
     entity/player/navigation/navigation.h \
@@ -253,7 +254,6 @@ HEADERS += \
     entity/player/behaviour/basics/behaviour_penalty_gk.h \
     entity/player/behaviour/basics/behaviour_cover.h \
     entity/player/behaviour/basics/behaviour_passing.h \
-    entity/player/skills/basics/skill_pushball.h \
     entity/player/role/role.h \
     entity/player/role/basics/role_default.h \
     entity/player/role/basics/role_def_midfielder.h \
