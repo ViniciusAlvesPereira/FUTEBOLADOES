@@ -79,8 +79,11 @@ void World::initialization() {
         QList<Entity*> ents = entities->values();
         // Start entity thread
         for(QList<Entity*>::const_iterator ie=ents.constBegin(); ie!=ents.constEnd(); ie++) {
-            if ((*ie)->entityType() == EntityType::ENT_GUI) (*ie)->setLoopFrequency(MRCConstants::threadFrequency()/2);
-            else (*ie)->setLoopFrequency(MRCConstants::threadFrequency());
+            if((*ie)->entityType() == EntityType::ENT_GUI)
+                (*ie)->setLoopFrequency(MRCConstants::guiUpdateFrequency());
+             else
+                (*ie)->setLoopFrequency(MRCConstants::threadFrequency());
+
             (*ie)->start();
         }
     }

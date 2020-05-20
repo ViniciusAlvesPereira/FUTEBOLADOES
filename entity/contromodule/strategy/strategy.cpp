@@ -30,6 +30,7 @@ Strategy::Strategy()
     _lastState = SSLGameInfo::STATE_UNDEFINED;
     _initialized = false;
     _dist = NULL;
+    _lastStrategy = NULL;
 }
 
 Strategy::~Strategy(){
@@ -73,6 +74,8 @@ void Strategy::runStrategy(int gameState, SSLGameInfo::RefProcessedState refStat
     if(strategyState!=NULL) {
         if(strategyState->isInitialized()==false)
             strategyState->initialize(_ourTeam, _theirTeam, _utils, _dist, &_kickerId, &_lastState, _ref);
+
+        _lastStrategy = strategyState;
         strategyState->runStrategyState();
     }
 }

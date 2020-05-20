@@ -82,17 +82,24 @@ bool Suassuna::start() {
     _coach = new Coach(_ref, _ourTeam, _theirTeam);
     _world->setControlModule(_coach);
 
-    // Setup GUI
-    //_ourGUI->setTeams(_ourTeam, _theirTeam);
-    //_ourGUI->setCoach(_coach);
-    //_ourGUI->setReferee(_ref);
-    //_world->addEntity(_ourGUI, 2);
-
     // Setup strategy for coach
     Strategy *strategy = NULL;
     strategy = new MRCStrategy();
     _coach->setStrategy(strategy);
 
+    // Setup GUI
+    _ourGUI->setTeams(_ourTeam, _theirTeam);
+    _ourGUI->setCoach(_coach);
+    _ourGUI->setReferee(_ref);
+    _world->addEntity(_ourGUI, 3);
+/*
+    // Setup ball prediction
+    _ballPred = new BallPrediction();
+    _ballPred->setTeam(_ourTeam);
+    _ballPred->setMinDataSize(50);
+    _ballPred->setMinVelocity(0.3);
+    _world->addEntity(_ballPred, 2);
+*/
     FreeAngles::initialize(_ourTeam, _theirTeam);
 
     // Start world
@@ -170,6 +177,7 @@ void Suassuna::setupOurPlayers() {
         _world->addEntity(player, 2);
     }
 }
+
 void Suassuna::setupOppPlayers(quint8 opTeamId) {
     // Create opp. players
     const QList<quint8> opPlayerList = _world->getWorldMap()->players(opTeamId);
