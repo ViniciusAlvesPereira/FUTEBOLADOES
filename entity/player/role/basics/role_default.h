@@ -26,16 +26,17 @@
 #include <entity/player/role/role.h>
 
 class Role_Default : public Role {
+    Q_OBJECT
 private:
     // Behaviours
-    //Behaviour_DoNothing *_bh_dn;
-    Behaviour_TimeOut *_bh_tmt;
+    Behaviour_DoNothing *_bh_dn;
+    //Behaviour_TimeOut *_bh_tmt;
     Behaviour_BallReceptor *_bh_brp;
 
     // Behaviours ids!
     enum{
-        //BHV_DONOTHING
-        BHV_TIMEOUT,
+        BHV_DONOTHING,
+        //BHV_TIMEOUT,
         BHV_BALLRECEPTOR
     };
 

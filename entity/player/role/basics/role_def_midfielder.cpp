@@ -50,7 +50,7 @@ void Role_Def_Midfielder::run(){
         int idWithPoss = playerWithPoss(ourPoss);
         if (idWithPoss == BALLPOSS_NONE) {
             if (_isPassComing == true) setBehaviour(BHV_BALLRECEPTOR);
-            else setBehaviour(BHV_DONOTHING);
+            else if (previousPoss == true) setBehaviour(BHV_DONOTHING);
         } else {
             if (PlayerBus::theirPlayer(idWithPoss)->distanceTo(player()->position()) < 1.0) {
                 setBehaviour(BHV_MARKBALL);
@@ -114,5 +114,6 @@ int Role_Def_Midfielder::playerWithPoss(bool ourPoss) {
 void Role_Def_Midfielder::receivePassId(int passId) {
     if (passId == player()->playerId()) {
         _isPassComing = true;
+        std::cout << "[DMF] Aqui!\n";
     } else _isPassComing = false;
 }

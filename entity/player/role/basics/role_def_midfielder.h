@@ -26,6 +26,7 @@
 #include <entity/player/role/role.h>
 
 class Role_Def_Midfielder : public Role {
+    Q_OBJECT
 private:
     // Behaviours
     Behaviour_Barrier *_bh_brr;

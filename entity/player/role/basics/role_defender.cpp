@@ -49,7 +49,7 @@ void Role_Defender::run(){
         int idWithPoss = playerWithPoss(ourPoss);
         if (idWithPoss == BALLPOSS_NONE) {
             if (_isPassComing == true) setBehaviour(BHV_BALLRECEPTOR);
-            else setBehaviour(BHV_DONOTHING);
+            else if (previousPoss == true) setBehaviour(BHV_DONOTHING);
         } else {
             setBehaviour(BHV_BARRIER);
             previousPoss = false;
@@ -108,5 +108,6 @@ int Role_Defender::playerWithPoss(bool ourPoss) {
 void Role_Defender::receivePassId(int passId) {
     if (passId == player()->playerId()) {
         _isPassComing = true;
+        std::cout << "[DF] Aqui!\n";
     } else _isPassComing = false;
 }

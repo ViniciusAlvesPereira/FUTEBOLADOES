@@ -26,6 +26,7 @@
 #include <entity/player/role/role.h>
 
 class Role_Defender : public Role {
+    Q_OBJECT
 private:
     // Behaviours
     Behaviour_Cover *_bh_cvr;

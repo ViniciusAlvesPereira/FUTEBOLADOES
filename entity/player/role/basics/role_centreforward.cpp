@@ -55,8 +55,8 @@ void Role_CentreForward::run(){
     if (ourPoss == false) {
         int idWithPoss = playerWithPoss(ourPoss);
         if (idWithPoss == BALLPOSS_NONE) {
-            if (previousPoss == true) setBehaviour(BHV_BALLRECEPTOR );
-            else setBehaviour(BHV_DONOTHING);
+            if (_isPassComing == true) setBehaviour(BHV_BALLRECEPTOR);
+            else if (previousPoss == true) setBehaviour(BHV_DONOTHING);
         } else {
             if (PlayerBus::theirPlayer(idWithPoss)->distanceTo(player()->position()) < 1.0) {
                 setBehaviour(BHV_MARKBALL);
@@ -141,5 +141,6 @@ void Role_CentreForward::receiveMarkInformation(float distance) {
 void Role_CentreForward::receivePassId(int passId) {
     if (passId == player()->playerId()) {
         _isPassComing = true;
+        std::cout << "[CF] Aqui!\n";
     } else _isPassComing = false;
 }

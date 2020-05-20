@@ -88,10 +88,10 @@ bool Suassuna::start() {
     _coach->setStrategy(strategy);
 
     // Setup GUI
-    _ourGUI->setTeams(_ourTeam, _theirTeam);
-    _ourGUI->setCoach(_coach);
-    _ourGUI->setReferee(_ref);
-    _world->addEntity(_ourGUI, 3);
+    //_ourGUI->setTeams(_ourTeam, _theirTeam);
+    //_ourGUI->setCoach(_coach);
+    //_ourGUI->setReferee(_ref);
+    //_world->addEntity(_ourGUI, 3);
 /*
     // Setup ball prediction
     _ballPred = new BallPrediction();

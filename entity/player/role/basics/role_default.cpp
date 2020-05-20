@@ -31,7 +31,7 @@ Role_Default::Role_Default() {
 void Role_Default::initializeBehaviours(){
     // Aqui são inseridos os behaviours possíveis de serem usados
     // na ordem: ID do behaviour, instanciação dele
-    usesBehaviour(BHV_TIMEOUT, _bh_tmt = new Behaviour_TimeOut());
+    usesBehaviour(BHV_DONOTHING, _bh_dn = new Behaviour_DoNothing());
     usesBehaviour(BHV_BALLRECEPTOR, _bh_brp = new Behaviour_BallReceptor());
 }
 
@@ -51,7 +51,7 @@ void Role_Default::run(){
     //case BHV_DONOTHING:{
         //if(player()->position().x() >= 0)
     if (_isPassComing) setBehaviour(BHV_BALLRECEPTOR);
-    else setBehaviour(BHV_TIMEOUT);
+    else setBehaviour(BHV_DONOTHING);
     //}
     //break;
     //case BHV_BARRIER:{
@@ -66,5 +66,6 @@ void Role_Default::run(){
 void Role_Default::receivePassId(int passId) {
     if (passId == player()->playerId()) {
         _isPassComing = true;
+        std::cout << "[Default] Aqui!\n";
     } else _isPassComing = false;
 }
