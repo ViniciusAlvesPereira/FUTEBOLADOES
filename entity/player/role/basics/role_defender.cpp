@@ -48,8 +48,10 @@ void Role_Defender::run(){
     if (ourPoss == false) {
         int idWithPoss = playerWithPoss(ourPoss);
         if (idWithPoss == BALLPOSS_NONE) {
-            if (_isPassComing == true) setBehaviour(BHV_BALLRECEPTOR);
-            else if (previousPoss == true) setBehaviour(BHV_DONOTHING);
+            if (_isPassComing == true) {
+                _bh_brp->setPlayerId(player()->playerId());
+                setBehaviour(BHV_BALLRECEPTOR);
+            } else if (previousPoss == true) setBehaviour(BHV_DONOTHING);
         } else {
             setBehaviour(BHV_BARRIER);
             previousPoss = false;

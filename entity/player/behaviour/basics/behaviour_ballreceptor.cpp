@@ -29,9 +29,19 @@ Behaviour_BallReceptor::Behaviour_BallReceptor() {
 }
 
 void Behaviour_BallReceptor::configure() {
-    usesSkill(_sk_rotateto = new Skill_RotateTo());
+    //usesSkill(_sk_rotateto = new Skill_RotateTo());
+    usesSkill(_sk_gotolookto = new Skill_GoToLookTo());
 };
 
 void Behaviour_BallReceptor::run() {
-    _sk_rotateto->setDesiredPosition(loc()->ball());
+    const Position velocity(true, loc()->ballVelocity().x(), loc()->ballVelocity().y(), 0.0);
+    float horizontalDistance = PlayerBus::ourPlayer(_id)->position().x() - loc()->ball().x();
+    float verticalDistance = PlayerBus::ourPlayer(_id)->position().y() - loc()->ball().y();
+
+    //Orthogonal Projection
+    float fon = (horizontalDistance * velocity.x() + verticalDistance * velocity.y()) / (pow(horizontalDistance, 2) + pow(verticalDistance, 2));
+    Position desiredPosition(true, loc()->ball().x() + fon * velocity.x(), loc()->ball().y() + fon * velocity.y(), 0.0);
+
+    _sk_gotolookto->setDesiredPosition(desiredPosition);
+    _sk_gotolookto->setAimPosition(loc()->ball());
 }

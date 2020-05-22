@@ -55,8 +55,10 @@ void Role_SecondStriker::run(){
     if (ourPoss == false) {
         int idWithPoss = playerWithPoss(ourPoss);
         if (idWithPoss == BALLPOSS_NONE) {
-            if (_isPassComing == true) setBehaviour(BHV_BALLRECEPTOR);
-            else if (previousPoss == true) setBehaviour(BHV_DONOTHING);
+            if (_isPassComing == true) {
+                _bh_brp->setPlayerId(player()->playerId());
+                setBehaviour(BHV_BALLRECEPTOR);
+            } else if (previousPoss == true) setBehaviour(BHV_DONOTHING);
         } else {
             if (PlayerBus::theirPlayer(idWithPoss)->distanceTo(player()->position()) < 1.0) {
                 setBehaviour(BHV_MARKBALL);

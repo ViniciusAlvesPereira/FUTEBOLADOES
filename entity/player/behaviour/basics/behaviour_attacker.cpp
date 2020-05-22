@@ -63,7 +63,7 @@ void Behaviour_Attacker::run() {
     case STATE_PUSH:{
         enableTransition(2);
         _bestReceiver = RECEIVER_INVALID_ID;
-        _kickPosition = loc()->ourGoal();
+        _kickPosition = loc()->theirGoal();
 
         Position bestKickPosition = getBestKickPosition();
         if(!bestKickPosition.isUnknown()){ // checar isso dps
@@ -169,9 +169,9 @@ bool Behaviour_Attacker::isBehindBall(Position posObjective){
 }
 
 Position Behaviour_Attacker::getBestKickPosition(){
-    const Position goalRightPost = loc()->ourGoalRightPost();
-    const Position goalLeftPost = loc()->ourGoalLeftPost();
-    const Position goalCenter = loc()->ourGoal();
+    const Position goalRightPost = loc()->theirGoalRightPost();
+    const Position goalLeftPost = loc()->theirGoalLeftPost();
+    const Position goalCenter = loc()->theirGoal();
 
     // calculating angles
     float minAngle = WR::Utils::getAngle(loc()->ball(), goalRightPost);

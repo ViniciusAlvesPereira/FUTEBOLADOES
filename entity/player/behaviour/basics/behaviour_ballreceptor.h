@@ -31,11 +31,17 @@ private:
     void run();
     int _state;
 
+    //Parameters
+    int _id;
+
     //Skills
-    Skill_RotateTo *_sk_rotateto;
+    //Skill_RotateTo *_sk_rotateto;
+    Skill_GoToLookTo *_sk_gotolookto;
 public:
     Behaviour_BallReceptor();
     QString name();
+
+    void setPlayerId (int id) { _id = id; }
 };
 
 #endif // BEHAVIOUR_BALLRECEPTOR_H

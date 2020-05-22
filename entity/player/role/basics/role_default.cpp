@@ -50,8 +50,10 @@ void Role_Default::run(){
     //switch(getActualBehaviour()){
     //case BHV_DONOTHING:{
         //if(player()->position().x() >= 0)
-    if (_isPassComing) setBehaviour(BHV_BALLRECEPTOR);
-    else setBehaviour(BHV_DONOTHING);
+    if (_isPassComing) {
+        _bh_brp->setPlayerId(player()->playerId());
+        setBehaviour(BHV_BALLRECEPTOR);
+    } else setBehaviour(BHV_DONOTHING);
     //}
     //break;
     //case BHV_BARRIER:{
