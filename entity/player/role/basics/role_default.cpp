@@ -40,6 +40,7 @@ void Role_Default::configure(){
 }
 
 void Role_Default::run(){
+    _mutex.lock();
     /*
      * Aqui devem ocorrer os sets de parametros de acordo com o behaviour
      * que estiver sendo executado, de preferencia declare todos os parametros
@@ -62,12 +63,14 @@ void Role_Default::run(){
     //break;
     //}
 
-
+    _mutex.unlock();
 }
 
 void Role_Default::receivePassId(int passId) {
+    _mutex.lock();
     if (passId == player()->playerId()) {
         _isPassComing = true;
-        std::cout << "[Default] Aqui!\n";
-    } else _isPassComing = false;
+        //std::cout << "[Default] Aqui!\n";
+    } //else _isPassComing = false;
+    _mutex.unlock();
 }

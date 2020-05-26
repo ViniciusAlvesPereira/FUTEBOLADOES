@@ -52,6 +52,8 @@ public:
     // algoritmos de controle básicos ficam aqui
     void idle();
 
+    QMutex _mutex;
+
     // Auxiliary methods
     // Position
     Position position() const;

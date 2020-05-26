@@ -40,6 +40,9 @@ private:
     // Functions
     int getBestPassOption(Position &watcher);
 
+    //Mutex
+    QMutex _mutex;
+
 public:
     Behaviour_Passing();
     QString name();

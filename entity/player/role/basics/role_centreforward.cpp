@@ -49,6 +49,7 @@ void Role_CentreForward::configure(){
 }
 
 void Role_CentreForward::run(){
+    _mutex.unlock();
     bool ourPoss = ourTeamPossession();
     static bool previousPoss = false;
 
@@ -97,6 +98,7 @@ void Role_CentreForward::run(){
             previousPoss = true;
         }
     }
+    _mutex.unlock();
 }
 
 bool Role_CentreForward::ourTeamPossession() {
@@ -141,8 +143,10 @@ void Role_CentreForward::receiveMarkInformation(float distance) {
 }
 
 void Role_CentreForward::receivePassId(int passId) {
+    _mutex.lock();
     if (passId == player()->playerId()) {
         _isPassComing = true;
-        std::cout << "[CF] Aqui!\n";
-    } else _isPassComing = false;
+        //std::cout << "[CF] Aqui!\n";
+    } //else _isPassComing = false;
+    _mutex.unlock();
 }

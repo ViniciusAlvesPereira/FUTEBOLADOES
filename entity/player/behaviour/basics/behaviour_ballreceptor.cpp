@@ -34,6 +34,7 @@ void Behaviour_BallReceptor::configure() {
 };
 
 void Behaviour_BallReceptor::run() {
+    //std::cout << "Suga-me!\n";
     const Position velocity(true, loc()->ballVelocity().x(), loc()->ballVelocity().y(), 0.0);
     float horizontalDistance = PlayerBus::ourPlayer(_id)->position().x() - loc()->ball().x();
     float verticalDistance = PlayerBus::ourPlayer(_id)->position().y() - loc()->ball().y();

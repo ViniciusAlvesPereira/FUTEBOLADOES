@@ -50,6 +50,9 @@ private:
     void configure();
     void run();
 
+    //Mutex
+    QMutex _mutex;
+
     //Global variables
     float standardDistance;
     bool markChoice;

@@ -35,6 +35,7 @@ void Behaviour_Passing::configure() {
 };
 
 void Behaviour_Passing::run() {
+    _mutex.lock();
     Position playerPosition = PlayerBus::ourPlayer(_id)->position();
     passId = getBestPassOption(playerPosition);
     //printf("Id escolhido: %i\n", passId);
@@ -47,9 +48,11 @@ void Behaviour_Passing::run() {
         _skill_kick->setAim(passDestination);
         _skill_kick->setZPower(0.0);
     }
+    _mutex.unlock();
 }
 
 int Behaviour_Passing::getBestPassOption(Position &watcher) {
+    _mutex.lock();
     float minAngle, maxAngle;
     if (loc()->ourGoal().x() < 0) {
         minAngle = WR::Utils::getAngle(loc()->ball(), Position(true, -3.0, 3.0, 0.0));
@@ -111,4 +114,5 @@ int Behaviour_Passing::getBestPassOption(Position &watcher) {
             return idChoice;
         }
     }
+    _mutex.unlock();
 }

@@ -116,6 +116,6 @@ int Role_Def_Midfielder::playerWithPoss(bool ourPoss) {
 void Role_Def_Midfielder::receivePassId(int passId) {
     if (passId == player()->playerId()) {
         _isPassComing = true;
-        std::cout << "[DMF] Aqui!\n";
-    } else _isPassComing = false;
+        //std::cout << "[DMF] Aqui!\n";
+    } //else _isPassComing = false;
 }

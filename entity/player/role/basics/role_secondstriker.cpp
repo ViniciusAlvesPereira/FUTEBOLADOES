@@ -143,6 +143,6 @@ void Role_SecondStriker::receiveMarkInformation(float distance) {
 void Role_SecondStriker::receivePassId(int passId) {
     if (passId == player()->playerId()) {
         _isPassComing = true;
-        std::cout << "[SS] Aqui!\n";
-    } else _isPassComing = false;
+        //std::cout << "[SS] Aqui!\n";
+    } //else _isPassComing = false;
 }

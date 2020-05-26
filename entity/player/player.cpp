@@ -269,6 +269,7 @@ void Player::idle(){
 }
 
 void Player::setSpeed(float x, float y, float theta) {
+    _mutex.lock();
 
     float currSpeedAbs = sqrt(pow(x, 2) + pow(y, 2));
     float incSpeedAbs = currSpeedAbs - _lastSpeedAbs;
@@ -303,6 +304,7 @@ void Player::setSpeed(float x, float y, float theta) {
     _ctr->setSpeed((int)_team->teamId(), (int)playerId(), x, y, theta);
     _ctr->kick(_team->teamId(), playerId(), 0.0);
 
+    _mutex.unlock();
 }
 
 std::pair<float, float> Player::goTo(Position targetPosition, double offset){
@@ -478,6 +480,7 @@ void Player::aroundTheBall(Position targetPosition, double offset, double offset
 }
 
 void Player::kick(bool isPass, float kickZPower){
+    _mutex.lock();
     if(isPass){
         _ctr->kick(_team->teamId(), playerId(), 2.0);
         if(kickZPower > 0.0){
@@ -490,6 +493,7 @@ void Player::kick(bool isPass, float kickZPower){
             _ctr->chipKick(_team->teamId(), playerId(), 6.0); // rever esse power dps
         }
     }
+    _mutex.unlock();
 }
 
 void Player::setGoal(Position pos){
@@ -501,7 +505,9 @@ QList<Position> Player::getPath() const {
 }
 
 void Player::dribble(bool isActive){
+    _mutex.lock();
     _ctr->holdBall(_team->teamId(), playerId(), isActive);
+    _mutex.unlock();
 }
 
 Position Player::getKalmanPredict(){
