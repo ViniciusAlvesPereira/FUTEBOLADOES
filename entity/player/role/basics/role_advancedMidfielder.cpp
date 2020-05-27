@@ -25,7 +25,7 @@ void Role_AdvancedMidfielder::configure(){
 }
 
 bool Role_AdvancedMidfielder::ourTeamPossession() {
-    for (quint8 i = 0; i < 6; i++) {
+    for (quint8 i = 0; i < 11; i++) {
         if(PlayerBus::ourPlayerAvailable(i)){
             float distanceToBall = PlayerBus::ourPlayer(i)->distanceTo(loc()->ball());
             if (distanceToBall < 0.3) {
@@ -47,30 +47,31 @@ bool Role_AdvancedMidfielder::ourPlayerPoss() {
 
 }
 
-bool Role_AdvancedMidfielder:: nearestPlayer(){
+bool Role_AdvancedMidfielder::ourPlayerDist(){
 
-    float _distMin[6];
-    float _distActualPlayer;
+    float _distMin[11];
+    float _distSecondStriker;
+    quint8 _ourPlayerID = player()->playerId();
 
-    for(quint8 i = 0; i < 6; i++){
-        if(PlayerBus::ourPlayerAvailable(i) && i != player()->playerId()){
+    for(quint8 i = 0; i < 11; i++){
+        if(PlayerBus::ourPlayerAvailable(i) && i != _ourPlayerID){
             _distMin[i] = WR::Utils::distance(loc()->ball(), PlayerBus::ourPlayer(i)->position());
+            //std::cout<<"Distancia: "<<_distMin[i]<<"PlayerId: "<<(int)i<<std::endl;
         }
         else{
-            _distMin[i] = 100;
+            _distMin[i] = 1000;
         }
     }
 
-    _distActualPlayer = WR::Utils::distance(loc()->ball(), player()->position());
-
-    for(int i = 0; i < 6; i++){
-        if(_distActualPlayer > _distMin[i]){
-            return false;
-        }
+    _distSecondStriker = WR::Utils::distance(loc()->ball(),player()->position());
+    for(int i = 0; i <11 ; i++){
+       if(_distSecondStriker > _distMin[i]){
+           return false;
+       }
     }
+
     return true;
 }
-
 void Role_AdvancedMidfielder::run(){
     /*
      * Aqui devem ocorrer os sets de parametros de acordo com o behaviour
@@ -79,18 +80,38 @@ void Role_AdvancedMidfielder::run(){
      * set presentes neles)
     */
 
+    //if(nearestPlayer())
+      //  std::cout<<"Mais proximo"<<std::endl;
+
+    //Até aqui tá indo nenhum erro até agora
+
+    _ourPoss = ourTeamPossession();
+    if(playerWithPoss(_ourPoss)!=BALLPOSS_NONE && !_ourPoss)
+        _theirPoss = true;
+    else
+        _theirPoss = false;
 
     switch(getActualBehaviour()){
 
     case BHV_MARKBALL:{
         _actualState = getActualBehaviour();
+        _ourPoss = ourTeamPossession();
+        if(playerWithPoss(_ourPoss)!=BALLPOSS_NONE && !_ourPoss)
+            _theirPoss = true;
+
 
         if(ourTeamPossession()){
             if(ourPlayerPoss()){
+                emit sendAttackerID(player()->playerId());
                 setBehaviour(BHV_ATTACKER);
             }
             else{
                 setBehaviour(BHV_RECEIVER);
+            }
+        }
+        if(!_theirPoss){
+            if(playerWithPoss(_ourPoss) == BALLPOSS_NONE && !ourPlayerDist()){
+                setBehaviour(BHV_DONOTHING);
             }
         }
     }
@@ -101,11 +122,20 @@ void Role_AdvancedMidfielder::run(){
 
         //_bh_re->setAttackerId(1);
 
-        if(!ourTeamPossession() && nearestPlayer())
+        if(_theirPoss)
             setBehaviour(BHV_MARKBALL);
 
-        if(ourPlayerPoss())
+        if(playerWithPoss(_ourPoss) == BALLPOSS_NONE){
+            if(ourPlayerDist())
+                setBehaviour(BHV_MARKBALL);
+            else
+                setBehaviour(BHV_DONOTHING);
+        }
+
+        if(ourPlayerPoss()){
+            emit sendAttackerID(player()->playerId());
             setBehaviour(BHV_ATTACKER);
+        }
 
     }
     break;
@@ -114,12 +144,20 @@ void Role_AdvancedMidfielder::run(){
         _actualState = getActualBehaviour();
         emit sendAttackerID(player()->playerId());
 
-        if(!ourTeamPossession()){
-            setBehaviour(BHV_MARKBALL);
+        if(playerWithPoss(_ourPoss) == BALLPOSS_NONE){
+            if(ourPlayerDist())
+                setBehaviour(BHV_MARKBALL);
+            else
+                setBehaviour(BHV_DONOTHING);
         }
+
         if(ourTeamPossession()){
             if(!ourPlayerPoss())
             setBehaviour(BHV_RECEIVER);
+        }
+        else{
+            if(_theirPoss)
+                setBehaviour(BHV_MARKBALL);
         }
 
     }
@@ -127,6 +165,13 @@ void Role_AdvancedMidfielder::run(){
 
     case BHV_DONOTHING:{
         _actualState = getActualBehaviour();
+
+        if(ourTeamPossession())
+            setBehaviour(BHV_RECEIVER);
+        else{
+            if(ourPlayerDist() || _theirPoss)
+                setBehaviour(BHV_MARKBALL);
+        }
 
     }
     break;
@@ -143,6 +188,30 @@ void Role_AdvancedMidfielder::run(){
         if(_actualState == BHV_DONOTHING){ std::cout<<"\n Behaviour Donothing - PlayerId:"<< _actualPayer<<std::endl; }
          _beforeState = _actualState;
     }
+}
+
+int Role_AdvancedMidfielder::playerWithPoss(bool ourPoss) {
+    if (ourPoss == true) {
+        for (quint8 i = 0; i < 11; i++) {
+            if(PlayerBus::ourPlayerAvailable(i)){
+                float distanceToBall = PlayerBus::ourPlayer(i)->distanceTo(loc()->ball());
+                if(distanceToBall < 0.3){
+                    return i;
+                }
+            }
+        }
+    } else {
+        for (quint8 i = 0; i < 11; i++) {
+            if(PlayerBus::theirPlayerAvailable(i)){
+                float distanceToBall = PlayerBus::theirPlayer(i)->distanceTo(loc()->ball());
+                if(distanceToBall < 0.3){
+                    return i;
+                }
+            }
+        }
+    }
+    //std::cout<<"BallPos_None"<<std::endl;
+    return BALLPOSS_NONE;
 }
 
 void Role_AdvancedMidfielder::receiveAttackerID(quint8 id) {

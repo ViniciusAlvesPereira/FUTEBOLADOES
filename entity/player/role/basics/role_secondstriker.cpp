@@ -111,13 +111,16 @@ bool Role_SecondStriker::ourTeamPossession() {
             }
         }
     } else {
-        for (quint8 i = 0; i < 6; i++) {
-            float distanceToBall = PlayerBus::theirPlayer(i)->distanceTo(loc()->ball());
-            if(distanceToBall < 0.3){
-                return i;
+        for (quint8 i = 0; i < 11; i++) {
+            if(PlayerBus::theirPlayerAvailable(i)){
+                float distanceToBall = PlayerBus::theirPlayer(i)->distanceTo(loc()->ball());
+                if(distanceToBall < 0.3){
+                    return i;
+                }
             }
         }
     }
+    //std::cout<<"BallPos_None"<<std::endl;
     return BALLPOSS_NONE;
 }
 

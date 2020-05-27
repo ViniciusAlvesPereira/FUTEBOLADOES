@@ -15,6 +15,8 @@ private:
     int _beforeState;
     int _actualPayer;
     bool _ourPlayer;
+    bool _ourPoss;
+    bool _theirPoss;
     Position _receveirPosition;
 
     // Skills
@@ -44,7 +46,8 @@ private:
     //Time com posse de bola
     bool ourTeamPossession();
     bool ourPlayerPoss();
-    bool nearestPlayer();
+    int playerWithPoss(bool ourPoss);
+    bool ourPlayerDist();
 
 signals:
     void sendAttackerID(quint8 id);

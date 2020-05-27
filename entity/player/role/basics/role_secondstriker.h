@@ -33,6 +33,8 @@ private:
     int _beforeState;
     int _actualPlayer;
     bool _ourPlayer;
+    bool _ourPoss;
+    bool _theirPoss;
     Position _receveirPosition;
     //quint8 _ourPlayerID;
     //float _distMin[6];
