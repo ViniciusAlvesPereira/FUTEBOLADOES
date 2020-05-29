@@ -66,12 +66,14 @@ void Role_CentreForward::run(){
                 previousPoss = false;
             } else {
                 QList<marking> markOptions;
-                for (int i = 0; i < 6; i++) {
-                    if (i != idWithPoss) {
-                        marking fon;
-                        fon.distance = PlayerBus::theirPlayer(i)->distanceTo(PlayerBus::theirPlayer(idWithPoss)->position());
-                        fon.id = i;
-                        markOptions.push_back(fon);
+                for (int i = 0; i < MRCConstants::_qtPlayers; i++) {
+                    if (PlayerBus::theirPlayerAvailable(i)) {
+                        if (i != idWithPoss) {
+                            marking fon;
+                            fon.distance = PlayerBus::theirPlayer(i)->distanceTo(PlayerBus::theirPlayer(idWithPoss)->position());
+                            fon.id = i;
+                            markOptions.push_back(fon);
+                        }
                     }
                 }
                 for (int x = 0; x < markOptions.size() - 1; x++) {
@@ -102,10 +104,12 @@ void Role_CentreForward::run(){
 }
 
 bool Role_CentreForward::ourTeamPossession() {
-    for (quint8 i = 0; i < 6; i++) {
-        float distanceToBall = PlayerBus::ourPlayer(i)->distanceTo(loc()->ball());
-        if (distanceToBall < 0.3) {
-            return true;
+    for (quint8 i = 0; i < MRCConstants::_qtPlayers; i++) {
+        if (PlayerBus::ourPlayerAvailable(i)) {
+            float distanceToBall = PlayerBus::ourPlayer(i)->distanceTo(loc()->ball());
+            if(distanceToBall < 0.3){
+                return true;
+            }
         }
     }
     return false;
@@ -113,17 +117,21 @@ bool Role_CentreForward::ourTeamPossession() {
 
 int Role_CentreForward::playerWithPoss(bool ourPoss) {
     if (ourPoss == true) {
-        for (quint8 i = 0; i < 6; i++) {
-            float distanceToBall = PlayerBus::ourPlayer(i)->distanceTo(loc()->ball());
-            if(distanceToBall < 0.3){
-                return i;
+        for (quint8 i = 0; i < MRCConstants::_qtPlayers; i++) {
+            if (PlayerBus::ourPlayerAvailable(i)) {
+                float distanceToBall = PlayerBus::ourPlayer(i)->distanceTo(loc()->ball());
+                if(distanceToBall < 0.3){
+                    return i;
+                }
             }
         }
     } else {
-        for (quint8 i = 0; i < 6; i++) {
-            float distanceToBall = PlayerBus::theirPlayer(i)->distanceTo(loc()->ball());
-            if(distanceToBall < 0.3){
-                return i;
+        for (quint8 i = 0; i < MRCConstants::_qtPlayers; i++) {
+            if (PlayerBus::theirPlayerAvailable(i)) {
+                float distanceToBall = PlayerBus::theirPlayer(i)->distanceTo(loc()->ball());
+                if(distanceToBall < 0.3){
+                    return i;
+                }
             }
         }
     }
@@ -147,6 +155,6 @@ void Role_CentreForward::receivePassId(int passId) {
     if (passId == player()->playerId()) {
         _isPassComing = true;
         //std::cout << "[CF] Aqui!\n";
-    } //else _isPassComing = false;
+    } else _isPassComing = false;
     _mutex.unlock();
 }

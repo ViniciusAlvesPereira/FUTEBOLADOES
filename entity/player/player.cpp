@@ -271,7 +271,7 @@ void Player::idle(){
 void Player::setSpeed(float x, float y, float theta) {
     _mutex.lock();
 
-    float currSpeedAbs = sqrt(pow(x, 2) + pow(y, 2));
+    /*float currSpeedAbs = sqrt(pow(x, 2) + pow(y, 2));
     float incSpeedAbs = currSpeedAbs - _lastSpeedAbs;
     float maxAcc = 0.5;
 
@@ -282,7 +282,7 @@ void Player::setSpeed(float x, float y, float theta) {
         y = newSpeed * sin(angle);
     }
 
-    _lastSpeedAbs = sqrt(pow(x, 2) + pow(y, 2));
+    _lastSpeedAbs = sqrt(pow(x, 2) + pow(y, 2));*/
 
     // watchdog on speed
     WR::Utils::limitValue(&x, -2.5, 2.5);
@@ -332,8 +332,8 @@ std::pair<float, float> Player::goTo(Position targetPosition, double offset){
 
     // inverte pra dar frenagem
     if(moduloDistancia <= offset){
-        vxSaida *= -1;
-        vySaida *= -1;
+        vxSaida *= 0.0;         //Interssante colocr 0.0 na simulação para frenagem efetiva
+        vySaida *= 0.0;         //Interssante colocr 0.0 na simulação para frenagem efetiva
     }
 
     float newVX = _vxPID->calculate(vxSaida, velocity().x());
@@ -387,11 +387,11 @@ std::pair<double, double> Player::rotateTo(Position targetPosition, double offse
             if(angleRobot2Ball < 0.0){
                 if (speed != 0.0 && angleRobot2Ball < 0.2) speed = -minValue;    //Inverte a velocidade para frenagem
                 else speed = minValue;
-                speed = minValue;
+                //speed = minValue;
             }else{
                 if (speed != 0.0 && angleRobot2Ball < 0.2) speed = minValue;     //Inverte a velocidade para frenagem
                 else speed = -minValue;
-                speed = -minValue;
+                //speed = -minValue;
             }
         }else{
             if(angleRobot2Ball < 0.0){
@@ -408,40 +408,13 @@ std::pair<double, double> Player::rotateTo(Position targetPosition, double offse
 
     double newSpeed = _vwPID->calculate(speed, angularSpeed().value());
 
-    if(angleRobot2Ball <= offset){
-        return std::make_pair(angleRobot2Ball, -newSpeed);
-    }
-
     return std::make_pair(angleRobot2Ball, newSpeed);
 }
 
 void Player::goToLookTo(Position targetPosition, Position lookToPosition, double offset, double offsetAngular){
-    Position robot_pos_filtered = getKalmanPredict();
-    double robot_x, robot_y;
-    if(robot_pos_filtered.isUnknown()){
-        robot_x = position().x();
-        robot_y = position().y();
-    }else{
-        robot_x = robot_pos_filtered.x();
-        robot_y = robot_pos_filtered.y();
-    }
-    // Configura o robô para ir até a bola e olhar para um alvo
     std::pair<float, float> a;
-    double p_x, p_y, angle, moduloDist, final_x, final_y;
 
-    if (targetPosition.x() == lookToPosition.y()) angle = 1.570796327;
-    else angle = atan((targetPosition.y() - lookToPosition.y())/(targetPosition.x() - lookToPosition.x()));
-    if (lookToPosition.x() > targetPosition.x()) {
-        p_y = targetPosition.y() - offset * sin(angle);
-        p_x = targetPosition.x() - offset * cos(angle);
-    } else {
-        p_y = targetPosition.y() + offset * sin(angle);
-        p_x = targetPosition.x() + offset * cos(angle);
-    }
-    moduloDist = sqrt(pow((p_x - robot_x), 2) + pow((p_y - robot_y), 2));
-    final_x = (p_x - robot_x)/moduloDist;
-    final_y = (p_y - robot_y)/moduloDist;
-    a = goTo(Position(true, p_x + offset * final_x,p_y + offset * final_y, 0.0 ), offset);
+    a = goTo(targetPosition, offset);
     double theta = rotateTo(lookToPosition, offsetAngular).second;
 
     if(fabs(a.first) <= 0.1){
@@ -482,9 +455,9 @@ void Player::aroundTheBall(Position targetPosition, double offset, double offset
 void Player::kick(bool isPass, float kickZPower){
     _mutex.lock();
     if(isPass){
-        _ctr->kick(_team->teamId(), playerId(), 2.0);
+        _ctr->kick(_team->teamId(), playerId(), 3.0);
         if(kickZPower > 0.0){
-            _ctr->chipKick(_team->teamId(), playerId(), 2.0); // rever esse power dps
+            _ctr->chipKick(_team->teamId(), playerId(), 3.0); // rever esse power dps
         }
     }
     else{

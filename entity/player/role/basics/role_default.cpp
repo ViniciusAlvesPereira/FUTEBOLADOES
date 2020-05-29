@@ -71,6 +71,6 @@ void Role_Default::receivePassId(int passId) {
     if (passId == player()->playerId()) {
         _isPassComing = true;
         //std::cout << "[Default] Aqui!\n";
-    } //else _isPassComing = false;
+    } else _isPassComing = false;
     _mutex.unlock();
 }

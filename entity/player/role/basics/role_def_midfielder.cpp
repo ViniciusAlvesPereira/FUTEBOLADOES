@@ -85,10 +85,12 @@ void Role_Def_Midfielder::run(){
 }
 
 bool Role_Def_Midfielder::ourTeamPossession() {
-    for (quint8 i = 0; i < 6; i++) {
-        float distanceToBall = PlayerBus::ourPlayer(i)->distanceTo(loc()->ball());
-        if (distanceToBall < 0.3) {
-            return true;
+    for (quint8 i = 0; i < MRCConstants::_qtPlayers; i++) {
+        if (PlayerBus::ourPlayerAvailable(i)) {
+            float distanceToBall = PlayerBus::ourPlayer(i)->distanceTo(loc()->ball());
+            if(distanceToBall < 0.3){
+                return true;
+            }
         }
     }
     return false;
@@ -96,17 +98,21 @@ bool Role_Def_Midfielder::ourTeamPossession() {
 
 int Role_Def_Midfielder::playerWithPoss(bool ourPoss) {
     if (ourPoss == true) {
-        for (quint8 i = 0; i < 6; i++) {
-            float distanceToBall = PlayerBus::ourPlayer(i)->distanceTo(loc()->ball());
-            if(distanceToBall < 0.3){
-                return i;
+        for (quint8 i = 0; i < MRCConstants::_qtPlayers; i++) {
+            if (PlayerBus::ourPlayerAvailable(i)) {
+                float distanceToBall = PlayerBus::ourPlayer(i)->distanceTo(loc()->ball());
+                if(distanceToBall < 0.3){
+                    return i;
+                }
             }
         }
     } else {
-        for (quint8 i = 0; i < 6; i++) {
-            float distanceToBall = PlayerBus::theirPlayer(i)->distanceTo(loc()->ball());
-            if(distanceToBall < 0.3){
-                return i;
+        for (quint8 i = 0; i < MRCConstants::_qtPlayers; i++) {
+            if (PlayerBus::theirPlayerAvailable(i)) {
+                float distanceToBall = PlayerBus::theirPlayer(i)->distanceTo(loc()->ball());
+                if(distanceToBall < 0.3){
+                    return i;
+                }
             }
         }
     }
@@ -117,5 +123,5 @@ void Role_Def_Midfielder::receivePassId(int passId) {
     if (passId == player()->playerId()) {
         _isPassComing = true;
         //std::cout << "[DMF] Aqui!\n";
-    } //else _isPassComing = false;
+    } else _isPassComing = false;
 }

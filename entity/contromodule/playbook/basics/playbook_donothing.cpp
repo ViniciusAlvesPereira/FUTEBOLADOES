@@ -64,7 +64,10 @@ void Playbook_DoNothing::run(int numPlayers) {
         }
     }
 
-    //setPlayerRole(0, _rl_default);
+    //setPlayerRole(0, _rl_dft);
+    //setPlayerRole(1, _rl_df);
+    //setPlayerRole(2, _rl_default);
+    //setPlayerRole(3, _rl_dmf);
 
     //PassInformation:
         //DF
