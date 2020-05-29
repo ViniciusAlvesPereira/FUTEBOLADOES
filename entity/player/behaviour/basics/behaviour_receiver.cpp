@@ -52,7 +52,9 @@ void Behaviour_Receiver::configure() {
 };
 
 void Behaviour_Receiver::run() {
-    setQuadrant(QUADRANT_UPMID);
+    //setQuadrant(QUADRANT_UPMID);
+    getQuadrant(player()->position());
+
     if(_attackerId == NO_ATTACKER){
         printf("[BEHAVIOUR RECEIVER] Attacker isn't set (Receiver ID: %u)\n", player()->playerId());
         return ;
@@ -67,7 +69,7 @@ void Behaviour_Receiver::run() {
 
     // fazer machine state aqui
 
-    /*switch (_state) {
+    switch (_state) {
     case STATE_POSITION:
         enableTransition(SK_GOTO);
         _skill_GoToLookTo->setAimPosition(PlayerBus::ourPlayer(_attackerId)->position());
@@ -76,8 +78,8 @@ void Behaviour_Receiver::run() {
     case STATE_WAIT:
     case STATE_RECEIVE:
         enableTransition(SK_RECV);
-        if (loc()->b)
-    }*/
+        //if (loc()->b)
+    }
 }
 
 void Behaviour_Receiver::goingToReceive(quint8 id){
@@ -102,7 +104,7 @@ Position Behaviour_Receiver::getReceiverBestPosition(int quadrant, quint8 attack
         return Position(false, 0.0, 0.0, 0.0);
     }
 
-    const Position goalPosition = loc()->ourGoal(); // Fundo do gol (pra pegar o goleiro deles)
+    const Position goalPosition = loc()->theirGoal(); // Fundo do gol (pra pegar o goleiro deles)
     const Position attackerPos = PlayerBus::ourPlayer(attackerId)->position(); // Pegar posicao do attacker
     const float distToAttacker = WR::Utils::distance(player()->position(), attackerPos); // Distancia até o atacante
     const std::pair<Position, Position> quadrantPosition = getQuadrantInitialPosition(_quadrant); // Par de posições do quadrante
@@ -218,6 +220,72 @@ Position Behaviour_Receiver::getReceiverBestPosition(int quadrant, quint8 attack
     return goalLine.interceptionWith(attackerLine);
 }
 
+//Função para avaliar qual quadrante o receiver se encontra
+void Behaviour_Receiver::getQuadrant(Position receiverPos){
+
+    const Position goalPosition = loc()->theirGoal();
+    const float receiverAngle = WR::Utils::getAngle(goalPosition, receiverPos);
+
+
+    // Calc some points
+    const float x = fabs(loc()->ourGoal().x());
+    const float y = fabs(loc()->ourFieldTopCorner().y());
+
+    float upAngle;
+    float botAngle;
+
+    const Position up(true, 0.0, y, 0.0);
+    const Position bot(true, 0.0, -y, 0.0);
+
+    bool sideIsLeft = loc()->ourSide().isLeft();
+
+    if(sideIsLeft){
+
+        if(receiverPos.x() > 0 && receiverPos.y() > 0){
+            upAngle = WR::Utils::getAngle(goalPosition, up);
+
+            if(upAngle > receiverAngle)
+                setQuadrant(QUADRANT_UPMID);
+            else
+                setQuadrant(QUADRANT_UP);
+
+
+        }
+        if(receiverPos.x() > 0 && receiverPos.y() < 0){
+            botAngle = WR::Utils::getAngle(goalPosition, bot);
+
+            botAngle = WR::Utils::getAngle(goalPosition, bot);
+
+            if(botAngle > receiverAngle)
+                setQuadrant(QUADRANT_BOT);
+            else
+                setQuadrant(QUADRANT_BOTMID);
+        }
+
+    }
+    else{
+        if(receiverPos.x() < 0 && receiverPos.y() > 0){
+            upAngle = WR::Utils::getAngle(goalPosition, bot);
+
+            if(upAngle > receiverAngle)
+                setQuadrant(QUADRANT_UP);
+            else
+                setQuadrant(QUADRANT_UPMID);
+
+        }
+        if(receiverPos.x() < 0 && receiverPos.y() < 0){
+            botAngle = WR::Utils::getAngle(goalPosition, bot);
+
+            if(botAngle > receiverAngle)
+                setQuadrant(QUADRANT_BOTMID);
+            else
+                setQuadrant(QUADRANT_BOT);
+
+        }
+    }
+
+}
+
 std::pair<Position, Position> Behaviour_Receiver::getQuadrantInitialPosition(int quadrant){
     if(quadrant == NO_QUADRANT){
         printf("[BEHAVIOUR RECEIVER] Receiver with id %u: quadrant isn't set.\n", player()->playerId());
@@ -226,7 +294,7 @@ std::pair<Position, Position> Behaviour_Receiver::getQuadrantInitialPosition(int
 
     // Calc some points
     const float x = fabs(loc()->ourGoal().x());
-    const float y = fabs(loc()->ourFieldTopCorner().y());
+    const float y = fabs(loc()->theirFieldTopCorner().y());
 
     const Position upL(true, -x, y, 0.0);
     const Position up(true, 0.0, y, 0.0);
@@ -236,38 +304,30 @@ std::pair<Position, Position> Behaviour_Receiver::getQuadrantInitialPosition(int
     const Position botR(true, x, -y, 0.0);
     const Position cen(true, 0.0, 0.0, 0.0);
 
-    // Depois trocar isso pra loc().theirSide() !!!!!!
-    bool sideIsLeft = loc()->ourSide().isLeft();
+    //Mudar para theirSide !!!!!!
+    bool sideIsLeft = loc()->theirSide().isLeft();
 
     if(sideIsLeft){
         switch(quadrant){
         case QUADRANT_UP:
             return std::make_pair(up, upL);
-        break;
         case QUADRANT_UPMID:
             return std::make_pair(cen, up);
-        break;
         case QUADRANT_BOT:
             return std::make_pair(botL, bot);
-        break;
         case QUADRANT_BOTMID:
             return std::make_pair(bot, cen);
-        break;
         }
     }else{
         switch(quadrant){
         case QUADRANT_UP:
             return std::make_pair(upR, up);
-        break;
         case QUADRANT_UPMID:
             return std::make_pair(up, cen);
-        break;
         case QUADRANT_BOT:
             return std::make_pair(bot, botR);
-        break;
         case QUADRANT_BOTMID:
             return std::make_pair(cen, bot);
-        break;
         }
     }
 }

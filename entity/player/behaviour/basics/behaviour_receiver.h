@@ -68,6 +68,7 @@ private:
     // Auxiliary functions
     Position getReceiverBestPosition(int quadrant, quint8 attackerId, float minRadius, float maxRadius);
     std::pair<Position, Position> getQuadrantInitialPosition(int quadrant);
+    void getQuadrant(Position receiverPos);
 
 public:
     Behaviour_Receiver();
@@ -81,7 +82,6 @@ public:
 
     // getters
     quint8 getAttackerId(){ return _attackerId; }
-    int getQuadrant() { return _quadrant; }
     float getMinRadius() { return _minRadius; }
     float getMaxRadius() { return _maxRadius; }
 
