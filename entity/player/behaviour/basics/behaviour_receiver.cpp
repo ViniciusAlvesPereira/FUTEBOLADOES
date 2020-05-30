@@ -237,11 +237,11 @@ void Behaviour_Receiver::getQuadrant(Position receiverPos){
     const Position up(true, 0.0, y, 0.0);
     const Position bot(true, 0.0, -y, 0.0);
 
-    bool sideIsLeft = loc()->ourSide().isLeft();
+    bool sideIsLeft = loc()->theirSide().isLeft();
 
     if(sideIsLeft){
 
-        if(receiverPos.x() > 0 && receiverPos.y() > 0){
+        if(receiverPos.x() < 0 && receiverPos.y() > 0){
             upAngle = WR::Utils::getAngle(goalPosition, up);
 
             if(upAngle > receiverAngle)
@@ -251,7 +251,7 @@ void Behaviour_Receiver::getQuadrant(Position receiverPos){
 
 
         }
-        if(receiverPos.x() > 0 && receiverPos.y() < 0){
+        if(receiverPos.x() < 0 && receiverPos.y() < 0){
             botAngle = WR::Utils::getAngle(goalPosition, bot);
 
             botAngle = WR::Utils::getAngle(goalPosition, bot);
@@ -264,7 +264,7 @@ void Behaviour_Receiver::getQuadrant(Position receiverPos){
 
     }
     else{
-        if(receiverPos.x() < 0 && receiverPos.y() > 0){
+        if(receiverPos.x() > 0 && receiverPos.y() > 0){
             upAngle = WR::Utils::getAngle(goalPosition, bot);
 
             if(upAngle > receiverAngle)
@@ -273,7 +273,7 @@ void Behaviour_Receiver::getQuadrant(Position receiverPos){
                 setQuadrant(QUADRANT_UPMID);
 
         }
-        if(receiverPos.x() < 0 && receiverPos.y() < 0){
+        if(receiverPos.x() > 0 && receiverPos.y() < 0){
             botAngle = WR::Utils::getAngle(goalPosition, bot);
 
             if(botAngle > receiverAngle)
@@ -294,7 +294,7 @@ std::pair<Position, Position> Behaviour_Receiver::getQuadrantInitialPosition(int
 
     // Calc some points
     const float x = fabs(loc()->ourGoal().x());
-    const float y = fabs(loc()->theirFieldTopCorner().y());
+    const float y = fabs(loc()->ourFieldTopCorner().y());
 
     const Position upL(true, -x, y, 0.0);
     const Position up(true, 0.0, y, 0.0);

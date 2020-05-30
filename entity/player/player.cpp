@@ -271,7 +271,7 @@ void Player::idle(){
 void Player::setSpeed(float x, float y, float theta) {
     _mutex.lock();
 
-    /*float currSpeedAbs = sqrt(pow(x, 2) + pow(y, 2));
+    float currSpeedAbs = sqrt(pow(x, 2) + pow(y, 2));
     float incSpeedAbs = currSpeedAbs - _lastSpeedAbs;
     float maxAcc = 0.5;
 
@@ -282,7 +282,7 @@ void Player::setSpeed(float x, float y, float theta) {
         y = newSpeed * sin(angle);
     }
 
-    _lastSpeedAbs = sqrt(pow(x, 2) + pow(y, 2));*/
+    _lastSpeedAbs = sqrt(pow(x, 2) + pow(y, 2));
 
     // watchdog on speed
     WR::Utils::limitValue(&x, -2.5, 2.5);
