@@ -54,6 +54,7 @@ signals:
 
 public slots:
     void receiveAttackerID(quint8 id);
+    //void receivePassId(int passId);
 
 public:
     Role_AdvancedMidfielder();

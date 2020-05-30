@@ -28,10 +28,10 @@
 class Playbook_DoNothing : public Playbook {
 private:
     // Roles
-    Role_Default *_rl_default;
-    Role_Default *_rl_dft;
+    Role_GoalKeeper *_rl_gk;
     Role_Defender *_rl_df;
     Role_Def_Midfielder *_rl_dmf;
+    Role_AdvancedMidfielder *_rl_amf;
     Role_SecondStriker *_rl_ss;
     Role_CentreForward *_rl_cf;
 
