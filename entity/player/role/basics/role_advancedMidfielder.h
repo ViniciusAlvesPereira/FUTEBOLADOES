@@ -14,7 +14,6 @@ private:
     int _actualState;
     int _beforeState;
     int _actualPayer;
-    bool _ourPlayer;
     bool _ourPoss;
     bool _theirPoss;
     Position _receveirPosition;
@@ -30,10 +29,10 @@ private:
 
     // Behaviours ids!
     enum{
-        BHV_MARKBALL,       //0
-        BHV_RECEIVER,       //1
-        BHV_ATTACKER,       //2
-        BHV_DONOTHING       //3
+        BHV_MARKBALL,
+        BHV_RECEIVER,
+        BHV_ATTACKER,
+        BHV_DONOTHING
     };
 
     // Inherited functions
@@ -45,15 +44,14 @@ private:
 
     //Time com posse de bola
     bool ourTeamPossession();
-    bool ourPlayerPoss();
     int playerWithPoss(bool ourPoss);
     bool ourPlayerDist();
 
 signals:
-    void sendAttackerID(quint8 id);
+    void sendAttackerID(int id);
 
 public slots:
-    void receiveAttackerID(quint8 id);
+    void receiveAttackerID(int id);
     //void receivePassId(int passId);
 
 public:

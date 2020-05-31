@@ -324,13 +324,14 @@ std::pair<float, float> Player::goTo(Position targetPosition, double offset){
     long double moduloDistancia = sqrt(pow(Vx,2)+pow(Vy,2));
     float vxSaida = (Vx * cos(theta) + Vy * sin(theta));
     float vySaida = (Vy * cos(theta) - Vx * sin(theta));
-    double sinal_x = 1;
-    double sinal_y = 1;
+    double sinal_x = 1.0;
+    double sinal_y = 1.0;
 
-    if(vxSaida < 0) sinal_x = -1;
-    if(vySaida < 0) sinal_y = -1;
+    if(vxSaida < 0) sinal_x = -1.0;
+    if(vySaida < 0) sinal_y = -1.0;
 
     // inverte pra dar frenagem
+    // É interessante colocar *= 0.0 pra realmente "parar" o robô
     if(moduloDistancia <= offset){
         vxSaida *= 0.0;         //Interssante colocr 0.0 na simulação para frenagem efetiva
         vySaida *= 0.0;         //Interssante colocr 0.0 na simulação para frenagem efetiva
@@ -387,11 +388,9 @@ std::pair<double, double> Player::rotateTo(Position targetPosition, double offse
             if(angleRobot2Ball < 0.0){
                 if (speed != 0.0 && angleRobot2Ball < 0.2) speed = -minValue;    //Inverte a velocidade para frenagem
                 else speed = minValue;
-                //speed = minValue;
             }else{
                 if (speed != 0.0 && angleRobot2Ball < 0.2) speed = minValue;     //Inverte a velocidade para frenagem
                 else speed = -minValue;
-                //speed = -minValue;
             }
         }else{
             if(angleRobot2Ball < 0.0){
@@ -412,9 +411,7 @@ std::pair<double, double> Player::rotateTo(Position targetPosition, double offse
 }
 
 void Player::goToLookTo(Position targetPosition, Position lookToPosition, double offset, double offsetAngular){
-    std::pair<float, float> a;
-
-    a = goTo(targetPosition, offset);
+    std::pair<float, float> a = goTo(targetPosition, offset);
     double theta = rotateTo(lookToPosition, offsetAngular).second;
 
     if(fabs(a.first) <= 0.1){
@@ -430,7 +427,6 @@ void Player::goToLookTo(Position targetPosition, Position lookToPosition, double
     WR::Utils::limitValue(&a.first, -2.5, 2.5);
     WR::Utils::limitValue(&a.second, -2.5, 2.5);
 
-    //if (moduloDist < offset) setSpeed(0, 0.2, theta); //3% de diferença nas velocidades
     setSpeed(a.first, a.second, theta);
 }
 

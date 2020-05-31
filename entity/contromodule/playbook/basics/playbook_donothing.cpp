@@ -64,11 +64,6 @@ void Playbook_DoNothing::run(int numPlayers) {
         }
     }
 
-    //setPlayerRole(0, _rl_dft);
-    //setPlayerRole(1, _rl_df);
-    //setPlayerRole(2, _rl_default);
-    //setPlayerRole(3, _rl_dmf);
-
     //PassInformation:
         //DF
     connect(_rl_df, SIGNAL(sendPassId(int)), _rl_cf, SLOT(receivePassId(int)), Qt::DirectConnection);
@@ -78,7 +73,6 @@ void Playbook_DoNothing::run(int numPlayers) {
     connect(_rl_dmf, SIGNAL(sendPassId(int)), _rl_cf, SLOT(receivePassId(int)), Qt::DirectConnection);
     connect(_rl_dmf, SIGNAL(sendPassId(int)), _rl_ss, SLOT(receivePassId(int)), Qt::DirectConnection);
     connect(_rl_dmf, SIGNAL(sendPassId(int)), _rl_df, SLOT(receivePassId(int)), Qt::DirectConnection);
-
 
     //MarkPlayer Communication:
         //CF

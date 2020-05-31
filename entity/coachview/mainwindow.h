@@ -46,8 +46,7 @@ public:
 
     // general
     void resetRobots();
-    void disableRobot(quint8 id);
-    void enableRobot(quint8 id);
+    void setRobotVisionStatus(quint8 id, bool status);
 
     // utils
     QString transformIntToString(int value);
@@ -77,7 +76,7 @@ public:
 
     // tree
     void addRoot();
-    void resetTree(QList<QString> playbookList, QMap<QString, QList<QString>> rolesList,
+    void resetTree(QString strat, QList<QString> playbookList, QMap<QString, QList<QString>> rolesList,
                    QMap<std::pair<QString, QString>, QList<std::pair<QString, quint8>>> playersList,
                    QMap<QString, QString> behavioursList);
     bool isContained(QTreeWidgetItem *parent, QString text);
@@ -91,6 +90,7 @@ private:
     std::vector<QProgressBar*> playerKickCharges;
     std::vector<std::pair<QLabel*, QLabel*>> playerRoles;
     std::vector<QLabel*> playerConnections;
+    std::vector<QLabel*> playerVisionStatus;
     std::vector<QLabel*> playerDribbles;
 
     MRCTeam* _ourTeam;

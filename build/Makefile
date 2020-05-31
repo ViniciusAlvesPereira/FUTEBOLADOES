@@ -15,7 +15,7 @@ CXX           = g++
 DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -O2 -std=gnu++1y -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I../../FUTEBOLADOES -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtOpenGL -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -Itmp/moc -isystem /usr/include/libdrm -Itmp/moc -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++
+INCPATH       = -I../../Armorial-Suassuna -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtOpenGL -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -Itmp/moc -isystem /usr/include/libdrm -Itmp/moc -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++
 QMAKE         = /usr/lib/qt5/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -35,7 +35,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = Armorial-Suassuna0.0.5
-DISTDIR = /home/tobias/Documentos/Maracatronics/FUTEBOLADOES/build/tmp/obj/Armorial-Suassuna0.0.5
+DISTDIR = /home/tobias/Documentos/Maracatronics/Armorial-Suassuna/build/tmp/obj/Armorial-Suassuna0.0.5
 LINK          = g++
 LFLAGS        = -Wl,-O1
 LIBS          = $(SUBLIBS) -lprotobuf -lGLU -pthread -lsfml-graphics -lsfml-window -lsfml-system -lGEARSystem -lomniORB4 -lomnithread -lQt5OpenGL -lQt5Widgets -lQt5Gui -lQt5Network -lQt5Core -lGL -lpthread 
@@ -72,23 +72,32 @@ SOURCES       = ../const/constants.cpp \
 		../entity/player/skills/basics/skill_gotolookto.cpp \
 		../entity/player/skills/basics/skill_interceptball.cpp \
 		../entity/player/skills/basics/skill_rotateto.cpp \
+		../entity/referee/mrcreferee.cpp \
 		../entity/world/world.cpp \
 		../entity/world/worldmapupdater.cpp \
 		../exithandler.cpp \
-		../include/3rd_party/messages_robocup_ssl_detection.pb.cc \
 		../include/3rd_party/netraw.cpp \
-		../include/3rd_party/robocup_ssl_client.cpp \
-		../include/3rd_party/messages_robocup_ssl_geometry.pb.cc \
-		../include/3rd_party/messages_robocup_ssl_refbox_log.pb.cc \
-		../include/3rd_party/messages_robocup_ssl_wrapper.pb.cc \
-		../include/3rd_party/game_event.pb.cc \
-		../include/3rd_party/grSim_Commands.pb.cc \
-		../include/3rd_party/grSim_Packet.pb.cc \
-		../include/3rd_party/grSim_Replacement.pb.cc \
-		../include/3rd_party/referee.pb.cc \
 		../entity/referee/SSLReferee/sslgameinfo.cpp \
-		../entity/referee/referee.cpp \
 		../entity/referee/SSLReferee/sslreferee.cpp \
+		../include/3rd_party/ssl_gc_api.pb.cc \
+		../include/3rd_party/ssl_gc_change.pb.cc \
+		../include/3rd_party/ssl_gc_ci.pb.cc \
+		../include/3rd_party/ssl_gc_common.pb.cc \
+		../include/3rd_party/ssl_gc_engine.pb.cc \
+		../include/3rd_party/ssl_gc_engine_config.pb.cc \
+		../include/3rd_party/ssl_gc_game_event.pb.cc \
+		../include/3rd_party/ssl_gc_geometry.pb.cc \
+		../include/3rd_party/ssl_gc_rcon.pb.cc \
+		../include/3rd_party/ssl_gc_rcon_autoref.pb.cc \
+		../include/3rd_party/ssl_gc_rcon_remotecontrol.pb.cc \
+		../include/3rd_party/ssl_gc_rcon_team.pb.cc \
+		../include/3rd_party/ssl_gc_referee_message.pb.cc \
+		../include/3rd_party/ssl_gc_state.pb.cc \
+		../include/3rd_party/ssl_vision_detection.pb.cc \
+		../include/3rd_party/ssl_vision_detection_tracked.pb.cc \
+		../include/3rd_party/ssl_vision_geometry.pb.cc \
+		../include/3rd_party/ssl_vision_wrapper.pb.cc \
+		../include/3rd_party/ssl_vision_wrapper_tracked.pb.cc \
 		../instancechecker.cpp \
 		../main.cpp \
 		../suassuna.cpp \
@@ -192,23 +201,32 @@ OBJECTS       = tmp/obj/constants.o \
 		tmp/obj/skill_gotolookto.o \
 		tmp/obj/skill_interceptball.o \
 		tmp/obj/skill_rotateto.o \
+		tmp/obj/mrcreferee.o \
 		tmp/obj/world.o \
 		tmp/obj/worldmapupdater.o \
 		tmp/obj/exithandler.o \
-		tmp/obj/messages_robocup_ssl_detection.pb.o \
 		tmp/obj/netraw.o \
-		tmp/obj/robocup_ssl_client.o \
-		tmp/obj/messages_robocup_ssl_geometry.pb.o \
-		tmp/obj/messages_robocup_ssl_refbox_log.pb.o \
-		tmp/obj/messages_robocup_ssl_wrapper.pb.o \
-		tmp/obj/game_event.pb.o \
-		tmp/obj/grSim_Commands.pb.o \
-		tmp/obj/grSim_Packet.pb.o \
-		tmp/obj/grSim_Replacement.pb.o \
-		tmp/obj/referee.pb.o \
 		tmp/obj/sslgameinfo.o \
-		tmp/obj/referee.o \
 		tmp/obj/sslreferee.o \
+		tmp/obj/ssl_gc_api.pb.o \
+		tmp/obj/ssl_gc_change.pb.o \
+		tmp/obj/ssl_gc_ci.pb.o \
+		tmp/obj/ssl_gc_common.pb.o \
+		tmp/obj/ssl_gc_engine.pb.o \
+		tmp/obj/ssl_gc_engine_config.pb.o \
+		tmp/obj/ssl_gc_game_event.pb.o \
+		tmp/obj/ssl_gc_geometry.pb.o \
+		tmp/obj/ssl_gc_rcon.pb.o \
+		tmp/obj/ssl_gc_rcon_autoref.pb.o \
+		tmp/obj/ssl_gc_rcon_remotecontrol.pb.o \
+		tmp/obj/ssl_gc_rcon_team.pb.o \
+		tmp/obj/ssl_gc_referee_message.pb.o \
+		tmp/obj/ssl_gc_state.pb.o \
+		tmp/obj/ssl_vision_detection.pb.o \
+		tmp/obj/ssl_vision_detection_tracked.pb.o \
+		tmp/obj/ssl_vision_geometry.pb.o \
+		tmp/obj/ssl_vision_wrapper.pb.o \
+		tmp/obj/ssl_vision_wrapper_tracked.pb.o \
 		tmp/obj/instancechecker.o \
 		tmp/obj/main.o \
 		tmp/obj/suassuna.o \
@@ -390,23 +408,32 @@ DIST          = ../constraints/agressivity_clusters.json \
 		../entity/player/skills/basics/skill_gotolookto.h \
 		../entity/player/skills/basics/skill_interceptball.h \
 		../entity/player/skills/basics/skill_rotateto.h \
+		../entity/referee/mrcreferee.h \
 		../entity/world/world.h \
 		../entity/world/worldmapupdater.h \
 		../exithandler.h \
 		../include/3rd_party/netraw.h \
-		../include/3rd_party/robocup_ssl_client.h \
+		../include/3rd_party/ssl_gc_api.pb.h \
+		../include/3rd_party/ssl_gc_change.pb.h \
+		../include/3rd_party/ssl_gc_ci.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_engine.pb.h \
+		../include/3rd_party/ssl_gc_engine_config.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
+		../include/3rd_party/ssl_gc_rcon.pb.h \
+		../include/3rd_party/ssl_gc_rcon_autoref.pb.h \
+		../include/3rd_party/ssl_gc_rcon_remotecontrol.pb.h \
+		../include/3rd_party/ssl_gc_rcon_team.pb.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_state.pb.h \
+		../include/3rd_party/ssl_vision_detection.pb.h \
+		../include/3rd_party/ssl_vision_detection_tracked.pb.h \
+		../include/3rd_party/ssl_vision_geometry.pb.h \
+		../include/3rd_party/ssl_vision_wrapper.pb.h \
+		../include/3rd_party/ssl_vision_wrapper_tracked.pb.h \
 		../include/3rd_party/util.h \
-		../include/3rd_party/messages_robocup_ssl_detection.pb.h \
-		../include/3rd_party/messages_robocup_ssl_geometry.pb.h \
-		../include/3rd_party/messages_robocup_ssl_wrapper.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../include/3rd_party/messages_robocup_ssl_refbox_log.pb.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/grSim_Commands.pb.h \
-		../include/3rd_party/grSim_Packet.pb.h \
-		../include/3rd_party/grSim_Replacement.pb.h \
 		../entity/referee/SSLReferee/sslgameinfo.h \
-		../entity/referee/referee.h \
 		../entity/referee/SSLReferee/sslreferee.h \
 		../instancechecker.h \
 		../suassuna.h \
@@ -506,23 +533,32 @@ DIST          = ../constraints/agressivity_clusters.json \
 		../entity/player/skills/basics/skill_gotolookto.cpp \
 		../entity/player/skills/basics/skill_interceptball.cpp \
 		../entity/player/skills/basics/skill_rotateto.cpp \
+		../entity/referee/mrcreferee.cpp \
 		../entity/world/world.cpp \
 		../entity/world/worldmapupdater.cpp \
 		../exithandler.cpp \
-		../include/3rd_party/messages_robocup_ssl_detection.pb.cc \
 		../include/3rd_party/netraw.cpp \
-		../include/3rd_party/robocup_ssl_client.cpp \
-		../include/3rd_party/messages_robocup_ssl_geometry.pb.cc \
-		../include/3rd_party/messages_robocup_ssl_refbox_log.pb.cc \
-		../include/3rd_party/messages_robocup_ssl_wrapper.pb.cc \
-		../include/3rd_party/game_event.pb.cc \
-		../include/3rd_party/grSim_Commands.pb.cc \
-		../include/3rd_party/grSim_Packet.pb.cc \
-		../include/3rd_party/grSim_Replacement.pb.cc \
-		../include/3rd_party/referee.pb.cc \
 		../entity/referee/SSLReferee/sslgameinfo.cpp \
-		../entity/referee/referee.cpp \
 		../entity/referee/SSLReferee/sslreferee.cpp \
+		../include/3rd_party/ssl_gc_api.pb.cc \
+		../include/3rd_party/ssl_gc_change.pb.cc \
+		../include/3rd_party/ssl_gc_ci.pb.cc \
+		../include/3rd_party/ssl_gc_common.pb.cc \
+		../include/3rd_party/ssl_gc_engine.pb.cc \
+		../include/3rd_party/ssl_gc_engine_config.pb.cc \
+		../include/3rd_party/ssl_gc_game_event.pb.cc \
+		../include/3rd_party/ssl_gc_geometry.pb.cc \
+		../include/3rd_party/ssl_gc_rcon.pb.cc \
+		../include/3rd_party/ssl_gc_rcon_autoref.pb.cc \
+		../include/3rd_party/ssl_gc_rcon_remotecontrol.pb.cc \
+		../include/3rd_party/ssl_gc_rcon_team.pb.cc \
+		../include/3rd_party/ssl_gc_referee_message.pb.cc \
+		../include/3rd_party/ssl_gc_state.pb.cc \
+		../include/3rd_party/ssl_vision_detection.pb.cc \
+		../include/3rd_party/ssl_vision_detection_tracked.pb.cc \
+		../include/3rd_party/ssl_vision_geometry.pb.cc \
+		../include/3rd_party/ssl_vision_wrapper.pb.cc \
+		../include/3rd_party/ssl_vision_wrapper_tracked.pb.cc \
 		../instancechecker.cpp \
 		../main.cpp \
 		../suassuna.cpp \
@@ -780,8 +816,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../rsc.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../const/constants.h ../entity/ballprediction/ballprediction.h ../entity/baseentity.h ../entity/coachview/soccerview/gltext.h ../entity/coachview/soccerview/soccerview.h ../entity/coachview/soccerview/util/field.h ../entity/coachview/soccerview/util/field_default_constants.h ../entity/coachview/soccerview/util/geometry.h ../entity/coachview/soccerview/util/gvector.h ../entity/coachview/soccerview/util/timer.h ../entity/coachview/soccerview/util/util.h ../entity/entity.h ../entity/player/behaviour/basics/behaviour_ballreceptor.h ../entity/player/navigation/fpp/fastpathplanning.h ../entity/player/navigation/navalgorithm.h ../entity/player/navigation/navigation.h ../entity/player/role/basics/role_centreforward.h ../entity/player/role/basics/role_goalKeeper.h ../entity/player/skills/basics/skill_pushball.h ../entity/player/skills/basics/skill_aroundtheball.h ../entity/player/skills/basics/skill_dribble.h ../entity/player/skills/basics/skill_goto.h ../entity/player/skills/basics/skill_gotolookto.h ../entity/player/skills/basics/skill_interceptball.h ../entity/player/skills/basics/skill_rotateto.h ../entity/world/world.h ../entity/world/worldmapupdater.h ../exithandler.h ../include/3rd_party/netraw.h ../include/3rd_party/robocup_ssl_client.h ../include/3rd_party/util.h ../include/3rd_party/messages_robocup_ssl_detection.pb.h ../include/3rd_party/messages_robocup_ssl_geometry.pb.h ../include/3rd_party/messages_robocup_ssl_wrapper.pb.h ../include/3rd_party/game_event.pb.h ../include/3rd_party/messages_robocup_ssl_refbox_log.pb.h ../include/3rd_party/referee.pb.h ../include/3rd_party/grSim_Commands.pb.h ../include/3rd_party/grSim_Packet.pb.h ../include/3rd_party/grSim_Replacement.pb.h ../entity/referee/SSLReferee/sslgameinfo.h ../entity/referee/referee.h ../entity/referee/SSLReferee/sslreferee.h ../instancechecker.h ../suassuna.h ../utils/basics/color.hh ../utils/basics/competition.hh ../utils/basics/quadrant.hh ../utils/basics/side.hh ../utils/basics/wall.hh ../utils/fields/field_ssl2014.hh ../utils/fields/field_ssl2015.hh ../utils/fields/field_ssl2020.hh ../utils/fields/field_vss2008.hh ../utils/fields/fields.hh ../utils/fields/wrfields.hh ../utils/fieldside/fieldside.hh ../utils/filters/kalman/kalman.hpp ../utils/filters/kalman/kalmanstate.h ../utils/filters/kalman/matrix.h ../utils/freeangles/freeangles.h ../utils/freeangles/obstacle.h ../utils/graph/basegraph.hh ../utils/graph/edge.hh ../utils/graph/graph.hh ../utils/graph/vertex.hh ../utils/line/line.hh ../utils/utils.hh ../utils/wrtimer/wrtimer.hh ../entity/player/player.h ../entity/contromodule/mrcteam.h ../entity/player/skills/skill.h ../entity/locations.h ../entity/player/skills/skills_include.h ../entity/contromodule/coach.h ../entity/player/playerbus.h ../entity/player/playeraccess.h ../entity/contromodule/strategy/strategy.h ../entity/contromodule/basecoach.h ../entity/contromodule/playersdistribution.h ../entity/contromodule/strategy/strategystate.h ../entity/contromodule/coachutils.h ../entity/contromodule/playbook/playbook.h ../entity/player/behaviour/behaviour.h ../entity/player/behaviour/mrcbehaviours.h ../entity/player/behaviour/basics/behaviour_donothing.h ../entity/player/skills/basics/skill_donothing.h ../utils/knn/knn.hh ../entity/contromodule/strategy/basics/mrcstrategy.h ../entity/contromodule/strategy/basics/sslstrategy.h ../entity/contromodule/controlmodule.h ../entity/contromodule/strategy/basics/sslstrategy_halt.h ../entity/contromodule/playbook/basics/playbook_donothing.h ../entity/contromodule/playbook/mrcplaybook.h ../entity/player/behaviour/basics/behaviour_followball.h ../entity/player/behaviour/basics/behaviour_timeout.h ../entity/contromodule/strategy/mrcstrategies.h ../entity/player/control/pid.h ../utils/mrctimer/mrctimer.h ../entity/player/skills/basics/skill_kick.h ../entity/player/behaviour/basics/behaviour_goalkeeper.h ../entity/player/skills/basics/skill_gkick.h ../entity/player/behaviour/basics/behaviour_receiver.h ../entity/player/behaviour/basics/behaviour_attacker.h ../entity/player/behaviour/basics/behaviour_barrier.h ../entity/player/behaviour/basics/behaviour_markplayer.h ../entity/player/behaviour/basics/behaviour_penalty_gk.h ../entity/player/behaviour/basics/behaviour_cover.h ../entity/player/behaviour/basics/behaviour_passing.h ../entity/player/role/role.h ../entity/player/role/basics/role_default.h ../entity/player/role/basics/role_def_midfielder.h ../entity/player/role/basics/role_defender.h ../entity/player/role/basics/role_secondstriker.h ../entity/player/role/basics/role_advancedMidfielder.h ../entity/player/role/mrcroles.h ../entity/coachview/coachview.h ../entity/coachview/mainwindow.h tmp/moc/ui_mainwindow.h ../entity/player/skills/basics/skill_sample.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../const/constants.cpp ../entity/ballprediction/ballprediction.cpp ../entity/coachview/soccerview/gltext.cpp ../entity/coachview/soccerview/soccerview.cpp ../entity/coachview/soccerview/util/field.cpp ../entity/entity.cpp ../entity/player/behaviour/basics/behaviour_ballreceptor.cpp ../entity/player/behaviour/basics/behaviour_goalkeeper.cpp ../entity/player/behaviour/basics/behaviour_markball.cpp ../entity/player/behaviour/basics/behaviour_penalty_cf.cpp ../entity/player/navigation/fpp/fastpathplanning.cpp ../entity/player/navigation/navalgorithm.cpp ../entity/player/navigation/navigation.cpp ../entity/player/role/basics/role_centreforward.cpp ../entity/player/role/basics/role_goalKeeper.cpp ../entity/player/skills/basics/skill_pushball.cpp ../entity/player/skills/basics/skill_aroundtheball.cpp ../entity/player/skills/basics/skill_dribble.cpp ../entity/player/skills/basics/skill_goto.cpp ../entity/player/skills/basics/skill_gotolookto.cpp ../entity/player/skills/basics/skill_interceptball.cpp ../entity/player/skills/basics/skill_rotateto.cpp ../entity/world/world.cpp ../entity/world/worldmapupdater.cpp ../exithandler.cpp ../include/3rd_party/messages_robocup_ssl_detection.pb.cc ../include/3rd_party/netraw.cpp ../include/3rd_party/robocup_ssl_client.cpp ../include/3rd_party/messages_robocup_ssl_geometry.pb.cc ../include/3rd_party/messages_robocup_ssl_refbox_log.pb.cc ../include/3rd_party/messages_robocup_ssl_wrapper.pb.cc ../include/3rd_party/game_event.pb.cc ../include/3rd_party/grSim_Commands.pb.cc ../include/3rd_party/grSim_Packet.pb.cc ../include/3rd_party/grSim_Replacement.pb.cc ../include/3rd_party/referee.pb.cc ../entity/referee/SSLReferee/sslgameinfo.cpp ../entity/referee/referee.cpp ../entity/referee/SSLReferee/sslreferee.cpp ../instancechecker.cpp ../main.cpp ../suassuna.cpp ../utils/basics/color.cc ../utils/basics/competition.cc ../utils/basics/quadrant.cc ../utils/basics/side.cc ../utils/basics/wall.cc ../utils/fields/field_ssl2014.cc ../utils/fields/field_ssl2015.cc ../utils/fields/field_ssl2020.cc ../utils/fields/field_vss2008.cc ../utils/fields/fields.cc ../utils/fieldside/fieldside.cc ../utils/filters/kalman/kalman.cpp ../utils/filters/kalman/kalmanstate.cpp ../utils/filters/kalman/matrix.cpp ../utils/freeangles/freeangles.cpp ../utils/freeangles/obstacle.cpp ../utils/graph/edge.cc ../utils/graph/graph.cc ../utils/graph/vertex.cc ../utils/line/line.cc ../utils/utils.cc ../utils/wrtimer/wrtimer.cc ../entity/player/player.cpp ../entity/contromodule/mrcteam.cpp ../entity/player/skills/skill.cpp ../entity/locations.cpp ../entity/contromodule/coach.cpp ../entity/player/playerbus.cpp ../entity/player/playeraccess.cpp ../entity/contromodule/strategy/strategy.cpp ../entity/contromodule/playersdistribution.cpp ../entity/contromodule/strategy/strategystate.cpp ../entity/contromodule/coachutils.cpp ../entity/contromodule/playbook/playbook.cpp ../entity/player/behaviour/behaviour.cpp ../entity/player/behaviour/basics/behaviour_donothing.cpp ../entity/player/skills/basics/skill_donothing.cpp ../utils/knn/knn.cc ../entity/contromodule/strategy/basics/mrcstrategy.cpp ../entity/contromodule/strategy/basics/sslstrategy.cpp ../entity/contromodule/controlmodule.cpp ../entity/contromodule/strategy/basics/sslstrategy_halt.cpp ../entity/contromodule/playbook/basics/playbook_donothing.cpp ../entity/player/behaviour/basics/behaviour_followball.cpp ../entity/player/behaviour/basics/behaviour_timeout.cpp ../entity/player/control/pid.cpp ../utils/mrctimer/mrctimer.cpp ../entity/player/skills/basics/skill_kick.cpp ../entity/player/skills/basics/skill_gkick.cpp ../entity/player/behaviour/basics/behaviour_receiver.cpp ../entity/player/behaviour/basics/behaviour_attacker.cpp ../entity/player/behaviour/basics/behaviour_barrier.cpp ../entity/player/behaviour/basics/behaviour_markplayer.cpp ../entity/player/behaviour/basics/behaviour_penalty_gk.cpp ../entity/player/behaviour/basics/behaviour_cover.cpp ../entity/player/behaviour/basics/behaviour_passing.cpp ../entity/player/role/role.cpp ../entity/player/role/basics/role_default.cpp ../entity/player/role/basics/role_def_midfielder.cpp ../entity/player/role/basics/role_defender.cpp ../entity/player/role/basics/role_secondstriker.cpp ../entity/player/role/basics/role_advancedMidfielder.cpp ../entity/coachview/coachview.cpp ../entity/coachview/mainwindow.cpp ../entity/player/skills/basics/skill_sample.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../const/constants.h ../entity/ballprediction/ballprediction.h ../entity/baseentity.h ../entity/coachview/soccerview/gltext.h ../entity/coachview/soccerview/soccerview.h ../entity/coachview/soccerview/util/field.h ../entity/coachview/soccerview/util/field_default_constants.h ../entity/coachview/soccerview/util/geometry.h ../entity/coachview/soccerview/util/gvector.h ../entity/coachview/soccerview/util/timer.h ../entity/coachview/soccerview/util/util.h ../entity/entity.h ../entity/player/behaviour/basics/behaviour_ballreceptor.h ../entity/player/navigation/fpp/fastpathplanning.h ../entity/player/navigation/navalgorithm.h ../entity/player/navigation/navigation.h ../entity/player/role/basics/role_centreforward.h ../entity/player/role/basics/role_goalKeeper.h ../entity/player/skills/basics/skill_pushball.h ../entity/player/skills/basics/skill_aroundtheball.h ../entity/player/skills/basics/skill_dribble.h ../entity/player/skills/basics/skill_goto.h ../entity/player/skills/basics/skill_gotolookto.h ../entity/player/skills/basics/skill_interceptball.h ../entity/player/skills/basics/skill_rotateto.h ../entity/referee/mrcreferee.h ../entity/world/world.h ../entity/world/worldmapupdater.h ../exithandler.h ../include/3rd_party/netraw.h ../include/3rd_party/ssl_gc_api.pb.h ../include/3rd_party/ssl_gc_change.pb.h ../include/3rd_party/ssl_gc_ci.pb.h ../include/3rd_party/ssl_gc_common.pb.h ../include/3rd_party/ssl_gc_engine.pb.h ../include/3rd_party/ssl_gc_engine_config.pb.h ../include/3rd_party/ssl_gc_game_event.pb.h ../include/3rd_party/ssl_gc_geometry.pb.h ../include/3rd_party/ssl_gc_rcon.pb.h ../include/3rd_party/ssl_gc_rcon_autoref.pb.h ../include/3rd_party/ssl_gc_rcon_remotecontrol.pb.h ../include/3rd_party/ssl_gc_rcon_team.pb.h ../include/3rd_party/ssl_gc_referee_message.pb.h ../include/3rd_party/ssl_gc_state.pb.h ../include/3rd_party/ssl_vision_detection.pb.h ../include/3rd_party/ssl_vision_detection_tracked.pb.h ../include/3rd_party/ssl_vision_geometry.pb.h ../include/3rd_party/ssl_vision_wrapper.pb.h ../include/3rd_party/ssl_vision_wrapper_tracked.pb.h ../include/3rd_party/util.h ../entity/referee/SSLReferee/sslgameinfo.h ../entity/referee/SSLReferee/sslreferee.h ../instancechecker.h ../suassuna.h ../utils/basics/color.hh ../utils/basics/competition.hh ../utils/basics/quadrant.hh ../utils/basics/side.hh ../utils/basics/wall.hh ../utils/fields/field_ssl2014.hh ../utils/fields/field_ssl2015.hh ../utils/fields/field_ssl2020.hh ../utils/fields/field_vss2008.hh ../utils/fields/fields.hh ../utils/fields/wrfields.hh ../utils/fieldside/fieldside.hh ../utils/filters/kalman/kalman.hpp ../utils/filters/kalman/kalmanstate.h ../utils/filters/kalman/matrix.h ../utils/freeangles/freeangles.h ../utils/freeangles/obstacle.h ../utils/graph/basegraph.hh ../utils/graph/edge.hh ../utils/graph/graph.hh ../utils/graph/vertex.hh ../utils/line/line.hh ../utils/utils.hh ../utils/wrtimer/wrtimer.hh ../entity/player/player.h ../entity/contromodule/mrcteam.h ../entity/player/skills/skill.h ../entity/locations.h ../entity/player/skills/skills_include.h ../entity/contromodule/coach.h ../entity/player/playerbus.h ../entity/player/playeraccess.h ../entity/contromodule/strategy/strategy.h ../entity/contromodule/basecoach.h ../entity/contromodule/playersdistribution.h ../entity/contromodule/strategy/strategystate.h ../entity/contromodule/coachutils.h ../entity/contromodule/playbook/playbook.h ../entity/player/behaviour/behaviour.h ../entity/player/behaviour/mrcbehaviours.h ../entity/player/behaviour/basics/behaviour_donothing.h ../entity/player/skills/basics/skill_donothing.h ../utils/knn/knn.hh ../entity/contromodule/strategy/basics/mrcstrategy.h ../entity/contromodule/strategy/basics/sslstrategy.h ../entity/contromodule/controlmodule.h ../entity/contromodule/strategy/basics/sslstrategy_halt.h ../entity/contromodule/playbook/basics/playbook_donothing.h ../entity/contromodule/playbook/mrcplaybook.h ../entity/player/behaviour/basics/behaviour_followball.h ../entity/player/behaviour/basics/behaviour_timeout.h ../entity/contromodule/strategy/mrcstrategies.h ../entity/player/control/pid.h ../utils/mrctimer/mrctimer.h ../entity/player/skills/basics/skill_kick.h ../entity/player/behaviour/basics/behaviour_goalkeeper.h ../entity/player/skills/basics/skill_gkick.h ../entity/player/behaviour/basics/behaviour_receiver.h ../entity/player/behaviour/basics/behaviour_attacker.h ../entity/player/behaviour/basics/behaviour_barrier.h ../entity/player/behaviour/basics/behaviour_markplayer.h ../entity/player/behaviour/basics/behaviour_penalty_gk.h ../entity/player/behaviour/basics/behaviour_cover.h ../entity/player/behaviour/basics/behaviour_passing.h ../entity/player/role/role.h ../entity/player/role/basics/role_default.h ../entity/player/role/basics/role_def_midfielder.h ../entity/player/role/basics/role_defender.h ../entity/player/role/basics/role_secondstriker.h ../entity/player/role/basics/role_advancedMidfielder.h ../entity/player/role/mrcroles.h ../entity/coachview/coachview.h ../entity/coachview/mainwindow.h tmp/moc/ui_mainwindow.h ../entity/player/skills/basics/skill_sample.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../const/constants.cpp ../entity/ballprediction/ballprediction.cpp ../entity/coachview/soccerview/gltext.cpp ../entity/coachview/soccerview/soccerview.cpp ../entity/coachview/soccerview/util/field.cpp ../entity/entity.cpp ../entity/player/behaviour/basics/behaviour_ballreceptor.cpp ../entity/player/behaviour/basics/behaviour_goalkeeper.cpp ../entity/player/behaviour/basics/behaviour_markball.cpp ../entity/player/behaviour/basics/behaviour_penalty_cf.cpp ../entity/player/navigation/fpp/fastpathplanning.cpp ../entity/player/navigation/navalgorithm.cpp ../entity/player/navigation/navigation.cpp ../entity/player/role/basics/role_centreforward.cpp ../entity/player/role/basics/role_goalKeeper.cpp ../entity/player/skills/basics/skill_pushball.cpp ../entity/player/skills/basics/skill_aroundtheball.cpp ../entity/player/skills/basics/skill_dribble.cpp ../entity/player/skills/basics/skill_goto.cpp ../entity/player/skills/basics/skill_gotolookto.cpp ../entity/player/skills/basics/skill_interceptball.cpp ../entity/player/skills/basics/skill_rotateto.cpp ../entity/referee/mrcreferee.cpp ../entity/world/world.cpp ../entity/world/worldmapupdater.cpp ../exithandler.cpp ../include/3rd_party/netraw.cpp ../entity/referee/SSLReferee/sslgameinfo.cpp ../entity/referee/SSLReferee/sslreferee.cpp ../include/3rd_party/ssl_gc_api.pb.cc ../include/3rd_party/ssl_gc_change.pb.cc ../include/3rd_party/ssl_gc_ci.pb.cc ../include/3rd_party/ssl_gc_common.pb.cc ../include/3rd_party/ssl_gc_engine.pb.cc ../include/3rd_party/ssl_gc_engine_config.pb.cc ../include/3rd_party/ssl_gc_game_event.pb.cc ../include/3rd_party/ssl_gc_geometry.pb.cc ../include/3rd_party/ssl_gc_rcon.pb.cc ../include/3rd_party/ssl_gc_rcon_autoref.pb.cc ../include/3rd_party/ssl_gc_rcon_remotecontrol.pb.cc ../include/3rd_party/ssl_gc_rcon_team.pb.cc ../include/3rd_party/ssl_gc_referee_message.pb.cc ../include/3rd_party/ssl_gc_state.pb.cc ../include/3rd_party/ssl_vision_detection.pb.cc ../include/3rd_party/ssl_vision_detection_tracked.pb.cc ../include/3rd_party/ssl_vision_geometry.pb.cc ../include/3rd_party/ssl_vision_wrapper.pb.cc ../include/3rd_party/ssl_vision_wrapper_tracked.pb.cc ../instancechecker.cpp ../main.cpp ../suassuna.cpp ../utils/basics/color.cc ../utils/basics/competition.cc ../utils/basics/quadrant.cc ../utils/basics/side.cc ../utils/basics/wall.cc ../utils/fields/field_ssl2014.cc ../utils/fields/field_ssl2015.cc ../utils/fields/field_ssl2020.cc ../utils/fields/field_vss2008.cc ../utils/fields/fields.cc ../utils/fieldside/fieldside.cc ../utils/filters/kalman/kalman.cpp ../utils/filters/kalman/kalmanstate.cpp ../utils/filters/kalman/matrix.cpp ../utils/freeangles/freeangles.cpp ../utils/freeangles/obstacle.cpp ../utils/graph/edge.cc ../utils/graph/graph.cc ../utils/graph/vertex.cc ../utils/line/line.cc ../utils/utils.cc ../utils/wrtimer/wrtimer.cc ../entity/player/player.cpp ../entity/contromodule/mrcteam.cpp ../entity/player/skills/skill.cpp ../entity/locations.cpp ../entity/contromodule/coach.cpp ../entity/player/playerbus.cpp ../entity/player/playeraccess.cpp ../entity/contromodule/strategy/strategy.cpp ../entity/contromodule/playersdistribution.cpp ../entity/contromodule/strategy/strategystate.cpp ../entity/contromodule/coachutils.cpp ../entity/contromodule/playbook/playbook.cpp ../entity/player/behaviour/behaviour.cpp ../entity/player/behaviour/basics/behaviour_donothing.cpp ../entity/player/skills/basics/skill_donothing.cpp ../utils/knn/knn.cc ../entity/contromodule/strategy/basics/mrcstrategy.cpp ../entity/contromodule/strategy/basics/sslstrategy.cpp ../entity/contromodule/controlmodule.cpp ../entity/contromodule/strategy/basics/sslstrategy_halt.cpp ../entity/contromodule/playbook/basics/playbook_donothing.cpp ../entity/player/behaviour/basics/behaviour_followball.cpp ../entity/player/behaviour/basics/behaviour_timeout.cpp ../entity/player/control/pid.cpp ../utils/mrctimer/mrctimer.cpp ../entity/player/skills/basics/skill_kick.cpp ../entity/player/skills/basics/skill_gkick.cpp ../entity/player/behaviour/basics/behaviour_receiver.cpp ../entity/player/behaviour/basics/behaviour_attacker.cpp ../entity/player/behaviour/basics/behaviour_barrier.cpp ../entity/player/behaviour/basics/behaviour_markplayer.cpp ../entity/player/behaviour/basics/behaviour_penalty_gk.cpp ../entity/player/behaviour/basics/behaviour_cover.cpp ../entity/player/behaviour/basics/behaviour_passing.cpp ../entity/player/role/role.cpp ../entity/player/role/basics/role_default.cpp ../entity/player/role/basics/role_def_midfielder.cpp ../entity/player/role/basics/role_defender.cpp ../entity/player/role/basics/role_secondstriker.cpp ../entity/player/role/basics/role_advancedMidfielder.cpp ../entity/coachview/coachview.cpp ../entity/coachview/mainwindow.cpp ../entity/player/skills/basics/skill_sample.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../entity/coachview/mainwindow.ui $(DISTDIR)/
 
 
@@ -839,6 +875,7 @@ tmp/rc/qrc_rsc.cpp: ../rsc.qrc \
 		../textures/ui/atk.png \
 		../textures/ui/eq.png \
 		../textures/ui/def.png \
+		../textures/ui/vision.png \
 		../textures/ui/referee.png \
 		../textures/ui/play.png \
 		../textures/ui/dribble.png \
@@ -890,11 +927,13 @@ tmp/moc/moc_soccerview.cpp: ../entity/coachview/soccerview/util/timer.h \
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -912,7 +951,7 @@ tmp/moc/moc_soccerview.cpp: ../entity/coachview/soccerview/util/timer.h \
 		../entity/coachview/soccerview/soccerview.h \
 		tmp/moc/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include tmp/moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/tobias/Documentos/Maracatronics/FUTEBOLADOES -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../entity/coachview/soccerview/soccerview.h -o tmp/moc/moc_soccerview.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include tmp/moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/tobias/Documentos/Maracatronics/Armorial-Suassuna -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../entity/coachview/soccerview/soccerview.h -o tmp/moc/moc_soccerview.cpp
 
 tmp/moc/moc_role_centreforward.cpp: ../entity/player/behaviour/mrcbehaviours.h \
 		../entity/player/behaviour/basics/behaviour_donothing.h \
@@ -939,11 +978,13 @@ tmp/moc/moc_role_centreforward.cpp: ../entity/player/behaviour/mrcbehaviours.h \
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -990,15 +1031,17 @@ tmp/moc/moc_role_centreforward.cpp: ../entity/player/behaviour/mrcbehaviours.h \
 		../entity/player/role/basics/role_centreforward.h \
 		tmp/moc/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include tmp/moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/tobias/Documentos/Maracatronics/FUTEBOLADOES -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../entity/player/role/basics/role_centreforward.h -o tmp/moc/moc_role_centreforward.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include tmp/moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/tobias/Documentos/Maracatronics/Armorial-Suassuna -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../entity/player/role/basics/role_centreforward.h -o tmp/moc/moc_role_centreforward.cpp
 
 tmp/moc/moc_playbook.cpp: ../entity/referee/SSLReferee/sslgameinfo.h \
 		../utils/basics/color.hh \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/baseentity.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../entity/entity.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
@@ -1039,7 +1082,7 @@ tmp/moc/moc_playbook.cpp: ../entity/referee/SSLReferee/sslgameinfo.h \
 		../entity/contromodule/playbook/playbook.h \
 		tmp/moc/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include tmp/moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/tobias/Documentos/Maracatronics/FUTEBOLADOES -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../entity/contromodule/playbook/playbook.h -o tmp/moc/moc_playbook.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include tmp/moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/tobias/Documentos/Maracatronics/Armorial-Suassuna -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../entity/contromodule/playbook/playbook.h -o tmp/moc/moc_playbook.cpp
 
 tmp/moc/moc_behaviour.cpp: ../entity/player/baseplayer.h \
 		../entity/player/playeraccess.h \
@@ -1047,7 +1090,7 @@ tmp/moc/moc_behaviour.cpp: ../entity/player/baseplayer.h \
 		../entity/player/behaviour/behaviour.h \
 		tmp/moc/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include tmp/moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/tobias/Documentos/Maracatronics/FUTEBOLADOES -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../entity/player/behaviour/behaviour.h -o tmp/moc/moc_behaviour.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include tmp/moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/tobias/Documentos/Maracatronics/Armorial-Suassuna -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../entity/player/behaviour/behaviour.h -o tmp/moc/moc_behaviour.cpp
 
 tmp/moc/moc_behaviour_receiver.cpp: ../entity/player/behaviour/behaviour.h \
 		../entity/player/baseplayer.h \
@@ -1072,11 +1115,13 @@ tmp/moc/moc_behaviour_receiver.cpp: ../entity/player/behaviour/behaviour.h \
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -1107,7 +1152,7 @@ tmp/moc/moc_behaviour_receiver.cpp: ../entity/player/behaviour/behaviour.h \
 		../entity/player/behaviour/basics/behaviour_receiver.h \
 		tmp/moc/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include tmp/moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/tobias/Documentos/Maracatronics/FUTEBOLADOES -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../entity/player/behaviour/basics/behaviour_receiver.h -o tmp/moc/moc_behaviour_receiver.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include tmp/moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/tobias/Documentos/Maracatronics/Armorial-Suassuna -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../entity/player/behaviour/basics/behaviour_receiver.h -o tmp/moc/moc_behaviour_receiver.cpp
 
 tmp/moc/moc_behaviour_attacker.cpp: ../entity/player/behaviour/behaviour.h \
 		../entity/player/baseplayer.h \
@@ -1132,11 +1177,13 @@ tmp/moc/moc_behaviour_attacker.cpp: ../entity/player/behaviour/behaviour.h \
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -1165,18 +1212,20 @@ tmp/moc/moc_behaviour_attacker.cpp: ../entity/player/behaviour/behaviour.h \
 		../entity/player/behaviour/basics/behaviour_attacker.h \
 		tmp/moc/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include tmp/moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/tobias/Documentos/Maracatronics/FUTEBOLADOES -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../entity/player/behaviour/basics/behaviour_attacker.h -o tmp/moc/moc_behaviour_attacker.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include tmp/moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/tobias/Documentos/Maracatronics/Armorial-Suassuna -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../entity/player/behaviour/basics/behaviour_attacker.h -o tmp/moc/moc_behaviour_attacker.cpp
 
 tmp/moc/moc_role.cpp: ../entity/player/baseplayer.h \
 		../entity/player/playeraccess.h \
 		../entity/player/playerbus.h \
 		../entity/referee/SSLReferee/sslgameinfo.h \
 		../utils/basics/color.hh \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/baseentity.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../entity/entity.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
@@ -1213,7 +1262,7 @@ tmp/moc/moc_role.cpp: ../entity/player/baseplayer.h \
 		../entity/player/role/role.h \
 		tmp/moc/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include tmp/moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/tobias/Documentos/Maracatronics/FUTEBOLADOES -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../entity/player/role/role.h -o tmp/moc/moc_role.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include tmp/moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/tobias/Documentos/Maracatronics/Armorial-Suassuna -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../entity/player/role/role.h -o tmp/moc/moc_role.cpp
 
 tmp/moc/moc_role_default.cpp: ../entity/player/behaviour/mrcbehaviours.h \
 		../entity/player/behaviour/basics/behaviour_donothing.h \
@@ -1240,11 +1289,13 @@ tmp/moc/moc_role_default.cpp: ../entity/player/behaviour/mrcbehaviours.h \
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -1291,7 +1342,7 @@ tmp/moc/moc_role_default.cpp: ../entity/player/behaviour/mrcbehaviours.h \
 		../entity/player/role/basics/role_default.h \
 		tmp/moc/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include tmp/moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/tobias/Documentos/Maracatronics/FUTEBOLADOES -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../entity/player/role/basics/role_default.h -o tmp/moc/moc_role_default.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include tmp/moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/tobias/Documentos/Maracatronics/Armorial-Suassuna -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../entity/player/role/basics/role_default.h -o tmp/moc/moc_role_default.cpp
 
 tmp/moc/moc_role_def_midfielder.cpp: ../entity/player/behaviour/mrcbehaviours.h \
 		../entity/player/behaviour/basics/behaviour_donothing.h \
@@ -1318,11 +1369,13 @@ tmp/moc/moc_role_def_midfielder.cpp: ../entity/player/behaviour/mrcbehaviours.h 
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -1369,7 +1422,7 @@ tmp/moc/moc_role_def_midfielder.cpp: ../entity/player/behaviour/mrcbehaviours.h 
 		../entity/player/role/basics/role_def_midfielder.h \
 		tmp/moc/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include tmp/moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/tobias/Documentos/Maracatronics/FUTEBOLADOES -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../entity/player/role/basics/role_def_midfielder.h -o tmp/moc/moc_role_def_midfielder.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include tmp/moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/tobias/Documentos/Maracatronics/Armorial-Suassuna -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../entity/player/role/basics/role_def_midfielder.h -o tmp/moc/moc_role_def_midfielder.cpp
 
 tmp/moc/moc_role_defender.cpp: ../entity/player/behaviour/mrcbehaviours.h \
 		../entity/player/behaviour/basics/behaviour_donothing.h \
@@ -1396,11 +1449,13 @@ tmp/moc/moc_role_defender.cpp: ../entity/player/behaviour/mrcbehaviours.h \
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -1447,7 +1502,7 @@ tmp/moc/moc_role_defender.cpp: ../entity/player/behaviour/mrcbehaviours.h \
 		../entity/player/role/basics/role_defender.h \
 		tmp/moc/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include tmp/moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/tobias/Documentos/Maracatronics/FUTEBOLADOES -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../entity/player/role/basics/role_defender.h -o tmp/moc/moc_role_defender.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include tmp/moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/tobias/Documentos/Maracatronics/Armorial-Suassuna -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../entity/player/role/basics/role_defender.h -o tmp/moc/moc_role_defender.cpp
 
 tmp/moc/moc_role_secondstriker.cpp: ../entity/player/behaviour/mrcbehaviours.h \
 		../entity/player/behaviour/basics/behaviour_donothing.h \
@@ -1474,11 +1529,13 @@ tmp/moc/moc_role_secondstriker.cpp: ../entity/player/behaviour/mrcbehaviours.h \
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -1525,7 +1582,7 @@ tmp/moc/moc_role_secondstriker.cpp: ../entity/player/behaviour/mrcbehaviours.h \
 		../entity/player/role/basics/role_secondstriker.h \
 		tmp/moc/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include tmp/moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/tobias/Documentos/Maracatronics/FUTEBOLADOES -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../entity/player/role/basics/role_secondstriker.h -o tmp/moc/moc_role_secondstriker.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include tmp/moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/tobias/Documentos/Maracatronics/Armorial-Suassuna -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../entity/player/role/basics/role_secondstriker.h -o tmp/moc/moc_role_secondstriker.cpp
 
 tmp/moc/moc_role_advancedMidfielder.cpp: ../entity/player/behaviour/mrcbehaviours.h \
 		../entity/player/behaviour/basics/behaviour_donothing.h \
@@ -1552,11 +1609,13 @@ tmp/moc/moc_role_advancedMidfielder.cpp: ../entity/player/behaviour/mrcbehaviour
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -1603,7 +1662,7 @@ tmp/moc/moc_role_advancedMidfielder.cpp: ../entity/player/behaviour/mrcbehaviour
 		../entity/player/role/basics/role_advancedMidfielder.h \
 		tmp/moc/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include tmp/moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/tobias/Documentos/Maracatronics/FUTEBOLADOES -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../entity/player/role/basics/role_advancedMidfielder.h -o tmp/moc/moc_role_advancedMidfielder.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include tmp/moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/tobias/Documentos/Maracatronics/Armorial-Suassuna -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../entity/player/role/basics/role_advancedMidfielder.h -o tmp/moc/moc_role_advancedMidfielder.cpp
 
 tmp/moc/moc_mainwindow.cpp: ../const/constants.h \
 		../entity/entity.h \
@@ -1617,11 +1676,13 @@ tmp/moc/moc_mainwindow.cpp: ../const/constants.h \
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -1646,7 +1707,7 @@ tmp/moc/moc_mainwindow.cpp: ../const/constants.h \
 		../entity/coachview/mainwindow.h \
 		tmp/moc/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include tmp/moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/tobias/Documentos/Maracatronics/FUTEBOLADOES -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../entity/coachview/mainwindow.h -o tmp/moc/moc_mainwindow.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include tmp/moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/tobias/Documentos/Maracatronics/Armorial-Suassuna -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../entity/coachview/mainwindow.h -o tmp/moc/moc_mainwindow.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -1684,11 +1745,13 @@ tmp/obj/ballprediction.o: ../entity/ballprediction/ballprediction.cpp ../entity/
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -1738,11 +1801,13 @@ tmp/obj/soccerview.o: ../entity/coachview/soccerview/soccerview.cpp ../entity/co
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -1793,11 +1858,13 @@ tmp/obj/behaviour_ballreceptor.o: ../entity/player/behaviour/basics/behaviour_ba
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -1849,11 +1916,13 @@ tmp/obj/behaviour_goalkeeper.o: ../entity/player/behaviour/basics/behaviour_goal
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -1906,11 +1975,13 @@ tmp/obj/behaviour_markball.o: ../entity/player/behaviour/basics/behaviour_markba
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -1962,11 +2033,13 @@ tmp/obj/behaviour_penalty_cf.o: ../entity/player/behaviour/basics/behaviour_pena
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -2011,11 +2084,13 @@ tmp/obj/fastpathplanning.o: ../entity/player/navigation/fpp/fastpathplanning.cpp
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -2052,11 +2127,13 @@ tmp/obj/navalgorithm.o: ../entity/player/navigation/navalgorithm.cpp ../entity/p
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -2094,11 +2171,13 @@ tmp/obj/navigation.o: ../entity/player/navigation/navigation.cpp ../entity/playe
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -2147,11 +2226,13 @@ tmp/obj/role_centreforward.o: ../entity/player/role/basics/role_centreforward.cp
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -2204,11 +2285,13 @@ tmp/obj/role_goalKeeper.o: ../entity/player/role/basics/role_goalKeeper.cpp ../e
 		../entity/player/playerbus.h \
 		../entity/referee/SSLReferee/sslgameinfo.h \
 		../utils/basics/color.hh \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/baseentity.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../entity/entity.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
@@ -2293,11 +2376,13 @@ tmp/obj/skill_pushball.o: ../entity/player/skills/basics/skill_pushball.cpp ../e
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -2345,11 +2430,13 @@ tmp/obj/skill_aroundtheball.o: ../entity/player/skills/basics/skill_aroundthebal
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -2397,11 +2484,13 @@ tmp/obj/skill_dribble.o: ../entity/player/skills/basics/skill_dribble.cpp ../ent
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -2449,11 +2538,13 @@ tmp/obj/skill_goto.o: ../entity/player/skills/basics/skill_goto.cpp ../entity/pl
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -2501,11 +2592,13 @@ tmp/obj/skill_gotolookto.o: ../entity/player/skills/basics/skill_gotolookto.cpp 
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -2553,11 +2646,13 @@ tmp/obj/skill_interceptball.o: ../entity/player/skills/basics/skill_interceptbal
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -2605,11 +2700,13 @@ tmp/obj/skill_rotateto.o: ../entity/player/skills/basics/skill_rotateto.cpp ../e
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -2637,6 +2734,10 @@ tmp/obj/skill_rotateto.o: ../entity/player/skills/basics/skill_rotateto.cpp ../e
 		../utils/filters/kalman/matrix.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/skill_rotateto.o ../entity/player/skills/basics/skill_rotateto.cpp
 
+tmp/obj/mrcreferee.o: ../entity/referee/mrcreferee.cpp ../entity/referee/mrcreferee.h \
+		../entity/entity.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/mrcreferee.o ../entity/referee/mrcreferee.cpp
+
 tmp/obj/world.o: ../entity/world/world.cpp ../entity/world/world.h \
 		../entity/baseentity.h \
 		../entity/player/baseplayer.h \
@@ -2644,11 +2745,13 @@ tmp/obj/world.o: ../entity/world/world.cpp ../entity/world/world.h \
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -2694,10 +2797,12 @@ tmp/obj/worldmapupdater.o: ../entity/world/worldmapupdater.cpp ../entity/world/w
 		../entity/contromodule/basecoach.h \
 		../entity/contromodule/controlmodule.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/mainwindow.h \
 		../const/constants.h \
 		../entity/contromodule/mrcteam.h \
@@ -2725,55 +2830,16 @@ tmp/obj/worldmapupdater.o: ../entity/world/worldmapupdater.cpp ../entity/world/w
 tmp/obj/exithandler.o: ../exithandler.cpp ../exithandler.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/exithandler.o ../exithandler.cpp
 
-tmp/obj/messages_robocup_ssl_detection.pb.o: ../include/3rd_party/messages_robocup_ssl_detection.pb.cc ../include/3rd_party/messages_robocup_ssl_detection.pb.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/messages_robocup_ssl_detection.pb.o ../include/3rd_party/messages_robocup_ssl_detection.pb.cc
-
 tmp/obj/netraw.o: ../include/3rd_party/netraw.cpp ../include/3rd_party/util.h \
 		../include/3rd_party/netraw.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/netraw.o ../include/3rd_party/netraw.cpp
 
-tmp/obj/robocup_ssl_client.o: ../include/3rd_party/robocup_ssl_client.cpp ../include/3rd_party/robocup_ssl_client.h \
-		../include/3rd_party/netraw.h \
-		../include/3rd_party/messages_robocup_ssl_detection.pb.h \
-		../include/3rd_party/messages_robocup_ssl_geometry.pb.h \
-		../include/3rd_party/messages_robocup_ssl_wrapper.pb.h \
-		../include/3rd_party/messages_robocup_ssl_refbox_log.pb.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/robocup_ssl_client.o ../include/3rd_party/robocup_ssl_client.cpp
-
-tmp/obj/messages_robocup_ssl_geometry.pb.o: ../include/3rd_party/messages_robocup_ssl_geometry.pb.cc ../include/3rd_party/messages_robocup_ssl_geometry.pb.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/messages_robocup_ssl_geometry.pb.o ../include/3rd_party/messages_robocup_ssl_geometry.pb.cc
-
-tmp/obj/messages_robocup_ssl_refbox_log.pb.o: ../include/3rd_party/messages_robocup_ssl_refbox_log.pb.cc ../include/3rd_party/messages_robocup_ssl_refbox_log.pb.h \
-		../include/3rd_party/messages_robocup_ssl_detection.pb.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/messages_robocup_ssl_refbox_log.pb.o ../include/3rd_party/messages_robocup_ssl_refbox_log.pb.cc
-
-tmp/obj/messages_robocup_ssl_wrapper.pb.o: ../include/3rd_party/messages_robocup_ssl_wrapper.pb.cc ../include/3rd_party/messages_robocup_ssl_wrapper.pb.h \
-		../include/3rd_party/messages_robocup_ssl_detection.pb.h \
-		../include/3rd_party/messages_robocup_ssl_geometry.pb.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/messages_robocup_ssl_wrapper.pb.o ../include/3rd_party/messages_robocup_ssl_wrapper.pb.cc
-
-tmp/obj/game_event.pb.o: ../include/3rd_party/game_event.pb.cc ../include/3rd_party/game_event.pb.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/game_event.pb.o ../include/3rd_party/game_event.pb.cc
-
-tmp/obj/grSim_Commands.pb.o: ../include/3rd_party/grSim_Commands.pb.cc ../include/3rd_party/grSim_Commands.pb.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/grSim_Commands.pb.o ../include/3rd_party/grSim_Commands.pb.cc
-
-tmp/obj/grSim_Packet.pb.o: ../include/3rd_party/grSim_Packet.pb.cc ../include/3rd_party/grSim_Packet.pb.h \
-		../include/3rd_party/grSim_Commands.pb.h \
-		../include/3rd_party/grSim_Replacement.pb.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/grSim_Packet.pb.o ../include/3rd_party/grSim_Packet.pb.cc
-
-tmp/obj/grSim_Replacement.pb.o: ../include/3rd_party/grSim_Replacement.pb.cc ../include/3rd_party/grSim_Replacement.pb.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/grSim_Replacement.pb.o ../include/3rd_party/grSim_Replacement.pb.cc
-
-tmp/obj/referee.pb.o: ../include/3rd_party/referee.pb.cc ../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/referee.pb.o ../include/3rd_party/referee.pb.cc
-
 tmp/obj/sslgameinfo.o: ../entity/referee/SSLReferee/sslgameinfo.cpp ../entity/referee/SSLReferee/sslgameinfo.h \
 		../utils/basics/color.hh \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/baseentity.h \
 		../entity/coachview/coachview.h \
 		../entity/entity.h \
@@ -2781,7 +2847,7 @@ tmp/obj/sslgameinfo.o: ../entity/referee/SSLReferee/sslgameinfo.cpp ../entity/re
 		../entity/contromodule/basecoach.h \
 		../entity/contromodule/controlmodule.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../entity/coachview/mainwindow.h \
 		../const/constants.h \
 		../entity/contromodule/mrcteam.h \
@@ -2810,17 +2876,15 @@ tmp/obj/sslgameinfo.o: ../entity/referee/SSLReferee/sslgameinfo.cpp ../entity/re
 		../entity/coachview/soccerview/gltext.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/sslgameinfo.o ../entity/referee/SSLReferee/sslgameinfo.cpp
 
-tmp/obj/referee.o: ../entity/referee/referee.cpp ../entity/referee/referee.h \
-		../entity/entity.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/referee.o ../entity/referee/referee.cpp
-
 tmp/obj/sslreferee.o: ../entity/referee/SSLReferee/sslreferee.cpp ../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../entity/entity.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/baseentity.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
@@ -2854,6 +2918,107 @@ tmp/obj/sslreferee.o: ../entity/referee/SSLReferee/sslreferee.cpp ../entity/refe
 		../entity/coachview/mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/sslreferee.o ../entity/referee/SSLReferee/sslreferee.cpp
 
+tmp/obj/ssl_gc_api.pb.o: ../include/3rd_party/ssl_gc_api.pb.cc ../include/3rd_party/ssl_gc_api.pb.h \
+		../include/3rd_party/ssl_gc_state.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_change.pb.h \
+		../include/3rd_party/ssl_gc_engine.pb.h \
+		../include/3rd_party/ssl_gc_engine_config.pb.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/ssl_gc_api.pb.o ../include/3rd_party/ssl_gc_api.pb.cc
+
+tmp/obj/ssl_gc_change.pb.o: ../include/3rd_party/ssl_gc_change.pb.cc ../include/3rd_party/ssl_gc_change.pb.h \
+		../include/3rd_party/ssl_gc_state.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/ssl_gc_change.pb.o ../include/3rd_party/ssl_gc_change.pb.cc
+
+tmp/obj/ssl_gc_ci.pb.o: ../include/3rd_party/ssl_gc_ci.pb.cc ../include/3rd_party/ssl_gc_ci.pb.h \
+		../include/3rd_party/ssl_vision_wrapper_tracked.pb.h \
+		../include/3rd_party/ssl_vision_detection_tracked.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/ssl_gc_ci.pb.o ../include/3rd_party/ssl_gc_ci.pb.cc
+
+tmp/obj/ssl_gc_common.pb.o: ../include/3rd_party/ssl_gc_common.pb.cc ../include/3rd_party/ssl_gc_common.pb.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/ssl_gc_common.pb.o ../include/3rd_party/ssl_gc_common.pb.cc
+
+tmp/obj/ssl_gc_engine.pb.o: ../include/3rd_party/ssl_gc_engine.pb.cc ../include/3rd_party/ssl_gc_engine.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/ssl_gc_engine.pb.o ../include/3rd_party/ssl_gc_engine.pb.cc
+
+tmp/obj/ssl_gc_engine_config.pb.o: ../include/3rd_party/ssl_gc_engine_config.pb.cc ../include/3rd_party/ssl_gc_engine_config.pb.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/ssl_gc_engine_config.pb.o ../include/3rd_party/ssl_gc_engine_config.pb.cc
+
+tmp/obj/ssl_gc_game_event.pb.o: ../include/3rd_party/ssl_gc_game_event.pb.cc ../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/ssl_gc_game_event.pb.o ../include/3rd_party/ssl_gc_game_event.pb.cc
+
+tmp/obj/ssl_gc_geometry.pb.o: ../include/3rd_party/ssl_gc_geometry.pb.cc ../include/3rd_party/ssl_gc_geometry.pb.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/ssl_gc_geometry.pb.o ../include/3rd_party/ssl_gc_geometry.pb.cc
+
+tmp/obj/ssl_gc_rcon.pb.o: ../include/3rd_party/ssl_gc_rcon.pb.cc ../include/3rd_party/ssl_gc_rcon.pb.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/ssl_gc_rcon.pb.o ../include/3rd_party/ssl_gc_rcon.pb.cc
+
+tmp/obj/ssl_gc_rcon_autoref.pb.o: ../include/3rd_party/ssl_gc_rcon_autoref.pb.cc ../include/3rd_party/ssl_gc_rcon_autoref.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
+		../include/3rd_party/ssl_gc_rcon.pb.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/ssl_gc_rcon_autoref.pb.o ../include/3rd_party/ssl_gc_rcon_autoref.pb.cc
+
+tmp/obj/ssl_gc_rcon_remotecontrol.pb.o: ../include/3rd_party/ssl_gc_rcon_remotecontrol.pb.cc ../include/3rd_party/ssl_gc_rcon_remotecontrol.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_rcon.pb.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/ssl_gc_rcon_remotecontrol.pb.o ../include/3rd_party/ssl_gc_rcon_remotecontrol.pb.cc
+
+tmp/obj/ssl_gc_rcon_team.pb.o: ../include/3rd_party/ssl_gc_rcon_team.pb.cc ../include/3rd_party/ssl_gc_rcon_team.pb.h \
+		../include/3rd_party/ssl_gc_rcon.pb.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/ssl_gc_rcon_team.pb.o ../include/3rd_party/ssl_gc_rcon_team.pb.cc
+
+tmp/obj/ssl_gc_referee_message.pb.o: ../include/3rd_party/ssl_gc_referee_message.pb.cc ../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/ssl_gc_referee_message.pb.o ../include/3rd_party/ssl_gc_referee_message.pb.cc
+
+tmp/obj/ssl_gc_state.pb.o: ../include/3rd_party/ssl_gc_state.pb.cc ../include/3rd_party/ssl_gc_state.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/ssl_gc_state.pb.o ../include/3rd_party/ssl_gc_state.pb.cc
+
+tmp/obj/ssl_vision_detection.pb.o: ../include/3rd_party/ssl_vision_detection.pb.cc ../include/3rd_party/ssl_vision_detection.pb.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/ssl_vision_detection.pb.o ../include/3rd_party/ssl_vision_detection.pb.cc
+
+tmp/obj/ssl_vision_detection_tracked.pb.o: ../include/3rd_party/ssl_vision_detection_tracked.pb.cc ../include/3rd_party/ssl_vision_detection_tracked.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/ssl_vision_detection_tracked.pb.o ../include/3rd_party/ssl_vision_detection_tracked.pb.cc
+
+tmp/obj/ssl_vision_geometry.pb.o: ../include/3rd_party/ssl_vision_geometry.pb.cc ../include/3rd_party/ssl_vision_geometry.pb.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/ssl_vision_geometry.pb.o ../include/3rd_party/ssl_vision_geometry.pb.cc
+
+tmp/obj/ssl_vision_wrapper.pb.o: ../include/3rd_party/ssl_vision_wrapper.pb.cc ../include/3rd_party/ssl_vision_wrapper.pb.h \
+		../include/3rd_party/ssl_vision_detection.pb.h \
+		../include/3rd_party/ssl_vision_geometry.pb.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/ssl_vision_wrapper.pb.o ../include/3rd_party/ssl_vision_wrapper.pb.cc
+
+tmp/obj/ssl_vision_wrapper_tracked.pb.o: ../include/3rd_party/ssl_vision_wrapper_tracked.pb.cc ../include/3rd_party/ssl_vision_wrapper_tracked.pb.h \
+		../include/3rd_party/ssl_vision_detection_tracked.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/ssl_vision_wrapper_tracked.pb.o ../include/3rd_party/ssl_vision_wrapper_tracked.pb.cc
+
 tmp/obj/instancechecker.o: ../instancechecker.cpp ../instancechecker.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/instancechecker.o ../instancechecker.cpp
 
@@ -2861,11 +3026,13 @@ tmp/obj/main.o: ../main.cpp ../suassuna.h \
 		../utils/basics/color.hh \
 		../utils/basics/competition.hh \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../entity/entity.h \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/baseentity.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
@@ -2912,11 +3079,13 @@ tmp/obj/suassuna.o: ../suassuna.cpp ../suassuna.h \
 		../utils/basics/color.hh \
 		../utils/basics/competition.hh \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../entity/entity.h \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/baseentity.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
@@ -3072,11 +3241,13 @@ tmp/obj/freeangles.o: ../utils/freeangles/freeangles.cpp ../utils/freeangles/fre
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/controlmodule.h \
@@ -3140,11 +3311,13 @@ tmp/obj/player.o: ../entity/player/player.cpp ../entity/player/player.h \
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -3191,11 +3364,13 @@ tmp/obj/mrcteam.o: ../entity/contromodule/mrcteam.cpp ../entity/contromodule/mrc
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -3234,11 +3409,13 @@ tmp/obj/skill.o: ../entity/player/skills/skill.cpp ../entity/player/skills/skill
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -3274,11 +3451,13 @@ tmp/obj/locations.o: ../entity/locations.cpp ../entity/locations.h \
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -3308,11 +3487,13 @@ tmp/obj/coach.o: ../entity/contromodule/coach.cpp ../entity/contromodule/coach.h
 		../entity/entity.h \
 		../entity/baseentity.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/mainwindow.h \
 		../const/constants.h \
 		../entity/contromodule/mrcteam.h \
@@ -3357,11 +3538,13 @@ tmp/obj/playerbus.o: ../entity/player/playerbus.cpp ../entity/player/playerbus.h
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -3395,11 +3578,13 @@ tmp/obj/playeraccess.o: ../entity/player/playeraccess.cpp ../entity/player/playe
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -3431,8 +3616,10 @@ tmp/obj/strategy.o: ../entity/contromodule/strategy/strategy.cpp ../entity/contr
 		../entity/contromodule/basecoach.h \
 		../entity/referee/SSLReferee/sslgameinfo.h \
 		../utils/basics/color.hh \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/baseentity.h \
 		../entity/contromodule/playersdistribution.h \
 		../utils/wrtimer/wrtimer.hh \
@@ -3446,7 +3633,7 @@ tmp/obj/strategy.o: ../entity/contromodule/strategy/strategy.cpp ../entity/contr
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/controlmodule.h \
@@ -3475,13 +3662,15 @@ tmp/obj/playersdistribution.o: ../entity/contromodule/playersdistribution.cpp ..
 		../entity/contromodule/basecoach.h \
 		../entity/referee/SSLReferee/sslgameinfo.h \
 		../utils/basics/color.hh \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/baseentity.h \
 		../utils/wrtimer/wrtimer.hh \
 		../utils/utils.hh \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../entity/entity.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
@@ -3517,11 +3706,13 @@ tmp/obj/strategystate.o: ../entity/contromodule/strategy/strategystate.cpp ../en
 		../entity/contromodule/basecoach.h \
 		../entity/referee/SSLReferee/sslgameinfo.h \
 		../utils/basics/color.hh \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/baseentity.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../entity/entity.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
@@ -3575,11 +3766,13 @@ tmp/obj/coachutils.o: ../entity/contromodule/coachutils.cpp ../entity/contromodu
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/controlmodule.h \
@@ -3606,11 +3799,13 @@ tmp/obj/coachutils.o: ../entity/contromodule/coachutils.cpp ../entity/contromodu
 tmp/obj/playbook.o: ../entity/contromodule/playbook/playbook.cpp ../entity/contromodule/playbook/playbook.h \
 		../entity/referee/SSLReferee/sslgameinfo.h \
 		../utils/basics/color.hh \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/baseentity.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../entity/entity.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
@@ -3662,11 +3857,13 @@ tmp/obj/behaviour.o: ../entity/player/behaviour/behaviour.cpp ../entity/player/b
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -3718,11 +3915,13 @@ tmp/obj/behaviour_donothing.o: ../entity/player/behaviour/basics/behaviour_donot
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -3770,11 +3969,13 @@ tmp/obj/skill_donothing.o: ../entity/player/skills/basics/skill_donothing.cpp ..
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -3816,11 +4017,13 @@ tmp/obj/knn.o: ../utils/knn/knn.cc ../utils/knn/knn.hh \
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/controlmodule.h \
@@ -3849,8 +4052,10 @@ tmp/obj/mrcstrategy.o: ../entity/contromodule/strategy/basics/mrcstrategy.cpp ..
 		../entity/contromodule/basecoach.h \
 		../entity/referee/SSLReferee/sslgameinfo.h \
 		../utils/basics/color.hh \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/baseentity.h \
 		../entity/contromodule/strategy/mrcstrategies.h \
 		../entity/contromodule/strategy/basics/sslstrategy_halt.h \
@@ -3859,7 +4064,7 @@ tmp/obj/mrcstrategy.o: ../entity/contromodule/strategy/basics/mrcstrategy.cpp ..
 		../entity/contromodule/playbook/basics/playbook_donothing.h \
 		../entity/contromodule/playbook/playbook.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../entity/entity.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
@@ -3940,8 +4145,10 @@ tmp/obj/sslstrategy.o: ../entity/contromodule/strategy/basics/sslstrategy.cpp ..
 		../entity/contromodule/basecoach.h \
 		../entity/referee/SSLReferee/sslgameinfo.h \
 		../utils/basics/color.hh \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/baseentity.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/sslstrategy.o ../entity/contromodule/strategy/basics/sslstrategy.cpp
 
@@ -3953,14 +4160,16 @@ tmp/obj/sslstrategy_halt.o: ../entity/contromodule/strategy/basics/sslstrategy_h
 		../entity/contromodule/basecoach.h \
 		../entity/referee/SSLReferee/sslgameinfo.h \
 		../utils/basics/color.hh \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/baseentity.h \
 		../entity/contromodule/playbook/mrcplaybook.h \
 		../entity/contromodule/playbook/basics/playbook_donothing.h \
 		../entity/contromodule/playbook/playbook.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../entity/entity.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
@@ -4040,11 +4249,13 @@ tmp/obj/playbook_donothing.o: ../entity/contromodule/playbook/basics/playbook_do
 		../entity/contromodule/playbook/playbook.h \
 		../entity/referee/SSLReferee/sslgameinfo.h \
 		../utils/basics/color.hh \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/baseentity.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../entity/entity.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
@@ -4145,11 +4356,13 @@ tmp/obj/behaviour_followball.o: ../entity/player/behaviour/basics/behaviour_foll
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -4201,11 +4414,13 @@ tmp/obj/behaviour_timeout.o: ../entity/player/behaviour/basics/behaviour_timeout
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -4260,11 +4475,13 @@ tmp/obj/skill_kick.o: ../entity/player/skills/basics/skill_kick.cpp ../entity/pl
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -4312,11 +4529,13 @@ tmp/obj/skill_gkick.o: ../entity/player/skills/basics/skill_gkick.cpp ../entity/
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -4368,11 +4587,13 @@ tmp/obj/behaviour_receiver.o: ../entity/player/behaviour/basics/behaviour_receiv
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -4427,11 +4648,13 @@ tmp/obj/behaviour_attacker.o: ../entity/player/behaviour/basics/behaviour_attack
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -4485,11 +4708,13 @@ tmp/obj/behaviour_barrier.o: ../entity/player/behaviour/basics/behaviour_barrier
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -4541,11 +4766,13 @@ tmp/obj/behaviour_markplayer.o: ../entity/player/behaviour/basics/behaviour_mark
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -4597,11 +4824,13 @@ tmp/obj/behaviour_penalty_gk.o: ../entity/player/behaviour/basics/behaviour_pena
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -4654,11 +4883,13 @@ tmp/obj/behaviour_cover.o: ../entity/player/behaviour/basics/behaviour_cover.cpp
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -4710,11 +4941,13 @@ tmp/obj/behaviour_passing.o: ../entity/player/behaviour/basics/behaviour_passing
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -4746,11 +4979,13 @@ tmp/obj/behaviour_passing.o: ../entity/player/behaviour/basics/behaviour_passing
 
 tmp/obj/role.o: ../entity/player/role/role.cpp ../entity/referee/SSLReferee/sslgameinfo.h \
 		../utils/basics/color.hh \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/baseentity.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../entity/entity.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
@@ -4816,11 +5051,13 @@ tmp/obj/role_default.o: ../entity/player/role/basics/role_default.cpp ../entity/
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -4892,11 +5129,13 @@ tmp/obj/role_def_midfielder.o: ../entity/player/role/basics/role_def_midfielder.
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -4968,11 +5207,13 @@ tmp/obj/role_defender.o: ../entity/player/role/basics/role_defender.cpp ../entit
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -5044,11 +5285,13 @@ tmp/obj/role_secondstriker.o: ../entity/player/role/basics/role_secondstriker.cp
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -5120,11 +5363,13 @@ tmp/obj/role_advancedMidfielder.o: ../entity/player/role/basics/role_advancedMid
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -5177,11 +5422,13 @@ tmp/obj/coachview.o: ../entity/coachview/coachview.cpp ../entity/coachview/coach
 		../entity/contromodule/basecoach.h \
 		../entity/contromodule/controlmodule.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/mainwindow.h \
 		../const/constants.h \
 		../entity/contromodule/mrcteam.h \
@@ -5231,11 +5478,13 @@ tmp/obj/mainwindow.o: ../entity/coachview/mainwindow.cpp ../entity/coachview/mai
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \
@@ -5280,11 +5529,13 @@ tmp/obj/skill_sample.o: ../entity/player/skills/basics/skill_sample.cpp ../entit
 		../utils/fields/fields.hh \
 		../entity/world/worldmapupdater.h \
 		../entity/referee/SSLReferee/sslreferee.h \
-		../include/3rd_party/referee.pb.h \
-		../include/3rd_party/game_event.pb.h \
-		../entity/referee/referee.h \
+		../entity/referee/mrcreferee.h \
 		../utils/basics/color.hh \
 		../entity/referee/SSLReferee/sslgameinfo.h \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
 		../entity/coachview/coachview.h \
 		../entity/contromodule/coach.h \
 		../entity/contromodule/basecoach.h \

@@ -32,20 +32,17 @@ void MainWindow::resetRobots(){
     for(quint8 x = 0; x < MRCConstants::_qtPlayers; x++){
         setPlayerBattery(x, 0);
         setPlayerKickCharge(x, 0);
-        setPlayerRole(x, "none");
+        setPlayerRole(x, "None");
         setDribble(x, false);
         setRadioConnect(x, false);
     }
 }
 
-void MainWindow::enableRobot(quint8 id){
-    if(!this->playerBoxes.at(id)->isEnabled()) this->playerBoxes.at(id)->setDisabled(false);
-    else return ;
-}
-
-void MainWindow::disableRobot(quint8 id){
-    if(this->playerBoxes.at(id)->isEnabled()) this->playerBoxes.at(id)->setDisabled(true);
-    else return ;
+void MainWindow::setRobotVisionStatus(quint8 id, bool status){
+    if(status)
+        playerVisionStatus.at(id)->setText("On");
+    else
+        playerVisionStatus.at(id)->setText("Off");
 }
 
 void MainWindow::updateGUI(MRCTeam *ourTeam, MRCTeam *theirTeam, Locations *loc){
@@ -112,9 +109,12 @@ void MainWindow::addRoot(){
     root = item;
 }
 
-void MainWindow::resetTree(QList<QString> playbookList, QMap<QString, QList<QString>> rolesList,
+void MainWindow::resetTree(QString strat, QList<QString> playbookList, QMap<QString, QList<QString>> rolesList,
                            QMap<std::pair<QString, QString>, QList<std::pair<QString, quint8>>> playersList,
                            QMap<QString, QString> behavioursList){
+    // Changing strategy name
+    root->setText(0, strat);
+
     // Parsing playbooks
     for(int x = 0; x < playbookList.size(); x++){
         if(!isContained(root, playbookList.at(x))){
@@ -163,9 +163,7 @@ void MainWindow::resetTree(QList<QString> playbookList, QMap<QString, QList<QStr
                 if(player->childCount() == 0){ // never had a behaviour before
                     addChild(player, behavioursList[playerName]);
                 }else{                         // update existing behaviour
-                    QTreeWidgetItem *bhv = player->takeChild(0);
-                    bhv->setText(0, behavioursList[playerName]);
-                    player->addChild(bhv);
+                    player->child(0)->setText(0, behavioursList[playerName]);
                 }
             }
         }
@@ -238,10 +236,9 @@ QPixmap MainWindow::getRolePixmap(QString role){
 }
 
 void MainWindow::setPlayerRole(quint8 id, QString role){
-    QPixmap pixmp = getRolePixmap(role);
-
     if(role.toLower() == playerRoles.at(id).second->text().toLower()) return;
 
+    QPixmap pixmp = getRolePixmap(role);
     playerRoles.at(id).first->setPixmap(pixmp);
     playerRoles.at(id).second->setText(role);
 }
@@ -365,7 +362,7 @@ MainWindow::MainWindow(QWidget *parent)
     treeWidget->setGeometry(QRect(10, 10, 601, 192));
     treeWidget->setColumnCount(1);
     QTreeWidgetItem *___qtreewidgetitem = treeWidget->headerItem();
-    ___qtreewidgetitem->setText(0, QApplication::translate("MainWindow", "Strategy", Q_NULLPTR));
+    ___qtreewidgetitem->setText(0, QApplication::translate("MainWindow", "Coach Tree", Q_NULLPTR));
     qRegisterMetaType<QVector<int>>("QVector<int>");
 
     // creating vector for groupboxes
@@ -437,6 +434,20 @@ MainWindow::MainWindow(QWidget *parent)
     playerConnections.push_back(ui->status_10);
     playerConnections.push_back(ui->status_11);
     playerConnections.push_back(ui->status_12);
+
+    // creating vector for vision connection
+    playerVisionStatus.push_back(ui->vision_1);
+    playerVisionStatus.push_back(ui->vision_2);
+    playerVisionStatus.push_back(ui->vision_3);
+    playerVisionStatus.push_back(ui->vision_4);
+    playerVisionStatus.push_back(ui->vision_5);
+    playerVisionStatus.push_back(ui->vision_6);
+    playerVisionStatus.push_back(ui->vision_7);
+    playerVisionStatus.push_back(ui->vision_8);
+    playerVisionStatus.push_back(ui->vision_9);
+    playerVisionStatus.push_back(ui->vision_10);
+    playerVisionStatus.push_back(ui->vision_11);
+    playerVisionStatus.push_back(ui->vision_12);
 
     // creating vector for dribble connection
     playerDribbles.push_back(ui->dribble_1);
