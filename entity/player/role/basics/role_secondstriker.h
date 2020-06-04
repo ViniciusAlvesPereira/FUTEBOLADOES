@@ -28,19 +28,6 @@
 class Role_SecondStriker : public Role {
     Q_OBJECT
 private:
-    //Variaveis
-    int _actualState;
-    int _beforeState;
-    int _actualPlayer;
-    bool _ourPlayer;
-    bool _ourPoss;
-    bool _theirPoss;
-    Position _receveirPosition;
-    //quint8 _ourPlayerID;
-    //float _distMin[6];
-    //float _distSecondStriker;
-    //bool _ativarMarkBall;
-
     // Behaviours
     Behaviour_MarkBall *_bh_mkb;
     Behaviour_MarkPlayer *_bh_mkp;
@@ -63,6 +50,9 @@ private:
     void configure();
     void run();
 
+    //Mutex
+    QMutex _mutex;
+
     //Global variables
     float standardDistance;
     bool markChoice;
@@ -70,16 +60,16 @@ private:
 
     // Auxiliary functions
     bool ourTeamPossession();
-    int playerWithPoss(bool ourPoss);
+    quint8 playerWithPoss(bool ourPoss);
 
 signals:
-    void sendAttackerID(int id);
+    void sendAttackerID(quint8 id);
     void sendMarkInformation(float distance);
 
 public slots:
-    void receiveAttackerID(int id);
+    void receiveAttackerID(quint8 id);
     void receiveMarkInformation(float distance);
-    void receivePassId(int passId);
+    void receivePassId(quint8 passId);
 
 public:
     Role_SecondStriker();

@@ -25,7 +25,7 @@
 #include <utils/line/line.hh>
 
 #define DIST_TO_ATK 1.0f
-#define NO_ATTACKER -1
+#define NO_ATTACKER 50
 
 QString Behaviour_Receiver::name() {
     return "Behaviour_Receiver";
@@ -65,7 +65,7 @@ void Behaviour_Receiver::run() {
     }
 
     Position _desiredPosition = getReceiverBestPosition(_quadrant, _attackerId, _minRadius, _maxRadius);
-    double modDistToAttacker = fabs(WR::Utils::distance(player()->position(), PlayerBus::ourPlayer(_attackerId)->position()));
+    //float modDistToAttacker = fabs(WR::Utils::distance(player()->position(), PlayerBus::ourPlayer(_attackerId)->position()));
 
     // fazer machine state aqui
 

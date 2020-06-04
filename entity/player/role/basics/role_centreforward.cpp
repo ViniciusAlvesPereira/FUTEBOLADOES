@@ -49,12 +49,11 @@ void Role_CentreForward::configure(){
 }
 
 void Role_CentreForward::run(){
-    _mutex.unlock();
     bool ourPoss = ourTeamPossession();
     static bool previousPoss = false;
 
     if (ourPoss == false) {
-        int idWithPoss = playerWithPoss(ourPoss);
+        quint8 idWithPoss = playerWithPoss(ourPoss);
         if (idWithPoss == BALLPOSS_NONE) {
             if (_isPassComing == true) {
                 _bh_brp->setPlayerId(player()->playerId());
@@ -66,7 +65,7 @@ void Role_CentreForward::run(){
                 previousPoss = false;
             } else {
                 QList<marking> markOptions;
-                for (int i = 0; i < MRCConstants::_qtPlayers; i++) {
+                for (quint8 i = 0; i < MRCConstants::_qtPlayers; i++) {
                     if (PlayerBus::theirPlayerAvailable(i)) {
                         if (i != idWithPoss) {
                             marking fon;
@@ -90,7 +89,7 @@ void Role_CentreForward::run(){
             }
         }
     } else {
-        int idWithPoss = playerWithPoss(ourPoss);
+        quint8 idWithPoss = playerWithPoss(ourPoss);
         if (idWithPoss == player()->playerId()) {
             setBehaviour(BHV_ATTACKER);
             previousPoss = true;
@@ -100,7 +99,6 @@ void Role_CentreForward::run(){
             previousPoss = true;
         }
     }
-    _mutex.unlock();
 }
 
 bool Role_CentreForward::ourTeamPossession() {
@@ -115,7 +113,7 @@ bool Role_CentreForward::ourTeamPossession() {
     return false;
 }
 
-int Role_CentreForward::playerWithPoss(bool ourPoss) {
+quint8 Role_CentreForward::playerWithPoss(bool ourPoss) {
     if (ourPoss == true) {
         for (quint8 i = 0; i < MRCConstants::_qtPlayers; i++) {
             if (PlayerBus::ourPlayerAvailable(i)) {
@@ -138,7 +136,7 @@ int Role_CentreForward::playerWithPoss(bool ourPoss) {
     return BALLPOSS_NONE;
 }
 
-void Role_CentreForward::receiveAttackerID(int id) {
+void Role_CentreForward::receiveAttackerID(quint8 id) {
     _bh_rcv->setAttackerId(id);
     //printf("[CF] AttackerId: %i\n", id);
 }
@@ -150,7 +148,7 @@ void Role_CentreForward::receiveMarkInformation(float distance) {
     } else markChoice = false;
 }
 
-void Role_CentreForward::receivePassId(int passId) {
+void Role_CentreForward::receivePassId(quint8 passId) {
     _mutex.lock();
     if (passId == player()->playerId()) {
         _isPassComing = true;

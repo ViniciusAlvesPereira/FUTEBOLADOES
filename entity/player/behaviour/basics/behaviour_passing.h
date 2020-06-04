@@ -25,20 +25,22 @@
 #include <entity/player/behaviour/behaviour.h>
 #include <entity/player/skills/skills_include.h>
 
+#define NO_PASS 150
+
 class Behaviour_Passing : public Behaviour {
 private:
     void configure();
     void run();
 
     //Parameters
-    int _id;
-    int passId;
+    quint8 _id;
+    quint8 passId;
 
     // Skills
     Skill_Kick *_skill_kick;
 
     // Functions
-    int getBestPassOption(Position &watcher);
+    quint8 getBestPassOption(Position &watcher);
 
     //Mutex
     QMutex _mutex;
@@ -47,8 +49,8 @@ public:
     Behaviour_Passing();
     QString name();
 
-    void setPlayerId (int id) { _id = id; }
-    int getPassId() { return passId; }
+    void setPlayerId (quint8 id) { _id = id; }
+    quint8 getPassId() { return passId; }
 };
 
 #endif // BEHAVIOUR_PASSING_H

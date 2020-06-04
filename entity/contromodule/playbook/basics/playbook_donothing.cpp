@@ -66,13 +66,15 @@ void Playbook_DoNothing::run(int numPlayers) {
 
     //PassInformation:
         //DF
-    connect(_rl_df, SIGNAL(sendPassId(int)), _rl_cf, SLOT(receivePassId(int)), Qt::DirectConnection);
-    connect(_rl_df, SIGNAL(sendPassId(int)), _rl_ss, SLOT(receivePassId(int)), Qt::DirectConnection);
-    connect(_rl_df, SIGNAL(sendPassId(int)), _rl_dmf, SLOT(receivePassId(int)), Qt::DirectConnection);
+    connect(_rl_df, SIGNAL(sendPassId(quint8)), _rl_cf, SLOT(receivePassId(quint8)), Qt::DirectConnection);
+    connect(_rl_df, SIGNAL(sendPassId(quint8)), _rl_ss, SLOT(receivePassId(quint8)), Qt::DirectConnection);
+    connect(_rl_df, SIGNAL(sendPassId(quint8)), _rl_amf, SLOT(receivePassId(quint8)), Qt::DirectConnection);
+    connect(_rl_df, SIGNAL(sendPassId(quint8)), _rl_dmf, SLOT(receivePassId(quint8)), Qt::DirectConnection);
         //DMF
-    connect(_rl_dmf, SIGNAL(sendPassId(int)), _rl_cf, SLOT(receivePassId(int)), Qt::DirectConnection);
-    connect(_rl_dmf, SIGNAL(sendPassId(int)), _rl_ss, SLOT(receivePassId(int)), Qt::DirectConnection);
-    connect(_rl_dmf, SIGNAL(sendPassId(int)), _rl_df, SLOT(receivePassId(int)), Qt::DirectConnection);
+    connect(_rl_dmf, SIGNAL(sendPassId(quint8)), _rl_cf, SLOT(receivePassId(quint8)), Qt::DirectConnection);
+    connect(_rl_dmf, SIGNAL(sendPassId(quint8)), _rl_ss, SLOT(receivePassId(quint8)), Qt::DirectConnection);
+    connect(_rl_dmf, SIGNAL(sendPassId(quint8)), _rl_amf, SLOT(receivePassId(quint8)), Qt::DirectConnection);
+    connect(_rl_dmf, SIGNAL(sendPassId(quint8)), _rl_df, SLOT(receivePassId(quint8)), Qt::DirectConnection);
 
     //MarkPlayer Communication:
         //CF
@@ -82,12 +84,12 @@ void Playbook_DoNothing::run(int numPlayers) {
 
     //Attacker/Receiver Communication:
         //CF
-    connect(_rl_cf, SIGNAL(sendAttackerID(int)), _rl_ss, SLOT(receiveAttackerID(int)), Qt::DirectConnection);
-    connect(_rl_cf, SIGNAL(sendAttackerID(int)), _rl_amf, SLOT(receiveAttackerID(int)), Qt::DirectConnection);
+    connect(_rl_cf, SIGNAL(sendAttackerID(quint8)), _rl_ss, SLOT(receiveAttackerID(quint8)), Qt::DirectConnection);
+    connect(_rl_cf, SIGNAL(sendAttackerID(quint8)), _rl_amf, SLOT(receiveAttackerID(quint8)), Qt::DirectConnection);
         //SS
-    connect(_rl_ss, SIGNAL(sendAttackerID(int)), _rl_cf, SLOT(receiveAttackerID(int)), Qt::DirectConnection);
-    connect(_rl_ss, SIGNAL(sendAttackerID(int)), _rl_amf, SLOT(receiveAttackerID(int)), Qt::DirectConnection);
+    connect(_rl_ss, SIGNAL(sendAttackerID(quint8)), _rl_cf, SLOT(receiveAttackerID(quint8)), Qt::DirectConnection);
+    connect(_rl_ss, SIGNAL(sendAttackerID(quint8)), _rl_amf, SLOT(receiveAttackerID(quint8)), Qt::DirectConnection);
         //AMF
-    connect(_rl_amf, SIGNAL(sendAttackerID(int)), _rl_cf, SLOT(receiveAttackerID(int)), Qt::DirectConnection);
-    connect(_rl_amf, SIGNAL(sendAttackerID(int)), _rl_ss, SLOT(receiveAttackerID(int)), Qt::DirectConnection);
+    connect(_rl_amf, SIGNAL(sendAttackerID(quint8)), _rl_cf, SLOT(receiveAttackerID(quint8)), Qt::DirectConnection);
+    connect(_rl_amf, SIGNAL(sendAttackerID(quint8)), _rl_ss, SLOT(receiveAttackerID(quint8)), Qt::DirectConnection);
 }

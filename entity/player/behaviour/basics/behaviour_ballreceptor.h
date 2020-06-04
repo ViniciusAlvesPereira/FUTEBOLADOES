@@ -32,7 +32,7 @@ private:
     int _state;
 
     //Parameters
-    int _id;
+    quint8 _id;
 
     //Skills
     //Skill_RotateTo *_sk_rotateto;
@@ -41,7 +41,7 @@ public:
     Behaviour_BallReceptor();
     QString name();
 
-    void setPlayerId (int id) { _id = id; }
+    void setPlayerId (quint8 id) { _id = id; }
 };
 
 #endif // BEHAVIOUR_BALLRECEPTOR_H

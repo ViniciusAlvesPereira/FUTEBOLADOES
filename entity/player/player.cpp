@@ -442,10 +442,13 @@ void Player::aroundTheBall(Position targetPosition, double offset, double offset
     }
     // Configura o robô para ir até a bola e girar em torno dela
     std::pair<float, float> a;
-    long double moduloDistancia = sqrt(pow((targetPosition.x() - robot_x),2)+pow((targetPosition.y() - robot_y),2));
+
     a = goTo(targetPosition, offset);
     float theta = rotateTo(targetPosition, offsetAngular).second;
+    long double moduloDistancia = sqrt(pow((targetPosition.x() - robot_x),2)+pow((targetPosition.y() - robot_y),2));
 
+    if (moduloDistancia < offset) setSpeed(0.0, 0.2, theta);
+    else setSpeed(a.first, a.second, theta);
 }
 
 void Player::kick(bool isPass, float kickZPower){

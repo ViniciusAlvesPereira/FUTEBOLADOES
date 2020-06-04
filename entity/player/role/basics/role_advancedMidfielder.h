@@ -1,3 +1,24 @@
+/***
+ * Maracatronics Robotics
+ * Federal University of Pernambuco (UFPE) at Recife
+ * http://www.maracatronics.com/
+ *
+ * This file is part of Armorial project.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ***/
+
 #ifndef ROLE_ADVANCEDMIDFILDER_H
 #define ROLE_ADVANCEDMIDFILDER_H
 
@@ -6,33 +27,23 @@
 #include <entity/player/behaviour/basics/behaviour_receiver.h>
 #include <entity/player/skills/skills_include.h>
 
-class Role_AdvancedMidfielder : public Role
-{
+class Role_AdvancedMidfielder : public Role {
     Q_OBJECT
 private:
-    //Variaveis
-    int _actualState;
-    int _beforeState;
-    int _actualPayer;
-    bool _ourPoss;
-    bool _theirPoss;
-    Position _receveirPosition;
-
-    // Skills
-    Skill_GoToLookTo *_skill_GoToLookTo;
-
     // Behaviours
     Behaviour_MarkBall *_bh_mb;
     Behaviour_Receiver *_bh_re;
     Behaviour_Attacker *_bh_at;
     Behaviour_DoNothing *_bh_dn;
+    Behaviour_BallReceptor *_bh_brp;
 
     // Behaviours ids!
     enum{
         BHV_MARKBALL,
         BHV_RECEIVER,
         BHV_ATTACKER,
-        BHV_DONOTHING
+        BHV_DONOTHING,
+        BHV_BALLRECEPTOR
     };
 
     // Inherited functions
@@ -42,17 +53,22 @@ private:
     // Mutex
     QMutex _mutex;
 
-    //Time com posse de bola
+    //Variaveis
+    int _actualState;
+    bool _ourPoss;
+    bool _isPassComing;
+
+    //Auxiliary functions
     bool ourTeamPossession();
-    int playerWithPoss(bool ourPoss);
+    quint8 playerWithPoss(bool ourPoss);
     bool ourPlayerDist();
 
 signals:
-    void sendAttackerID(int id);
+    void sendAttackerID(quint8 id);
 
 public slots:
-    void receiveAttackerID(int id);
-    //void receivePassId(int passId);
+    void receiveAttackerID(quint8 id);
+    void receivePassId(quint8 passId);
 
 public:
     Role_AdvancedMidfielder();

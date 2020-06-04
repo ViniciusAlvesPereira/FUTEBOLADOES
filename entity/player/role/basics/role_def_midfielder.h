@@ -55,16 +55,16 @@ private:
 
     // Auxiliary functions
     bool ourTeamPossession();
-    int playerWithPoss(bool ourPoss);
+    quint8 playerWithPoss(bool ourPoss);
 
     // Mutex
     QMutex _mutex;
 
 signals:
-    void sendPassId(int passId);
+    void sendPassId(quint8 passId);
 
 public slots:
-    void receivePassId(int passId);
+    void receivePassId(quint8 passId);
 
 public:
     Role_Def_Midfielder();

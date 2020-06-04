@@ -46,7 +46,7 @@ void Role_Defender::run(){
     //printf("ID COM POSSE: %i\n", idWithPoss);
 
     if (ourPoss == false) {
-        int idWithPoss = playerWithPoss(ourPoss);
+        quint8 idWithPoss = playerWithPoss(ourPoss);
         if (idWithPoss == BALLPOSS_NONE) {
             if (_isPassComing == true) {
                 _bh_brp->setPlayerId(player()->playerId());
@@ -57,10 +57,10 @@ void Role_Defender::run(){
             previousPoss = false;
         }
     } else {
-        int idWithPoss = playerWithPoss(ourPoss);
+        quint8 idWithPoss = playerWithPoss(ourPoss);
         if (idWithPoss == player()->playerId()) {
             _bh_psg->setPlayerId(idWithPoss);
-            int passId = _bh_psg->getPassId();
+            quint8 passId = _bh_psg->getPassId();
             emit sendPassId(passId);
             setBehaviour(BHV_PASSING);
             previousPoss = true;
@@ -90,7 +90,7 @@ bool Role_Defender::ourTeamPossession() {
     return false;
 }
 
-int Role_Defender::playerWithPoss(bool ourPoss) {
+quint8 Role_Defender::playerWithPoss(bool ourPoss) {
     if (ourPoss == true) {
         for (quint8 i = 0; i < MRCConstants::_qtPlayers; i++) {
             if (PlayerBus::ourPlayerAvailable(i)) {
@@ -113,7 +113,7 @@ int Role_Defender::playerWithPoss(bool ourPoss) {
     return BALLPOSS_NONE;
 }
 
-void Role_Defender::receivePassId(int passId) {
+void Role_Defender::receivePassId(quint8 passId) {
     if (passId == player()->playerId()) {
         _isPassComing = true;
         //std::cout << "[DF] Aqui!\n";

@@ -60,16 +60,16 @@ private:
 
     // Auxiliary functions
     bool ourTeamPossession();
-    int playerWithPoss(bool ourPoss);
+    quint8 playerWithPoss(bool ourPoss);
 
 signals:
-    void sendAttackerID(int id);
+    void sendAttackerID(quint8 id);
     void sendMarkInformation(float distance);
 
 public slots:
-    void receiveAttackerID(int id);
+    void receiveAttackerID(quint8 id);
     void receiveMarkInformation(float distance);
-    void receivePassId(int passId);
+    void receivePassId(quint8 passId);
 
 public:
     Role_CentreForward();

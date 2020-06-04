@@ -27,7 +27,7 @@ QString Behaviour_Passing::name() {
 }
 
 Behaviour_Passing::Behaviour_Passing() {
-    _id = -1;
+    _id = NO_PASS;
 }
 
 void Behaviour_Passing::configure() {
@@ -41,7 +41,7 @@ void Behaviour_Passing::run() {
     passId = getBestPassOption(playerPosition);
     //printf("Id escolhido: %i\n", passId);
 
-    if (passId == -1) {
+    if (passId == NO_PASS) {
         _skill_kick->setAim(loc()->theirGoal());
         _skill_kick->setZPower(5.0);
     } else {
@@ -52,7 +52,7 @@ void Behaviour_Passing::run() {
     _mutex.unlock();
 }
 
-int Behaviour_Passing::getBestPassOption(Position &watcher) {
+quint8 Behaviour_Passing::getBestPassOption(Position &watcher) {
     float minAngle, maxAngle;
     if (loc()->ourGoal().x() < 0) {
         minAngle = WR::Utils::getAngle(loc()->ball(), Position(true, -3.0, 3.0, 0.0));
@@ -66,9 +66,9 @@ int Behaviour_Passing::getBestPassOption(Position &watcher) {
     // get the largest interval
     if(freeAngles.size() == 0){
         //printf("Término no FreeAngles");
-        return -1;
+        return NO_PASS;
     } else {
-        QList<int> receptors; //List of avaliable receptors
+        QList<quint8> receptors; //List of avaliable receptors
 
         //Getting the inteval extremes
         QList<FreeAngles::Interval>::iterator it;
@@ -96,9 +96,9 @@ int Behaviour_Passing::getBestPassOption(Position &watcher) {
         //Choice logic
         if (receptors.size() == 0) {
             //printf("Término no receptor\n");
-            return -1;
+            return NO_PASS;
         } else {
-            int idChoice = -1;
+            quint8 idChoice = NO_PASS;
             for (int id = 0; id < receptors.size(); id++) {
                 if (receptors[id] == player()->playerId()) {
                     continue;
