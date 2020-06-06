@@ -41,6 +41,7 @@ SOURCES += \
     entity/coachview/soccerview/gltext.cpp \
     entity/coachview/soccerview/soccerview.cpp \
     entity/coachview/soccerview/util/field.cpp \
+    entity/contromodule/playbook/basics/playbook_training.cpp \
     entity/entity.cpp \
     entity/player/behaviour/basics/behaviour_ballreceptor.cpp \
     entity/player/behaviour/basics/behaviour_goalkeeper.cpp \
@@ -170,6 +171,7 @@ HEADERS += \
     entity/coachview/soccerview/util/gvector.h \
     entity/coachview/soccerview/util/timer.h \
     entity/coachview/soccerview/util/util.h \
+    entity/contromodule/playbook/basics/playbook_training.h \
     entity/entity.h \
     entity/player/behaviour/basics/behaviour_ballreceptor.h \
     entity/player/navigation/fpp/fastpathplanning.h \

@@ -28,16 +28,12 @@
 class Playbook_DoNothing : public Playbook {
 private:
     // Roles
-    Role_GoalKeeper *_rl_gk;
-    Role_Defender *_rl_df;
-    Role_Def_Midfielder *_rl_dmf;
-    Role_AdvancedMidfielder *_rl_amf;
-    Role_SecondStriker *_rl_ss;
-    Role_CentreForward *_rl_cf;
+    QList<Role_Default*> _rl_default;
 
     void configure(int numPlayers);
     void run(int numPlayers);
     int maxNumPlayer();
+
 public:
     Playbook_DoNothing();
     QString name();

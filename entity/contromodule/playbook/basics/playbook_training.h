@@ -19,30 +19,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ***/
 
-#include "playbook_donothing.h"
+#ifndef PLAYBOOK_TRAINING_H
+#define PLAYBOOK_TRAINING_H
 
-QString Playbook_DoNothing::name() {
-    return "Playbook_DoNothing";
-}
+#include <entity/contromodule/playbook/playbook.h>
+#include <entity/player/role/mrcroles.h>
 
-Playbook_DoNothing::Playbook_DoNothing() {
-}
+class Playbook_Training : public Playbook {
+private:
+    // Roles
+    Role_GoalKeeper *_rl_gk;
+    Role_Defender *_rl_df;
+    Role_Def_Midfielder *_rl_dmf;
+    Role_AdvancedMidfielder *_rl_amf;
+    Role_SecondStriker *_rl_ss;
+    Role_CentreForward *_rl_cf;
 
-int Playbook_DoNothing::maxNumPlayer() {
-    return INT_MAX;
-}
+    void configure(int numPlayers);
+    void run(int numPlayers);
+    int maxNumPlayer();
 
-void Playbook_DoNothing::configure(int numPlayers) {
-    for (int i = 0; i < numPlayers; i++) {
-        Role_Default *_rl_dft;
-        usesRole(_rl_dft = new Role_Default());
-        _rl_default.push_back(_rl_dft);
-    }
-}
+public:
+    Playbook_Training();
+    QString name();
+};
 
-void Playbook_DoNothing::run(int numPlayers) {
-    for(int i = 0; i < numPlayers; i++) {
-        quint8 playerId = dist()->getPlayer();
-        setPlayerRole(playerId, _rl_default[i]);
-    }
-}
+#endif // PLAYBOOK_TRAINING_H

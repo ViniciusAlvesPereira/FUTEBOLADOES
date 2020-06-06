@@ -31,16 +31,13 @@ Role_Default::Role_Default() {
 void Role_Default::initializeBehaviours(){
     // Aqui são inseridos os behaviours possíveis de serem usados
     // na ordem: ID do behaviour, instanciação dele
-    usesBehaviour(BHV_DONOTHING, _bh_dn = new Behaviour_DoNothing());
-    usesBehaviour(BHV_BALLRECEPTOR, _bh_brp = new Behaviour_BallReceptor());
+    usesBehaviour(BHV_DONOTHING, _bh_dnt = new Behaviour_DoNothing());
 }
 
 void Role_Default::configure(){
-    _isPassComing = false;
 }
 
 void Role_Default::run(){
-    _mutex.lock();
     /*
      * Aqui devem ocorrer os sets de parametros de acordo com o behaviour
      * que estiver sendo executado, de preferencia declare todos os parametros
@@ -51,10 +48,7 @@ void Role_Default::run(){
     //switch(getActualBehaviour()){
     //case BHV_DONOTHING:{
         //if(player()->position().x() >= 0)
-    if (_isPassComing) {
-        _bh_brp->setPlayerId(player()->playerId());
-        setBehaviour(BHV_BALLRECEPTOR);
-    } else setBehaviour(BHV_DONOTHING);
+    setBehaviour(BHV_DONOTHING);
     //}
     //break;
     //case BHV_BARRIER:{
@@ -62,15 +56,4 @@ void Role_Default::run(){
     //}
     //break;
     //}
-
-    _mutex.unlock();
-}
-
-void Role_Default::receivePassId(int passId) {
-    _mutex.lock();
-    if (passId == player()->playerId()) {
-        _isPassComing = true;
-        //std::cout << "[Default] Aqui!\n";
-    } else _isPassComing = false;
-    _mutex.unlock();
 }
