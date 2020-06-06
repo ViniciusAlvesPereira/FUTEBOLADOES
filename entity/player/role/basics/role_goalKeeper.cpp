@@ -1,3 +1,24 @@
+/***
+ * Maracatronics Robotics
+ * Federal University of Pernambuco (UFPE) at Recife
+ * http://www.maracatronics.com/
+ *
+ * This file is part of Armorial project.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ***/
+
 #include "role_goalKeeper.h"
 
 QString Role_GoalKeeper::name(){
@@ -8,42 +29,19 @@ Role_GoalKeeper::Role_GoalKeeper() {
 }
 
 void Role_GoalKeeper::initializeBehaviours(){
-    // Aqui são inseridos os behaviours possíveis de serem usados
-    // na ordem: ID do behaviour, instanciação dele
-    usesBehaviour(BHV_DONOTHING, _bh_dn = new Behaviour_DoNothing());
-    usesBehaviour(BHV_PASSING, _bh_pg = new Behaviour_Passing());
+    usesBehaviour(BHV_DONOTHING, _bh_dnt = new Behaviour_DoNothing());
+    usesBehaviour(BHV_PASSING, _bh_psg = new Behaviour_Passing());
     usesBehaviour(BHV_PENALTYGK, _bh_pgk = new Behaviour_Penalty_GK());
     usesBehaviour(BHV_GOALKEEPER, _bh_gk = new Behaviour_Goalkeeper());
 }
 
 void Role_GoalKeeper::configure(){
-    // Aqui são setados parametros que devem ser configurados
     _actualState = BHV_GOALKEEPER;
-    _beforeState = 200;
     setBehaviour(BHV_GOALKEEPER);
     state_Penalty = false;
 }
 
-bool Role_GoalKeeper::ourPlayerPoss() {
-
-    quint8 _ourPlayer = player()->playerId();
-    float distanceToBall = PlayerBus::ourPlayer(_ourPlayer)->distanceTo(loc()->ball());
-
-    if (distanceToBall < 0.3)
-        return true;
-
-    return false;
-
-}
-
 void Role_GoalKeeper::run(){
-    /*
-     * Aqui devem ocorrer os sets de parametros de acordo com o behaviour
-     * que estiver sendo executado, de preferencia declare todos os parametros
-     * na classe da role, sete-os aqui e envie para o behaviour (usando as funções
-     * set presentes neles)
-    */
-
     switch(getActualBehaviour()){
     case BHV_GOALKEEPER:{
 
@@ -52,8 +50,14 @@ void Role_GoalKeeper::run(){
         if(state_Penalty)
            setBehaviour(BHV_PENALTYGK);
         else{
-           if(loc()->isInsideOurArea(loc()->ball(), 1.0))
+           if(loc()->isInsideOurArea(loc()->ball(), 1.0)) {
+               _bh_psg->setPlayerId(player()->playerId());
+               quint8 passId = _bh_psg->getPassId();
+               if (passId != NO_PASS) {
+                   emit sendPassId(passId);
+               }
                setBehaviour(BHV_PASSING);
+           }
         }
     }
     break;
@@ -70,10 +74,14 @@ void Role_GoalKeeper::run(){
     case BHV_PENALTYGK:{
 
         _actualState = getActualBehaviour();
-        if(loc()->isInsideOurArea(loc()->ball(), 1.0))
+        if(loc()->isInsideOurArea(loc()->ball(), 1.0)) {
+            _bh_psg->setPlayerId(player()->playerId());
+            quint8 passId = _bh_psg->getPassId();
+            if (passId != NO_PASS) {
+                emit sendPassId(passId);
+            }
             setBehaviour(BHV_PASSING);
-        else
-            setBehaviour(BHV_GOALKEEPER);
+        } else setBehaviour(BHV_GOALKEEPER);
     }
     break;
 
@@ -84,16 +92,4 @@ void Role_GoalKeeper::run(){
     }
     break;
     }
-
-    //Printar o behaviours atual
-    if(_actualState != _beforeState){
-
-        _actualPlayer = player()->playerId();
-        if(_actualState == BHV_GOALKEEPER){ std::cout<<"\n Behaviour GoalKeeper - PlayerId:"<< _actualPlayer<<std::endl; }
-        if(_actualState == BHV_PASSING){ std::cout<<"\n Behaviour Passing - PlayerId:"<< _actualPlayer<<std::endl; }
-        if(_actualState == BHV_PENALTYGK){ std::cout<<"\n Behaviour PenaltyGK - PlayerId:"<< _actualPlayer<<std::endl; }
-        if(_actualState == BHV_DONOTHING){ std::cout<<"\n Behaviour Donothing - PlayerId:"<< _actualPlayer<<std::endl; }
-         _beforeState = _actualState;
-    }
-
 }

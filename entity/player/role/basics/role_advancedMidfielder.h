@@ -31,10 +31,10 @@ class Role_AdvancedMidfielder : public Role {
     Q_OBJECT
 private:
     // Behaviours
-    Behaviour_MarkBall *_bh_mb;
-    Behaviour_Receiver *_bh_re;
-    Behaviour_Attacker *_bh_at;
-    Behaviour_DoNothing *_bh_dn;
+    Behaviour_MarkBall *_bh_mkb;
+    Behaviour_Receiver *_bh_rcv;
+    Behaviour_Attacker *_bh_atk;
+    Behaviour_DoNothing *_bh_dnt;
     Behaviour_BallReceptor *_bh_brp;
 
     // Behaviours ids!
@@ -53,21 +53,17 @@ private:
     // Mutex
     QMutex _mutex;
 
-    //Variaveis
+    // Global Variables
     int _actualState;
     bool _ourPoss;
     bool _isPassComing;
 
-    //Auxiliary functions
+    // Auxiliary functions
     bool ourTeamPossession();
     quint8 playerWithPoss(bool ourPoss);
     bool ourPlayerDist();
 
-signals:
-    void sendAttackerID(quint8 id);
-
 public slots:
-    void receiveAttackerID(quint8 id);
     void receivePassId(quint8 passId);
 
 public:

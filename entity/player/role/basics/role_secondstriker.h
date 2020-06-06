@@ -50,10 +50,10 @@ private:
     void configure();
     void run();
 
-    //Mutex
+    // Mutex
     QMutex _mutex;
 
-    //Global variables
+    // Global variables
     float standardDistance;
     bool markChoice;
     bool _isPassComing;
@@ -63,11 +63,9 @@ private:
     quint8 playerWithPoss(bool ourPoss);
 
 signals:
-    void sendAttackerID(quint8 id);
     void sendMarkInformation(float distance);
 
 public slots:
-    void receiveAttackerID(quint8 id);
     void receiveMarkInformation(float distance);
     void receivePassId(quint8 passId);
 

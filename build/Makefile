@@ -168,6 +168,7 @@ SOURCES       = ../const/constants.cpp \
 		../entity/player/skills/basics/skill_sample.cpp tmp/rc/qrc_rsc.cpp \
 		tmp/moc/moc_soccerview.cpp \
 		tmp/moc/moc_role_centreforward.cpp \
+		tmp/moc/moc_role_goalKeeper.cpp \
 		tmp/moc/moc_playbook.cpp \
 		tmp/moc/moc_behaviour.cpp \
 		tmp/moc/moc_behaviour_receiver.cpp \
@@ -298,6 +299,7 @@ OBJECTS       = tmp/obj/constants.o \
 		tmp/obj/qrc_rsc.o \
 		tmp/obj/moc_soccerview.o \
 		tmp/obj/moc_role_centreforward.o \
+		tmp/obj/moc_role_goalKeeper.o \
 		tmp/obj/moc_playbook.o \
 		tmp/obj/moc_behaviour.o \
 		tmp/obj/moc_behaviour_receiver.o \
@@ -905,9 +907,9 @@ compiler_moc_predefs_clean:
 tmp/moc/moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -std=gnu++1y -Wall -W -dM -E -o tmp/moc/moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: tmp/moc/moc_soccerview.cpp tmp/moc/moc_role_centreforward.cpp tmp/moc/moc_playbook.cpp tmp/moc/moc_behaviour.cpp tmp/moc/moc_behaviour_receiver.cpp tmp/moc/moc_behaviour_attacker.cpp tmp/moc/moc_role.cpp tmp/moc/moc_role_default.cpp tmp/moc/moc_role_def_midfielder.cpp tmp/moc/moc_role_defender.cpp tmp/moc/moc_role_secondstriker.cpp tmp/moc/moc_role_advancedMidfielder.cpp tmp/moc/moc_mainwindow.cpp
+compiler_moc_header_make_all: tmp/moc/moc_soccerview.cpp tmp/moc/moc_role_centreforward.cpp tmp/moc/moc_role_goalKeeper.cpp tmp/moc/moc_playbook.cpp tmp/moc/moc_behaviour.cpp tmp/moc/moc_behaviour_receiver.cpp tmp/moc/moc_behaviour_attacker.cpp tmp/moc/moc_role.cpp tmp/moc/moc_role_default.cpp tmp/moc/moc_role_def_midfielder.cpp tmp/moc/moc_role_defender.cpp tmp/moc/moc_role_secondstriker.cpp tmp/moc/moc_role_advancedMidfielder.cpp tmp/moc/moc_mainwindow.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) tmp/moc/moc_soccerview.cpp tmp/moc/moc_role_centreforward.cpp tmp/moc/moc_playbook.cpp tmp/moc/moc_behaviour.cpp tmp/moc/moc_behaviour_receiver.cpp tmp/moc/moc_behaviour_attacker.cpp tmp/moc/moc_role.cpp tmp/moc/moc_role_default.cpp tmp/moc/moc_role_def_midfielder.cpp tmp/moc/moc_role_defender.cpp tmp/moc/moc_role_secondstriker.cpp tmp/moc/moc_role_advancedMidfielder.cpp tmp/moc/moc_mainwindow.cpp
+	-$(DEL_FILE) tmp/moc/moc_soccerview.cpp tmp/moc/moc_role_centreforward.cpp tmp/moc/moc_role_goalKeeper.cpp tmp/moc/moc_playbook.cpp tmp/moc/moc_behaviour.cpp tmp/moc/moc_behaviour_receiver.cpp tmp/moc/moc_behaviour_attacker.cpp tmp/moc/moc_role.cpp tmp/moc/moc_role_default.cpp tmp/moc/moc_role_def_midfielder.cpp tmp/moc/moc_role_defender.cpp tmp/moc/moc_role_secondstriker.cpp tmp/moc/moc_role_advancedMidfielder.cpp tmp/moc/moc_mainwindow.cpp
 tmp/moc/moc_soccerview.cpp: ../entity/coachview/soccerview/util/timer.h \
 		../entity/coachview/soccerview/util/geometry.h \
 		../entity/coachview/soccerview/util/gvector.h \
@@ -1032,6 +1034,86 @@ tmp/moc/moc_role_centreforward.cpp: ../entity/player/behaviour/mrcbehaviours.h \
 		tmp/moc/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include tmp/moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/tobias/Documentos/Maracatronics/FUTEBOLADOES -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../entity/player/role/basics/role_centreforward.h -o tmp/moc/moc_role_centreforward.cpp
+
+tmp/moc/moc_role_goalKeeper.cpp: ../entity/player/role/role.h \
+		../entity/player/baseplayer.h \
+		../entity/player/playeraccess.h \
+		../entity/player/playerbus.h \
+		../entity/referee/SSLReferee/sslgameinfo.h \
+		../utils/basics/color.hh \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
+		../entity/baseentity.h \
+		../entity/referee/SSLReferee/sslreferee.h \
+		../entity/referee/mrcreferee.h \
+		../entity/entity.h \
+		../entity/coachview/coachview.h \
+		../entity/contromodule/coach.h \
+		../entity/contromodule/basecoach.h \
+		../entity/contromodule/controlmodule.h \
+		../utils/mrctimer/mrctimer.h \
+		../include/timer.h \
+		../entity/coachview/soccerview/soccerview.h \
+		../entity/coachview/soccerview/util/timer.h \
+		../entity/coachview/soccerview/util/geometry.h \
+		../entity/coachview/soccerview/util/gvector.h \
+		../entity/coachview/soccerview/util/util.h \
+		../entity/coachview/soccerview/util/field.h \
+		../entity/coachview/soccerview/gltext.h \
+		../entity/locations.h \
+		../utils/fieldside/fieldside.hh \
+		../utils/basics/side.hh \
+		../utils/basics/wall.hh \
+		../entity/contromodule/mrcteam.h \
+		../entity/player/player.h \
+		../entity/world/world.h \
+		../utils/fields/fields.hh \
+		../entity/world/worldmapupdater.h \
+		../const/constants.h \
+		../utils/utils.hh \
+		../entity/player/control/pid.h \
+		../utils/filters/kalman/kalman.hpp \
+		../utils/filters/kalman/kalmanstate.h \
+		../utils/filters/kalman/matrix.h \
+		../entity/coachview/mainwindow.h \
+		../entity/contromodule/playersdistribution.h \
+		../utils/wrtimer/wrtimer.hh \
+		../entity/player/behaviour/behaviour.h \
+		../entity/player/behaviour/mrcbehaviours.h \
+		../entity/player/behaviour/basics/behaviour_donothing.h \
+		../entity/player/skills/skills_include.h \
+		../entity/player/skills/basics/skill_donothing.h \
+		../entity/player/skills/skill.h \
+		../entity/player/skills/basics/skill_goto.h \
+		../entity/player/skills/basics/skill_rotateto.h \
+		../entity/player/skills/basics/skill_gotolookto.h \
+		../entity/player/skills/basics/skill_aroundtheball.h \
+		../entity/player/skills/basics/skill_kick.h \
+		../entity/player/skills/basics/skill_gkick.h \
+		../entity/player/skills/basics/skill_dribble.h \
+		../entity/player/skills/basics/skill_interceptball.h \
+		../entity/player/skills/basics/skill_pushball.h \
+		../entity/player/behaviour/basics/behaviour_followball.h \
+		../entity/player/behaviour/basics/behaviour_timeout.h \
+		../entity/player/behaviour/basics/behaviour_goalkeeper.h \
+		../entity/player/behaviour/basics/behaviour_attacker.h \
+		../entity/player/behaviour/basics/behaviour_receiver.h \
+		../utils/freeangles/freeangles.h \
+		../utils/freeangles/obstacle.h \
+		../entity/player/behaviour/basics/behaviour_barrier.h \
+		../entity/player/behaviour/basics/behaviour_markplayer.h \
+		../entity/player/behaviour/basics/behaviour_markball.h \
+		../entity/player/behaviour/basics/behaviour_penalty_gk.h \
+		../entity/player/behaviour/basics/behaviour_penalty_cf.h \
+		../entity/player/behaviour/basics/behaviour_cover.h \
+		../entity/player/behaviour/basics/behaviour_passing.h \
+		../entity/player/behaviour/basics/behaviour_ballreceptor.h \
+		../entity/player/role/basics/role_goalKeeper.h \
+		tmp/moc/moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include tmp/moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/tobias/Documentos/Maracatronics/FUTEBOLADOES -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../entity/player/role/basics/role_goalKeeper.h -o tmp/moc/moc_role_goalKeeper.cpp
 
 tmp/moc/moc_playbook.cpp: ../entity/referee/SSLReferee/sslgameinfo.h \
 		../utils/basics/color.hh \
@@ -5571,6 +5653,9 @@ tmp/obj/moc_soccerview.o: tmp/moc/moc_soccerview.cpp
 
 tmp/obj/moc_role_centreforward.o: tmp/moc/moc_role_centreforward.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/moc_role_centreforward.o tmp/moc/moc_role_centreforward.cpp
+
+tmp/obj/moc_role_goalKeeper.o: tmp/moc/moc_role_goalKeeper.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/moc_role_goalKeeper.o tmp/moc/moc_role_goalKeeper.cpp
 
 tmp/obj/moc_playbook.o: tmp/moc/moc_playbook.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/moc_playbook.o tmp/moc/moc_playbook.cpp

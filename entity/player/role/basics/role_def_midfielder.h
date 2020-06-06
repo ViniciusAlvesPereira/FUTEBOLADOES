@@ -46,19 +46,19 @@ private:
         BHV_BALLRECEPTOR
     };
 
-    //Parameters
-    bool _isPassComing;
-
     // Inherited functions
     void configure();
     void run();
 
+    // Mutex
+    QMutex _mutex;
+
+    // Global Variables
+    bool _isPassComing;
+
     // Auxiliary functions
     bool ourTeamPossession();
     quint8 playerWithPoss(bool ourPoss);
-
-    // Mutex
-    QMutex _mutex;
 
 signals:
     void sendPassId(quint8 passId);

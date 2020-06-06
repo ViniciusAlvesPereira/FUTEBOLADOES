@@ -44,7 +44,6 @@ void Role_Def_Midfielder::configure(){
 void Role_Def_Midfielder::run(){
     bool ourPoss = ourTeamPossession();
     static bool previousPoss = false;
-    //printf("ID COM POSSE: %i\n", idWithPoss);
 
     if (ourPoss == false) {
         quint8 idWithPoss = playerWithPoss(ourPoss);
@@ -57,9 +56,11 @@ void Role_Def_Midfielder::run(){
             if (PlayerBus::theirPlayer(idWithPoss)->distanceTo(player()->position()) < 1.0) {
                 setBehaviour(BHV_MARKBALL);
                 previousPoss = false;
+                _isPassComing = false;
             } else {
                 setBehaviour(BHV_BARRIER);
                 previousPoss = false;
+                _isPassComing = false;
             }
         }
     } else {
@@ -67,7 +68,9 @@ void Role_Def_Midfielder::run(){
         if (idWithPoss == player()->playerId()) {
             _bh_psg->setPlayerId(idWithPoss);
             quint8 passId = _bh_psg->getPassId();
-            emit sendPassId(passId);
+            if (passId != NO_PASS) {
+                emit sendPassId(passId);
+            }
             setBehaviour(BHV_PASSING);
             previousPoss = true;
         } else {
@@ -80,6 +83,7 @@ void Role_Def_Midfielder::run(){
 
             setBehaviour(BHV_COVER);
             previousPoss = true;
+            _isPassComing = false;
         }
     }
 }
@@ -120,8 +124,9 @@ quint8 Role_Def_Midfielder::playerWithPoss(bool ourPoss) {
 }
 
 void Role_Def_Midfielder::receivePassId(quint8 passId) {
+    _mutex.lock();
     if (passId == player()->playerId()) {
         _isPassComing = true;
-        //std::cout << "[DMF] Aqui!\n";
-    } else _isPassComing = false;
+    }
+    _mutex.unlock();
 }

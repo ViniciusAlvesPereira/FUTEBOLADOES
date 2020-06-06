@@ -63,6 +63,7 @@ void Role_CentreForward::run(){
             if (PlayerBus::theirPlayer(idWithPoss)->distanceTo(player()->position()) < 1.0) {
                 setBehaviour(BHV_MARKBALL);
                 previousPoss = false;
+                _isPassComing = false;
             } else {
                 QList<marking> markOptions;
                 for (quint8 i = 0; i < MRCConstants::_qtPlayers; i++) {
@@ -86,6 +87,7 @@ void Role_CentreForward::run(){
                 else _bh_mkp->setTargetID(markOptions[1].id);
                 setBehaviour(BHV_MARKPLAYER);
                 previousPoss = false;
+                _isPassComing = false;
             }
         }
     } else {
@@ -93,8 +95,8 @@ void Role_CentreForward::run(){
         if (idWithPoss == player()->playerId()) {
             setBehaviour(BHV_ATTACKER);
             previousPoss = true;
-            emit sendAttackerID(idWithPoss);
         } else {
+            _bh_rcv->setAttackerId(idWithPoss);
             setBehaviour(BHV_RECEIVER);
             previousPoss = true;
         }
@@ -136,23 +138,18 @@ quint8 Role_CentreForward::playerWithPoss(bool ourPoss) {
     return BALLPOSS_NONE;
 }
 
-void Role_CentreForward::receiveAttackerID(quint8 id) {
-    _bh_rcv->setAttackerId(id);
-    //printf("[CF] AttackerId: %i\n", id);
-}
-
 void Role_CentreForward::receiveMarkInformation(float distance) {
+    _mutex.lock();
     if (standardDistance < distance) {
         markChoice = true;
-        //printf("[CF] Obtendo vantagem posicional\n");
     } else markChoice = false;
+    _mutex.unlock();
 }
 
 void Role_CentreForward::receivePassId(quint8 passId) {
     _mutex.lock();
     if (passId == player()->playerId()) {
         _isPassComing = true;
-        //std::cout << "[CF] Aqui!\n";
-    } else _isPassComing = false;
+    }
     _mutex.unlock();
 }

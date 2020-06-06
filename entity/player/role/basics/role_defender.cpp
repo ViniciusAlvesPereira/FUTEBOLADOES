@@ -43,7 +43,6 @@ void Role_Defender::configure(){
 void Role_Defender::run(){
     bool ourPoss = ourTeamPossession();
     static bool previousPoss = false;
-    //printf("ID COM POSSE: %i\n", idWithPoss);
 
     if (ourPoss == false) {
         quint8 idWithPoss = playerWithPoss(ourPoss);
@@ -55,15 +54,19 @@ void Role_Defender::run(){
         } else {
             setBehaviour(BHV_BARRIER);
             previousPoss = false;
+            _isPassComing = false;
         }
     } else {
         quint8 idWithPoss = playerWithPoss(ourPoss);
         if (idWithPoss == player()->playerId()) {
             _bh_psg->setPlayerId(idWithPoss);
             quint8 passId = _bh_psg->getPassId();
-            emit sendPassId(passId);
+            if (passId != NO_PASS) {
+                emit sendPassId(passId);
+            }
             setBehaviour(BHV_PASSING);
             previousPoss = true;
+            _isPassComing = false;
         } else {
             _bh_cvr->setIdOfPoss(idWithPoss);
 
@@ -114,8 +117,9 @@ quint8 Role_Defender::playerWithPoss(bool ourPoss) {
 }
 
 void Role_Defender::receivePassId(quint8 passId) {
+    _mutex.lock();
     if (passId == player()->playerId()) {
         _isPassComing = true;
-        //std::cout << "[DF] Aqui!\n";
-    } else _isPassComing = false;
+    }
+    _mutex.unlock();
 }
