@@ -41,6 +41,7 @@ SOURCES += \
     entity/coachview/soccerview/gltext.cpp \
     entity/coachview/soccerview/soccerview.cpp \
     entity/coachview/soccerview/util/field.cpp \
+    entity/contromodule/playbook/basics/playbook_timeout.cpp \
     entity/contromodule/playbook/basics/playbook_training.cpp \
     entity/entity.cpp \
     entity/player/behaviour/basics/behaviour_ballreceptor.cpp \
@@ -52,6 +53,7 @@ SOURCES += \
 	entity/player/navigation/navigation.cpp \
     entity/player/role/basics/role_centreforward.cpp \
     entity/player/role/basics/role_goalKeeper.cpp \
+    entity/player/role/basics/role_timeout.cpp \
     entity/player/skills/basics/skill_pushball.cpp \
     entity/player/skills/basics/skill_aroundtheball.cpp \
     entity/player/skills/basics/skill_dribble.cpp \
@@ -171,6 +173,7 @@ HEADERS += \
     entity/coachview/soccerview/util/gvector.h \
     entity/coachview/soccerview/util/timer.h \
     entity/coachview/soccerview/util/util.h \
+    entity/contromodule/playbook/basics/playbook_timeout.h \
     entity/contromodule/playbook/basics/playbook_training.h \
     entity/entity.h \
     entity/player/behaviour/basics/behaviour_ballreceptor.h \
@@ -179,6 +182,7 @@ HEADERS += \
     entity/player/navigation/navigation.h \
     entity/player/role/basics/role_centreforward.h \
     entity/player/role/basics/role_goalKeeper.h \
+    entity/player/role/basics/role_timeout.h \
     entity/player/skills/basics/skill_pushball.h \
     entity/player/skills/basics/skill_aroundtheball.h \
     entity/player/skills/basics/skill_dribble.h \

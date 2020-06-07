@@ -1,3 +1,24 @@
+/***
+ * Maracatronics Robotics
+ * Federal University of Pernambuco (UFPE) at Recife
+ * http://www.maracatronics.com/
+ *
+ * This file is part of Armorial project.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ***/
+
 #include "playbook_timeout.h"
 
 QString Playbook_TimeOut::name() {
@@ -12,48 +33,18 @@ int Playbook_TimeOut::maxNumPlayer() {
 }
 
 void Playbook_TimeOut::configure(int numPlayers) {
-    _bh_to.clear();
-    for(int i=0; i<numPlayers; i++) {
-        Behaviour_TimeOut *bh_timeOut = new Behaviour_TimeOut();
-        usesBehaviour(bh_timeOut);
-        _bh_to.push_back(bh_timeOut);
+    for (int i = 0; i < numPlayers; i++) {
+        Role_TimeOut *_rl_tmt;
+        usesRole(_rl_tmt = new Role_TimeOut());
+        _rl_timeout.push_back(_rl_tmt);
     }
 }
 
 void Playbook_TimeOut::run(int numPlayers) {
-/*
-    if(numPlayers == 5){
-        double x = loc()->ourGoalLeftPost().x();
-        double y = loc()->ourGoalLeftPost().y();
-
-        Position pos1 = Position(true, x - 2, y, 0);
-
-        x = loc()->ourGoalRightPost().x();
-        y = loc()->ourGoalRightPost().y();
-        Position pos2 = Position(true, x - 2, y, 0);
-
-        Position pos3 = Position(true, pos1.x() - 1, pos1.y() + 0.5, 0.0);
-        Position pos4 = Position(true, pos2.x() - 1, pos2.y() - 0.5, 0.0);
-
-        Position pos5 = Position(true, pos1.x() - 0.4, 0, 0);
-
-        _bh_to.at(0)->setSkillPosition(pos1);
-        _bh_to.at(1)->setSkillPosition(pos2);
-        _bh_to.at(2)->setSkillPosition(pos3);
-        _bh_to.at(3)->setSkillPosition(pos4);
-        _bh_to.at(4)->setSkillPosition(pos5);
-    }else{
-        double x = loc()->ourGoalLeftPost().x();
-        double y = loc()->ourGoalLeftPost().y();
-
-        for(int i = 0; i < numPlayers; i++){
-            _bh_to.at(i)->setSkillPosition(Position(true, x - 2, y - 0.5, 0.0));
-            y = y - 0.5;
-        }
-    }
-*/
-    for(int i=0; i<numPlayers; i++){
-        _bh_to.at(i)->setSkillPosition(loc()->ball());
-        setPlayerBehaviour(dist()->getPlayer(), _bh_to.at(i));
+    for(int i = 0; i < numPlayers; i++) {
+        quint8 playerId = dist()->getPlayer();
+        _rl_timeout[i]->setOrder(i);
+        setPlayerRole(playerId, _rl_timeout[i]);
     }
 }
+

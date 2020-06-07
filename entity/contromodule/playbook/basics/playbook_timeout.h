@@ -19,11 +19,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ***/
 
-#ifndef MRCPLAYBOOK_H
-#define MRCPLAYBOOK_H
+#ifndef PLAYBOOK_TIMEOUT_H
+#define PLAYBOOK_TIMEOUT_H
 
-#include "basics/playbook_donothing.h"
-#include "basics/playbook_timeout.h"
-#include "basics/playbook_training.h"
+#include <entity/contromodule/playbook/playbook.h>
+#include <entity/player/role/mrcroles.h>
 
-#endif // MRCPLAYBOOK_H
+class Playbook_TimeOut : public Playbook {
+private:
+    // Roles
+    QList<Role_TimeOut*> _rl_timeout;
+
+    void configure(int numPlayers);
+    void run(int numPlayers);
+    int maxNumPlayer();
+
+public:
+    Playbook_TimeOut();
+    QString name();
+};
+
+#endif // PLAYBOOK_TIMEOUT_H

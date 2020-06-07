@@ -29,5 +29,6 @@
 #include <entity/player/role/basics/role_centreforward.h>
 #include <entity/player/role/basics/role_advancedMidfielder.h>
 #include <entity/player/role/basics/role_goalKeeper.h>
+#include <entity/player/role/basics/role_timeout.h>
 
 #endif // MRCROLES_H

@@ -28,15 +28,15 @@ QString SSLStrategy_Halt::name() {
 }
 
 SSLStrategy_Halt::SSLStrategy_Halt() {
-    _pb_doNothing = NULL;
+    _pb_timeOut = NULL;
 }
 
 void SSLStrategy_Halt::configure(int numOurPlayers) {
-    usesPlaybook(_pb_doNothing = new Playbook_DoNothing());
+    usesPlaybook(_pb_timeOut = new Playbook_TimeOut());
 }
 
 void SSLStrategy_Halt::run(int numOurPlayers) {
     QList<quint8> allPlayers = dist()->getAllPlayers();
     if(!allPlayers.isEmpty())
-        _pb_doNothing->addPlayers(allPlayers);
+        _pb_timeOut->addPlayers(allPlayers);
 }

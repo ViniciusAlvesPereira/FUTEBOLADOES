@@ -27,7 +27,6 @@ QString Behaviour_TimeOut::name() {
 
 Behaviour_TimeOut::Behaviour_TimeOut() {
     _skill_GoTo = NULL;
-    _offsetBall = 0.01;
     _desiredPosition = Position(true, 0.0, 0.0, 0.0);
 }
 
@@ -36,11 +35,6 @@ void Behaviour_TimeOut::configure() {
 };
 
 void Behaviour_TimeOut::run() {
-    _skill_GoTo->setDesiredPosition(loc()->ball());
-    //_skill_GoTo->setAimPosition(loc()->ball());
-    //_skill_GoToLookTo->setOffsetToBall(_offsetBall);
-}
-
-void Behaviour_TimeOut::setSkillPosition(Position pos){
-    _desiredPosition = pos;
+    _skill_GoTo->setDesiredPosition(_desiredPosition);
+    _skill_GoTo->setOffsetToBall(0.0);
 }

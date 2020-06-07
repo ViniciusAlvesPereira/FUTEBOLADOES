@@ -31,13 +31,12 @@ private:
     void run();
     Position _desiredPosition;
     Skill_GoTo *_skill_GoTo;
-    double _offsetBall;
 
 public:
     Behaviour_TimeOut();
     QString name();
 
-    void setSkillPosition(Position pos);
+    Position setTimeOutPosition (Position desiredPosition) { _desiredPosition = desiredPosition; }
 };
 
 #endif // BEHAVIOUR_TIMEOUT_H

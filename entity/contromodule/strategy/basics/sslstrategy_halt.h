@@ -28,9 +28,11 @@
 class SSLStrategy_Halt : public StrategyState {
 private:
     // Playbooks
-    Playbook_DoNothing *_pb_doNothing;
+    Playbook_TimeOut *_pb_timeOut;
+
     void configure(int numOurPlayers);
     void run(int numOurPlayers);
+
 public:
     SSLStrategy_Halt();
     QString name();

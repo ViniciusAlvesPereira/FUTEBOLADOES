@@ -19,11 +19,35 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ***/
 
-#ifndef MRCPLAYBOOK_H
-#define MRCPLAYBOOK_H
+#ifndef ROLE_TIMEOUT_H
+#define ROLE_TIMEOUT_H
 
-#include "basics/playbook_donothing.h"
-#include "basics/playbook_timeout.h"
-#include "basics/playbook_training.h"
+#include<entity/player/role/role.h>
+#include<entity/player/behaviour/mrcbehaviours.h>
 
-#endif // MRCPLAYBOOK_H
+class Role_TimeOut: public Role{
+private:
+    // Behaviours
+    Behaviour_TimeOut *_bh_tmt;
+
+    // Behaviours ids!
+    enum{
+        BHV_TIMEOUT
+    };
+
+    // Inherited functions
+    void configure();
+    void run();
+
+    // Global Variables
+    int _order;
+
+public:
+    Role_TimeOut();
+    void initializeBehaviours();
+    QString name();
+
+    int setOrder(int order) { _order = order; }
+};
+
+#endif // ROLE_TIMEOUT_H
