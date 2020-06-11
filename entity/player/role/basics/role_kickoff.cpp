@@ -19,48 +19,51 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ***/
 
-#include "role_timeout.h"
+#include "role_kickoff.h"
 
-QString Role_TimeOut::name(){
-    return "Role_TimeOut";
+QString Role_KickOff::name(){
+    return "Role_KickOff";
 }
 
-Role_TimeOut::Role_TimeOut() {
+Role_KickOff::Role_KickOff() {
 }
 
-void Role_TimeOut::initializeBehaviours(){
+void Role_KickOff::initializeBehaviours(){
     usesBehaviour(BHV_POSITIONING, _bh_psn = new Behaviour_Positioning());
 }
 
-void Role_TimeOut::configure(){
+void Role_KickOff::configure(){
+    _theirKickOff = false;
 }
 
-void Role_TimeOut::run(){
-    //Nesse TimeOut, a figura formada é um 'M'
+void Role_KickOff::run(){
+    //Nesse KickOff, encontra-se o posicionamento inicial dos jogadores
     switch (_order) {
     case 0: {
-        const Position bottomWest(true, 1.5, -0.5, 0.0);
-        _bh_psn->setTimeOutPosition(bottomWest);
+        Position CF_Position;
+        if (_theirKickOff == true) CF_Position = Position(true, 1.0, 0.5, 0.0);
+        else CF_Position = Position(true, 0.2, 0.0, 0.0);
+        _bh_psn->setTimeOutPosition(CF_Position);
         break; }
     case 1: {
-        const Position topWest(true, 2.5, -0.3, 0.0);
-        _bh_psn->setTimeOutPosition(topWest);
+        const Position SS_Position(true, 1.3, -0.5, 0.0);
+        _bh_psn->setTimeOutPosition(SS_Position);
         break; }
     case 2: {
-        const Position leftCenter(true, 2.1, -0.1, 0.0);
-        _bh_psn->setTimeOutPosition(leftCenter);
+        const Position AMF_Position(true, 2.0, -0.5, 0.0);
+        _bh_psn->setTimeOutPosition(AMF_Position);
         break; }
     case 3: {
-        const Position rightCenter(true, 2.1, 0.1, 0.0);
-        _bh_psn->setTimeOutPosition(rightCenter);
+        const Position DMF_Position(true, 2.3, 0.5, 0.0);
+        _bh_psn->setTimeOutPosition(DMF_Position);
         break; }
     case 4: {
-        const Position topEast(true, 2.5, 0.3, 0.0);
-        _bh_psn->setTimeOutPosition(topEast);
+        const Position DF_Position(true, 3.0, 0.0, 0.0);
+        _bh_psn->setTimeOutPosition(DF_Position);
         break; }
     case 5: {
-        const Position bottomEast(true, 1.5, 0.5, 0.0);
-        _bh_psn->setTimeOutPosition(bottomEast);
+        const Position GK_Position(true, 4.0, 0.0, 0.0);
+        _bh_psn->setTimeOutPosition(GK_Position);
         break; }
     }
     setBehaviour(BHV_POSITIONING);

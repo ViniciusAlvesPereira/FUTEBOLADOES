@@ -36,15 +36,15 @@ void Playbook_TimeOut::configure(int numPlayers) {
     for (int i = 0; i < numPlayers; i++) {
         Role_TimeOut *_rl_tmt;
         usesRole(_rl_tmt = new Role_TimeOut());
-        _rl_timeout.push_back(_rl_tmt);
+        _rl_TimeOut.push_back(_rl_tmt);
     }
 }
 
 void Playbook_TimeOut::run(int numPlayers) {
     for(int i = 0; i < numPlayers; i++) {
         quint8 playerId = dist()->getPlayer();
-        _rl_timeout[i]->setOrder(i);
-        setPlayerRole(playerId, _rl_timeout[i]);
+        _rl_TimeOut[i]->setOrder(i);
+        setPlayerRole(playerId, _rl_TimeOut[i]);
     }
 }
 

@@ -19,24 +19,37 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ***/
 
-#ifndef BEHAVIOUR_TIMEOUT_H
-#define BEHAVIOUR_TIMEOUT_H
+#ifndef ROLE_KICKOFF_H
+#define ROLE_KICKOFF_H
 
-#include <entity/player/behaviour/behaviour.h>
-#include <entity/player/skills/skills_include.h>
+#include<entity/player/role/role.h>
+#include<entity/player/behaviour/mrcbehaviours.h>
 
-class Behaviour_TimeOut : public Behaviour {
+class Role_KickOff: public Role{
 private:
+    // Behaviours
+    Behaviour_Positioning *_bh_psn;
+
+    // Behaviours ids!
+    enum{
+        BHV_POSITIONING
+    };
+
+    // Inherited functions
     void configure();
     void run();
-    Position _desiredPosition;
-    Skill_GoTo *_skill_GoTo;
+
+    // Global Variables
+    int _order;
+    bool _theirKickOff;
 
 public:
-    Behaviour_TimeOut();
+    Role_KickOff();
+    void initializeBehaviours();
     QString name();
 
-    Position setTimeOutPosition (Position desiredPosition) { _desiredPosition = desiredPosition; }
+    void setOrder(int order) { _order = order; }
+    void setKickOffSide(bool kickOffSide) { _theirKickOff = kickOffSide; }
 };
 
-#endif // BEHAVIOUR_TIMEOUT_H
+#endif // ROLE_KICKOFF_H

@@ -28,7 +28,7 @@
 class SSLStrategy_Halt : public StrategyState {
 private:
     // Playbooks
-    Playbook_TimeOut *_pb_timeOut;
+    Playbook_KickOff *_pb_KickOff;
 
     void configure(int numOurPlayers);
     void run(int numOurPlayers);

@@ -19,24 +19,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ***/
 
-#ifndef PLAYBOOK_TIMEOUT_H
-#define PLAYBOOK_TIMEOUT_H
+#include "behaviour_positioning.h"
 
-#include <entity/contromodule/playbook/playbook.h>
-#include <entity/player/role/mrcroles.h>
+QString Behaviour_Positioning::name() {
+    return "Behaviour_Positioning";
+}
 
-class Playbook_TimeOut : public Playbook {
-private:
-    // Roles
-    QList<Role_TimeOut*> _rl_TimeOut;
+Behaviour_Positioning::Behaviour_Positioning() {
+    _skill_GoToLookTo = NULL;
+    _desiredPosition = Position(true, 0.0, 0.0, 0.0);
+}
 
-    void configure(int numPlayers);
-    void run(int numPlayers);
-    int maxNumPlayer();
-
-public:
-    Playbook_TimeOut();
-    QString name();
+void Behaviour_Positioning::configure() {
+    usesSkill(_skill_GoToLookTo = new Skill_GoToLookTo());
 };
 
-#endif // PLAYBOOK_TIMEOUT_H
+void Behaviour_Positioning::run() {
+    _skill_GoToLookTo->setDesiredPosition(_desiredPosition);
+    _skill_GoToLookTo->setAimPosition(loc()->ball());
+    _skill_GoToLookTo->setOffsetToBall(0.0);
+}

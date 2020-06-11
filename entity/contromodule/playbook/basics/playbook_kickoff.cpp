@@ -19,24 +19,33 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ***/
 
-#ifndef PLAYBOOK_TIMEOUT_H
-#define PLAYBOOK_TIMEOUT_H
+#include "playbook_kickoff.h"
 
-#include <entity/contromodule/playbook/playbook.h>
-#include <entity/player/role/mrcroles.h>
+QString Playbook_KickOff::name() {
+    return "Playbook_KickOff";
+}
 
-class Playbook_TimeOut : public Playbook {
-private:
-    // Roles
-    QList<Role_TimeOut*> _rl_TimeOut;
+Playbook_KickOff::Playbook_KickOff() {
+}
 
-    void configure(int numPlayers);
-    void run(int numPlayers);
-    int maxNumPlayer();
+int Playbook_KickOff::maxNumPlayer() {
+    return INT_MAX;
+}
 
-public:
-    Playbook_TimeOut();
-    QString name();
-};
+void Playbook_KickOff::configure(int numPlayers) {
+    _theirKickOff = true;
+    for (int i = 0; i < numPlayers; i++) {
+        Role_KickOff *_rl_kko;
+        usesRole(_rl_kko = new Role_KickOff());
+        _rl_KickOff.push_back(_rl_kko);
+    }
+}
 
-#endif // PLAYBOOK_TIMEOUT_H
+void Playbook_KickOff::run(int numPlayers) {
+    for(int i = 0; i < numPlayers; i++) {
+        quint8 playerId = dist()->getPlayer();
+        _rl_KickOff[i]->setKickOffSide(_theirKickOff);
+        _rl_KickOff[i]->setOrder(i);
+        setPlayerRole(playerId, _rl_KickOff[i]);
+    }
+}

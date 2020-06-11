@@ -19,22 +19,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ***/
 
-#include "behaviour_timeout.h"
+#ifndef PLAYBOOK_KICKOFF_H
+#define PLAYBOOK_KICKOFF_H
 
-QString Behaviour_TimeOut::name() {
-    return "Behaviour_TimeOut";
-}
+#include <entity/contromodule/playbook/playbook.h>
+#include <entity/player/role/mrcroles.h>
 
-Behaviour_TimeOut::Behaviour_TimeOut() {
-    _skill_GoTo = NULL;
-    _desiredPosition = Position(true, 0.0, 0.0, 0.0);
-}
+class Playbook_KickOff : public Playbook {
+private:
+    // Roles
+    QList<Role_KickOff*> _rl_KickOff;
 
-void Behaviour_TimeOut::configure() {
-    usesSkill(_skill_GoTo = new Skill_GoTo());
+    void configure(int numPlayers);
+    void run(int numPlayers);
+    int maxNumPlayer();
+
+    // Global Variables
+    bool _theirKickOff;
+
+public:
+    Playbook_KickOff();
+    QString name();
 };
-
-void Behaviour_TimeOut::run() {
-    _skill_GoTo->setDesiredPosition(_desiredPosition);
-    _skill_GoTo->setOffsetToBall(0.0);
-}
+#endif // PLAYBOOK_KICKOFF_H

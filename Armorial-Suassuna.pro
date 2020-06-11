@@ -41,6 +41,7 @@ SOURCES += \
     entity/coachview/soccerview/gltext.cpp \
     entity/coachview/soccerview/soccerview.cpp \
     entity/coachview/soccerview/util/field.cpp \
+    entity/contromodule/playbook/basics/playbook_kickoff.cpp \
     entity/contromodule/playbook/basics/playbook_timeout.cpp \
     entity/contromodule/playbook/basics/playbook_training.cpp \
     entity/entity.cpp \
@@ -53,6 +54,7 @@ SOURCES += \
 	entity/player/navigation/navigation.cpp \
     entity/player/role/basics/role_centreforward.cpp \
     entity/player/role/basics/role_goalKeeper.cpp \
+    entity/player/role/basics/role_kickoff.cpp \
     entity/player/role/basics/role_timeout.cpp \
     entity/player/skills/basics/skill_pushball.cpp \
     entity/player/skills/basics/skill_aroundtheball.cpp \
@@ -134,7 +136,7 @@ SOURCES += \
     entity/contromodule/strategy/basics/sslstrategy_halt.cpp \
     entity/contromodule/playbook/basics/playbook_donothing.cpp \
     entity/player/behaviour/basics/behaviour_followball.cpp \
-    entity/player/behaviour/basics/behaviour_timeout.cpp \
+    entity/player/behaviour/basics/behaviour_positioning.cpp \
     entity/player/control/pid.cpp \
     utils/mrctimer/mrctimer.cpp \
     entity/player/skills/basics/skill_kick.cpp \
@@ -173,6 +175,7 @@ HEADERS += \
     entity/coachview/soccerview/util/gvector.h \
     entity/coachview/soccerview/util/timer.h \
     entity/coachview/soccerview/util/util.h \
+    entity/contromodule/playbook/basics/playbook_kickoff.h \
     entity/contromodule/playbook/basics/playbook_timeout.h \
     entity/contromodule/playbook/basics/playbook_training.h \
     entity/entity.h \
@@ -182,6 +185,7 @@ HEADERS += \
     entity/player/navigation/navigation.h \
     entity/player/role/basics/role_centreforward.h \
     entity/player/role/basics/role_goalKeeper.h \
+    entity/player/role/basics/role_kickoff.h \
     entity/player/role/basics/role_timeout.h \
     entity/player/skills/basics/skill_pushball.h \
     entity/player/skills/basics/skill_aroundtheball.h \
@@ -269,7 +273,7 @@ HEADERS += \
     entity/contromodule/playbook/basics/playbook_donothing.h \
     entity/contromodule/playbook/mrcplaybook.h \
     entity/player/behaviour/basics/behaviour_followball.h \
-    entity/player/behaviour/basics/behaviour_timeout.h \
+    entity/player/behaviour/basics/behaviour_positioning.h \
     entity/contromodule/strategy/mrcstrategies.h \
     entity/player/control/pid.h \
     utils/mrctimer/mrctimer.h \

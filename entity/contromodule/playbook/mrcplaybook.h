@@ -25,5 +25,6 @@
 #include "basics/playbook_donothing.h"
 #include "basics/playbook_timeout.h"
 #include "basics/playbook_training.h"
+#include "basics/playbook_kickoff.h"
 
 #endif // MRCPLAYBOOK_H

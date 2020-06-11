@@ -55,6 +55,7 @@ SOURCES       = ../const/constants.cpp \
 		../entity/coachview/soccerview/gltext.cpp \
 		../entity/coachview/soccerview/soccerview.cpp \
 		../entity/coachview/soccerview/util/field.cpp \
+		../entity/contromodule/playbook/basics/playbook_kickoff.cpp \
 		../entity/contromodule/playbook/basics/playbook_timeout.cpp \
 		../entity/contromodule/playbook/basics/playbook_training.cpp \
 		../entity/entity.cpp \
@@ -67,6 +68,7 @@ SOURCES       = ../const/constants.cpp \
 		../entity/player/navigation/navigation.cpp \
 		../entity/player/role/basics/role_centreforward.cpp \
 		../entity/player/role/basics/role_goalKeeper.cpp \
+		../entity/player/role/basics/role_kickoff.cpp \
 		../entity/player/role/basics/role_timeout.cpp \
 		../entity/player/skills/basics/skill_pushball.cpp \
 		../entity/player/skills/basics/skill_aroundtheball.cpp \
@@ -148,7 +150,7 @@ SOURCES       = ../const/constants.cpp \
 		../entity/contromodule/strategy/basics/sslstrategy_halt.cpp \
 		../entity/contromodule/playbook/basics/playbook_donothing.cpp \
 		../entity/player/behaviour/basics/behaviour_followball.cpp \
-		../entity/player/behaviour/basics/behaviour_timeout.cpp \
+		../entity/player/behaviour/basics/behaviour_positioning.cpp \
 		../entity/player/control/pid.cpp \
 		../utils/mrctimer/mrctimer.cpp \
 		../entity/player/skills/basics/skill_kick.cpp \
@@ -188,6 +190,7 @@ OBJECTS       = tmp/obj/constants.o \
 		tmp/obj/gltext.o \
 		tmp/obj/soccerview.o \
 		tmp/obj/field.o \
+		tmp/obj/playbook_kickoff.o \
 		tmp/obj/playbook_timeout.o \
 		tmp/obj/playbook_training.o \
 		tmp/obj/entity.o \
@@ -200,6 +203,7 @@ OBJECTS       = tmp/obj/constants.o \
 		tmp/obj/navigation.o \
 		tmp/obj/role_centreforward.o \
 		tmp/obj/role_goalKeeper.o \
+		tmp/obj/role_kickoff.o \
 		tmp/obj/role_timeout.o \
 		tmp/obj/skill_pushball.o \
 		tmp/obj/skill_aroundtheball.o \
@@ -281,7 +285,7 @@ OBJECTS       = tmp/obj/constants.o \
 		tmp/obj/sslstrategy_halt.o \
 		tmp/obj/playbook_donothing.o \
 		tmp/obj/behaviour_followball.o \
-		tmp/obj/behaviour_timeout.o \
+		tmp/obj/behaviour_positioning.o \
 		tmp/obj/pid.o \
 		tmp/obj/mrctimer.o \
 		tmp/obj/skill_kick.o \
@@ -402,6 +406,7 @@ DIST          = ../constraints/agressivity_clusters.json \
 		../entity/coachview/soccerview/util/gvector.h \
 		../entity/coachview/soccerview/util/timer.h \
 		../entity/coachview/soccerview/util/util.h \
+		../entity/contromodule/playbook/basics/playbook_kickoff.h \
 		../entity/contromodule/playbook/basics/playbook_timeout.h \
 		../entity/contromodule/playbook/basics/playbook_training.h \
 		../entity/entity.h \
@@ -411,6 +416,7 @@ DIST          = ../constraints/agressivity_clusters.json \
 		../entity/player/navigation/navigation.h \
 		../entity/player/role/basics/role_centreforward.h \
 		../entity/player/role/basics/role_goalKeeper.h \
+		../entity/player/role/basics/role_kickoff.h \
 		../entity/player/role/basics/role_timeout.h \
 		../entity/player/skills/basics/skill_pushball.h \
 		../entity/player/skills/basics/skill_aroundtheball.h \
@@ -498,7 +504,7 @@ DIST          = ../constraints/agressivity_clusters.json \
 		../entity/contromodule/playbook/basics/playbook_donothing.h \
 		../entity/contromodule/playbook/mrcplaybook.h \
 		../entity/player/behaviour/basics/behaviour_followball.h \
-		../entity/player/behaviour/basics/behaviour_timeout.h \
+		../entity/player/behaviour/basics/behaviour_positioning.h \
 		../entity/contromodule/strategy/mrcstrategies.h \
 		../entity/player/control/pid.h \
 		../utils/mrctimer/mrctimer.h \
@@ -527,6 +533,7 @@ DIST          = ../constraints/agressivity_clusters.json \
 		../entity/coachview/soccerview/gltext.cpp \
 		../entity/coachview/soccerview/soccerview.cpp \
 		../entity/coachview/soccerview/util/field.cpp \
+		../entity/contromodule/playbook/basics/playbook_kickoff.cpp \
 		../entity/contromodule/playbook/basics/playbook_timeout.cpp \
 		../entity/contromodule/playbook/basics/playbook_training.cpp \
 		../entity/entity.cpp \
@@ -539,6 +546,7 @@ DIST          = ../constraints/agressivity_clusters.json \
 		../entity/player/navigation/navigation.cpp \
 		../entity/player/role/basics/role_centreforward.cpp \
 		../entity/player/role/basics/role_goalKeeper.cpp \
+		../entity/player/role/basics/role_kickoff.cpp \
 		../entity/player/role/basics/role_timeout.cpp \
 		../entity/player/skills/basics/skill_pushball.cpp \
 		../entity/player/skills/basics/skill_aroundtheball.cpp \
@@ -620,7 +628,7 @@ DIST          = ../constraints/agressivity_clusters.json \
 		../entity/contromodule/strategy/basics/sslstrategy_halt.cpp \
 		../entity/contromodule/playbook/basics/playbook_donothing.cpp \
 		../entity/player/behaviour/basics/behaviour_followball.cpp \
-		../entity/player/behaviour/basics/behaviour_timeout.cpp \
+		../entity/player/behaviour/basics/behaviour_positioning.cpp \
 		../entity/player/control/pid.cpp \
 		../utils/mrctimer/mrctimer.cpp \
 		../entity/player/skills/basics/skill_kick.cpp \
@@ -830,8 +838,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../rsc.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../const/constants.h ../entity/ballprediction/ballprediction.h ../entity/baseentity.h ../entity/coachview/soccerview/gltext.h ../entity/coachview/soccerview/soccerview.h ../entity/coachview/soccerview/util/field.h ../entity/coachview/soccerview/util/field_default_constants.h ../entity/coachview/soccerview/util/geometry.h ../entity/coachview/soccerview/util/gvector.h ../entity/coachview/soccerview/util/timer.h ../entity/coachview/soccerview/util/util.h ../entity/contromodule/playbook/basics/playbook_timeout.h ../entity/contromodule/playbook/basics/playbook_training.h ../entity/entity.h ../entity/player/behaviour/basics/behaviour_ballreceptor.h ../entity/player/navigation/fpp/fastpathplanning.h ../entity/player/navigation/navalgorithm.h ../entity/player/navigation/navigation.h ../entity/player/role/basics/role_centreforward.h ../entity/player/role/basics/role_goalKeeper.h ../entity/player/role/basics/role_timeout.h ../entity/player/skills/basics/skill_pushball.h ../entity/player/skills/basics/skill_aroundtheball.h ../entity/player/skills/basics/skill_dribble.h ../entity/player/skills/basics/skill_goto.h ../entity/player/skills/basics/skill_gotolookto.h ../entity/player/skills/basics/skill_interceptball.h ../entity/player/skills/basics/skill_rotateto.h ../entity/referee/mrcreferee.h ../entity/world/world.h ../entity/world/worldmapupdater.h ../exithandler.h ../include/3rd_party/netraw.h ../include/3rd_party/ssl_gc_api.pb.h ../include/3rd_party/ssl_gc_change.pb.h ../include/3rd_party/ssl_gc_ci.pb.h ../include/3rd_party/ssl_gc_common.pb.h ../include/3rd_party/ssl_gc_engine.pb.h ../include/3rd_party/ssl_gc_engine_config.pb.h ../include/3rd_party/ssl_gc_game_event.pb.h ../include/3rd_party/ssl_gc_geometry.pb.h ../include/3rd_party/ssl_gc_rcon.pb.h ../include/3rd_party/ssl_gc_rcon_autoref.pb.h ../include/3rd_party/ssl_gc_rcon_remotecontrol.pb.h ../include/3rd_party/ssl_gc_rcon_team.pb.h ../include/3rd_party/ssl_gc_referee_message.pb.h ../include/3rd_party/ssl_gc_state.pb.h ../include/3rd_party/ssl_vision_detection.pb.h ../include/3rd_party/ssl_vision_detection_tracked.pb.h ../include/3rd_party/ssl_vision_geometry.pb.h ../include/3rd_party/ssl_vision_wrapper.pb.h ../include/3rd_party/ssl_vision_wrapper_tracked.pb.h ../include/3rd_party/util.h ../entity/referee/SSLReferee/sslgameinfo.h ../entity/referee/SSLReferee/sslreferee.h ../instancechecker.h ../suassuna.h ../utils/basics/color.hh ../utils/basics/competition.hh ../utils/basics/quadrant.hh ../utils/basics/side.hh ../utils/basics/wall.hh ../utils/fields/field_ssl2014.hh ../utils/fields/field_ssl2015.hh ../utils/fields/field_ssl2020.hh ../utils/fields/field_vss2008.hh ../utils/fields/fields.hh ../utils/fields/wrfields.hh ../utils/fieldside/fieldside.hh ../utils/filters/kalman/kalman.hpp ../utils/filters/kalman/kalmanstate.h ../utils/filters/kalman/matrix.h ../utils/freeangles/freeangles.h ../utils/freeangles/obstacle.h ../utils/graph/basegraph.hh ../utils/graph/edge.hh ../utils/graph/graph.hh ../utils/graph/vertex.hh ../utils/line/line.hh ../utils/utils.hh ../utils/wrtimer/wrtimer.hh ../entity/player/player.h ../entity/contromodule/mrcteam.h ../entity/player/skills/skill.h ../entity/locations.h ../entity/player/skills/skills_include.h ../entity/contromodule/coach.h ../entity/player/playerbus.h ../entity/player/playeraccess.h ../entity/contromodule/strategy/strategy.h ../entity/contromodule/basecoach.h ../entity/contromodule/playersdistribution.h ../entity/contromodule/strategy/strategystate.h ../entity/contromodule/coachutils.h ../entity/contromodule/playbook/playbook.h ../entity/player/behaviour/behaviour.h ../entity/player/behaviour/mrcbehaviours.h ../entity/player/behaviour/basics/behaviour_donothing.h ../entity/player/skills/basics/skill_donothing.h ../utils/knn/knn.hh ../entity/contromodule/strategy/basics/mrcstrategy.h ../entity/contromodule/strategy/basics/sslstrategy.h ../entity/contromodule/controlmodule.h ../entity/contromodule/strategy/basics/sslstrategy_halt.h ../entity/contromodule/playbook/basics/playbook_donothing.h ../entity/contromodule/playbook/mrcplaybook.h ../entity/player/behaviour/basics/behaviour_followball.h ../entity/player/behaviour/basics/behaviour_timeout.h ../entity/contromodule/strategy/mrcstrategies.h ../entity/player/control/pid.h ../utils/mrctimer/mrctimer.h ../entity/player/skills/basics/skill_kick.h ../entity/player/behaviour/basics/behaviour_goalkeeper.h ../entity/player/skills/basics/skill_gkick.h ../entity/player/behaviour/basics/behaviour_receiver.h ../entity/player/behaviour/basics/behaviour_attacker.h ../entity/player/behaviour/basics/behaviour_barrier.h ../entity/player/behaviour/basics/behaviour_markplayer.h ../entity/player/behaviour/basics/behaviour_penalty_gk.h ../entity/player/behaviour/basics/behaviour_cover.h ../entity/player/behaviour/basics/behaviour_passing.h ../entity/player/role/role.h ../entity/player/role/basics/role_default.h ../entity/player/role/basics/role_def_midfielder.h ../entity/player/role/basics/role_defender.h ../entity/player/role/basics/role_secondstriker.h ../entity/player/role/basics/role_advancedMidfielder.h ../entity/player/role/mrcroles.h ../entity/coachview/coachview.h ../entity/coachview/mainwindow.h tmp/moc/ui_mainwindow.h ../entity/player/skills/basics/skill_sample.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../const/constants.cpp ../entity/ballprediction/ballprediction.cpp ../entity/coachview/soccerview/gltext.cpp ../entity/coachview/soccerview/soccerview.cpp ../entity/coachview/soccerview/util/field.cpp ../entity/contromodule/playbook/basics/playbook_timeout.cpp ../entity/contromodule/playbook/basics/playbook_training.cpp ../entity/entity.cpp ../entity/player/behaviour/basics/behaviour_ballreceptor.cpp ../entity/player/behaviour/basics/behaviour_goalkeeper.cpp ../entity/player/behaviour/basics/behaviour_markball.cpp ../entity/player/behaviour/basics/behaviour_penalty_cf.cpp ../entity/player/navigation/fpp/fastpathplanning.cpp ../entity/player/navigation/navalgorithm.cpp ../entity/player/navigation/navigation.cpp ../entity/player/role/basics/role_centreforward.cpp ../entity/player/role/basics/role_goalKeeper.cpp ../entity/player/role/basics/role_timeout.cpp ../entity/player/skills/basics/skill_pushball.cpp ../entity/player/skills/basics/skill_aroundtheball.cpp ../entity/player/skills/basics/skill_dribble.cpp ../entity/player/skills/basics/skill_goto.cpp ../entity/player/skills/basics/skill_gotolookto.cpp ../entity/player/skills/basics/skill_interceptball.cpp ../entity/player/skills/basics/skill_rotateto.cpp ../entity/referee/mrcreferee.cpp ../entity/world/world.cpp ../entity/world/worldmapupdater.cpp ../exithandler.cpp ../include/3rd_party/netraw.cpp ../entity/referee/SSLReferee/sslgameinfo.cpp ../entity/referee/SSLReferee/sslreferee.cpp ../include/3rd_party/ssl_gc_api.pb.cc ../include/3rd_party/ssl_gc_change.pb.cc ../include/3rd_party/ssl_gc_ci.pb.cc ../include/3rd_party/ssl_gc_common.pb.cc ../include/3rd_party/ssl_gc_engine.pb.cc ../include/3rd_party/ssl_gc_engine_config.pb.cc ../include/3rd_party/ssl_gc_game_event.pb.cc ../include/3rd_party/ssl_gc_geometry.pb.cc ../include/3rd_party/ssl_gc_rcon.pb.cc ../include/3rd_party/ssl_gc_rcon_autoref.pb.cc ../include/3rd_party/ssl_gc_rcon_remotecontrol.pb.cc ../include/3rd_party/ssl_gc_rcon_team.pb.cc ../include/3rd_party/ssl_gc_referee_message.pb.cc ../include/3rd_party/ssl_gc_state.pb.cc ../include/3rd_party/ssl_vision_detection.pb.cc ../include/3rd_party/ssl_vision_detection_tracked.pb.cc ../include/3rd_party/ssl_vision_geometry.pb.cc ../include/3rd_party/ssl_vision_wrapper.pb.cc ../include/3rd_party/ssl_vision_wrapper_tracked.pb.cc ../instancechecker.cpp ../main.cpp ../suassuna.cpp ../utils/basics/color.cc ../utils/basics/competition.cc ../utils/basics/quadrant.cc ../utils/basics/side.cc ../utils/basics/wall.cc ../utils/fields/field_ssl2014.cc ../utils/fields/field_ssl2015.cc ../utils/fields/field_ssl2020.cc ../utils/fields/field_vss2008.cc ../utils/fields/fields.cc ../utils/fieldside/fieldside.cc ../utils/filters/kalman/kalman.cpp ../utils/filters/kalman/kalmanstate.cpp ../utils/filters/kalman/matrix.cpp ../utils/freeangles/freeangles.cpp ../utils/freeangles/obstacle.cpp ../utils/graph/edge.cc ../utils/graph/graph.cc ../utils/graph/vertex.cc ../utils/line/line.cc ../utils/utils.cc ../utils/wrtimer/wrtimer.cc ../entity/player/player.cpp ../entity/contromodule/mrcteam.cpp ../entity/player/skills/skill.cpp ../entity/locations.cpp ../entity/contromodule/coach.cpp ../entity/player/playerbus.cpp ../entity/player/playeraccess.cpp ../entity/contromodule/strategy/strategy.cpp ../entity/contromodule/playersdistribution.cpp ../entity/contromodule/strategy/strategystate.cpp ../entity/contromodule/coachutils.cpp ../entity/contromodule/playbook/playbook.cpp ../entity/player/behaviour/behaviour.cpp ../entity/player/behaviour/basics/behaviour_donothing.cpp ../entity/player/skills/basics/skill_donothing.cpp ../utils/knn/knn.cc ../entity/contromodule/strategy/basics/mrcstrategy.cpp ../entity/contromodule/strategy/basics/sslstrategy.cpp ../entity/contromodule/controlmodule.cpp ../entity/contromodule/strategy/basics/sslstrategy_halt.cpp ../entity/contromodule/playbook/basics/playbook_donothing.cpp ../entity/player/behaviour/basics/behaviour_followball.cpp ../entity/player/behaviour/basics/behaviour_timeout.cpp ../entity/player/control/pid.cpp ../utils/mrctimer/mrctimer.cpp ../entity/player/skills/basics/skill_kick.cpp ../entity/player/skills/basics/skill_gkick.cpp ../entity/player/behaviour/basics/behaviour_receiver.cpp ../entity/player/behaviour/basics/behaviour_attacker.cpp ../entity/player/behaviour/basics/behaviour_barrier.cpp ../entity/player/behaviour/basics/behaviour_markplayer.cpp ../entity/player/behaviour/basics/behaviour_penalty_gk.cpp ../entity/player/behaviour/basics/behaviour_cover.cpp ../entity/player/behaviour/basics/behaviour_passing.cpp ../entity/player/role/role.cpp ../entity/player/role/basics/role_default.cpp ../entity/player/role/basics/role_def_midfielder.cpp ../entity/player/role/basics/role_defender.cpp ../entity/player/role/basics/role_secondstriker.cpp ../entity/player/role/basics/role_advancedMidfielder.cpp ../entity/coachview/coachview.cpp ../entity/coachview/mainwindow.cpp ../entity/player/skills/basics/skill_sample.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../const/constants.h ../entity/ballprediction/ballprediction.h ../entity/baseentity.h ../entity/coachview/soccerview/gltext.h ../entity/coachview/soccerview/soccerview.h ../entity/coachview/soccerview/util/field.h ../entity/coachview/soccerview/util/field_default_constants.h ../entity/coachview/soccerview/util/geometry.h ../entity/coachview/soccerview/util/gvector.h ../entity/coachview/soccerview/util/timer.h ../entity/coachview/soccerview/util/util.h ../entity/contromodule/playbook/basics/playbook_kickoff.h ../entity/contromodule/playbook/basics/playbook_timeout.h ../entity/contromodule/playbook/basics/playbook_training.h ../entity/entity.h ../entity/player/behaviour/basics/behaviour_ballreceptor.h ../entity/player/navigation/fpp/fastpathplanning.h ../entity/player/navigation/navalgorithm.h ../entity/player/navigation/navigation.h ../entity/player/role/basics/role_centreforward.h ../entity/player/role/basics/role_goalKeeper.h ../entity/player/role/basics/role_kickoff.h ../entity/player/role/basics/role_timeout.h ../entity/player/skills/basics/skill_pushball.h ../entity/player/skills/basics/skill_aroundtheball.h ../entity/player/skills/basics/skill_dribble.h ../entity/player/skills/basics/skill_goto.h ../entity/player/skills/basics/skill_gotolookto.h ../entity/player/skills/basics/skill_interceptball.h ../entity/player/skills/basics/skill_rotateto.h ../entity/referee/mrcreferee.h ../entity/world/world.h ../entity/world/worldmapupdater.h ../exithandler.h ../include/3rd_party/netraw.h ../include/3rd_party/ssl_gc_api.pb.h ../include/3rd_party/ssl_gc_change.pb.h ../include/3rd_party/ssl_gc_ci.pb.h ../include/3rd_party/ssl_gc_common.pb.h ../include/3rd_party/ssl_gc_engine.pb.h ../include/3rd_party/ssl_gc_engine_config.pb.h ../include/3rd_party/ssl_gc_game_event.pb.h ../include/3rd_party/ssl_gc_geometry.pb.h ../include/3rd_party/ssl_gc_rcon.pb.h ../include/3rd_party/ssl_gc_rcon_autoref.pb.h ../include/3rd_party/ssl_gc_rcon_remotecontrol.pb.h ../include/3rd_party/ssl_gc_rcon_team.pb.h ../include/3rd_party/ssl_gc_referee_message.pb.h ../include/3rd_party/ssl_gc_state.pb.h ../include/3rd_party/ssl_vision_detection.pb.h ../include/3rd_party/ssl_vision_detection_tracked.pb.h ../include/3rd_party/ssl_vision_geometry.pb.h ../include/3rd_party/ssl_vision_wrapper.pb.h ../include/3rd_party/ssl_vision_wrapper_tracked.pb.h ../include/3rd_party/util.h ../entity/referee/SSLReferee/sslgameinfo.h ../entity/referee/SSLReferee/sslreferee.h ../instancechecker.h ../suassuna.h ../utils/basics/color.hh ../utils/basics/competition.hh ../utils/basics/quadrant.hh ../utils/basics/side.hh ../utils/basics/wall.hh ../utils/fields/field_ssl2014.hh ../utils/fields/field_ssl2015.hh ../utils/fields/field_ssl2020.hh ../utils/fields/field_vss2008.hh ../utils/fields/fields.hh ../utils/fields/wrfields.hh ../utils/fieldside/fieldside.hh ../utils/filters/kalman/kalman.hpp ../utils/filters/kalman/kalmanstate.h ../utils/filters/kalman/matrix.h ../utils/freeangles/freeangles.h ../utils/freeangles/obstacle.h ../utils/graph/basegraph.hh ../utils/graph/edge.hh ../utils/graph/graph.hh ../utils/graph/vertex.hh ../utils/line/line.hh ../utils/utils.hh ../utils/wrtimer/wrtimer.hh ../entity/player/player.h ../entity/contromodule/mrcteam.h ../entity/player/skills/skill.h ../entity/locations.h ../entity/player/skills/skills_include.h ../entity/contromodule/coach.h ../entity/player/playerbus.h ../entity/player/playeraccess.h ../entity/contromodule/strategy/strategy.h ../entity/contromodule/basecoach.h ../entity/contromodule/playersdistribution.h ../entity/contromodule/strategy/strategystate.h ../entity/contromodule/coachutils.h ../entity/contromodule/playbook/playbook.h ../entity/player/behaviour/behaviour.h ../entity/player/behaviour/mrcbehaviours.h ../entity/player/behaviour/basics/behaviour_donothing.h ../entity/player/skills/basics/skill_donothing.h ../utils/knn/knn.hh ../entity/contromodule/strategy/basics/mrcstrategy.h ../entity/contromodule/strategy/basics/sslstrategy.h ../entity/contromodule/controlmodule.h ../entity/contromodule/strategy/basics/sslstrategy_halt.h ../entity/contromodule/playbook/basics/playbook_donothing.h ../entity/contromodule/playbook/mrcplaybook.h ../entity/player/behaviour/basics/behaviour_followball.h ../entity/player/behaviour/basics/behaviour_positioning.h ../entity/contromodule/strategy/mrcstrategies.h ../entity/player/control/pid.h ../utils/mrctimer/mrctimer.h ../entity/player/skills/basics/skill_kick.h ../entity/player/behaviour/basics/behaviour_goalkeeper.h ../entity/player/skills/basics/skill_gkick.h ../entity/player/behaviour/basics/behaviour_receiver.h ../entity/player/behaviour/basics/behaviour_attacker.h ../entity/player/behaviour/basics/behaviour_barrier.h ../entity/player/behaviour/basics/behaviour_markplayer.h ../entity/player/behaviour/basics/behaviour_penalty_gk.h ../entity/player/behaviour/basics/behaviour_cover.h ../entity/player/behaviour/basics/behaviour_passing.h ../entity/player/role/role.h ../entity/player/role/basics/role_default.h ../entity/player/role/basics/role_def_midfielder.h ../entity/player/role/basics/role_defender.h ../entity/player/role/basics/role_secondstriker.h ../entity/player/role/basics/role_advancedMidfielder.h ../entity/player/role/mrcroles.h ../entity/coachview/coachview.h ../entity/coachview/mainwindow.h tmp/moc/ui_mainwindow.h ../entity/player/skills/basics/skill_sample.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../const/constants.cpp ../entity/ballprediction/ballprediction.cpp ../entity/coachview/soccerview/gltext.cpp ../entity/coachview/soccerview/soccerview.cpp ../entity/coachview/soccerview/util/field.cpp ../entity/contromodule/playbook/basics/playbook_kickoff.cpp ../entity/contromodule/playbook/basics/playbook_timeout.cpp ../entity/contromodule/playbook/basics/playbook_training.cpp ../entity/entity.cpp ../entity/player/behaviour/basics/behaviour_ballreceptor.cpp ../entity/player/behaviour/basics/behaviour_goalkeeper.cpp ../entity/player/behaviour/basics/behaviour_markball.cpp ../entity/player/behaviour/basics/behaviour_penalty_cf.cpp ../entity/player/navigation/fpp/fastpathplanning.cpp ../entity/player/navigation/navalgorithm.cpp ../entity/player/navigation/navigation.cpp ../entity/player/role/basics/role_centreforward.cpp ../entity/player/role/basics/role_goalKeeper.cpp ../entity/player/role/basics/role_kickoff.cpp ../entity/player/role/basics/role_timeout.cpp ../entity/player/skills/basics/skill_pushball.cpp ../entity/player/skills/basics/skill_aroundtheball.cpp ../entity/player/skills/basics/skill_dribble.cpp ../entity/player/skills/basics/skill_goto.cpp ../entity/player/skills/basics/skill_gotolookto.cpp ../entity/player/skills/basics/skill_interceptball.cpp ../entity/player/skills/basics/skill_rotateto.cpp ../entity/referee/mrcreferee.cpp ../entity/world/world.cpp ../entity/world/worldmapupdater.cpp ../exithandler.cpp ../include/3rd_party/netraw.cpp ../entity/referee/SSLReferee/sslgameinfo.cpp ../entity/referee/SSLReferee/sslreferee.cpp ../include/3rd_party/ssl_gc_api.pb.cc ../include/3rd_party/ssl_gc_change.pb.cc ../include/3rd_party/ssl_gc_ci.pb.cc ../include/3rd_party/ssl_gc_common.pb.cc ../include/3rd_party/ssl_gc_engine.pb.cc ../include/3rd_party/ssl_gc_engine_config.pb.cc ../include/3rd_party/ssl_gc_game_event.pb.cc ../include/3rd_party/ssl_gc_geometry.pb.cc ../include/3rd_party/ssl_gc_rcon.pb.cc ../include/3rd_party/ssl_gc_rcon_autoref.pb.cc ../include/3rd_party/ssl_gc_rcon_remotecontrol.pb.cc ../include/3rd_party/ssl_gc_rcon_team.pb.cc ../include/3rd_party/ssl_gc_referee_message.pb.cc ../include/3rd_party/ssl_gc_state.pb.cc ../include/3rd_party/ssl_vision_detection.pb.cc ../include/3rd_party/ssl_vision_detection_tracked.pb.cc ../include/3rd_party/ssl_vision_geometry.pb.cc ../include/3rd_party/ssl_vision_wrapper.pb.cc ../include/3rd_party/ssl_vision_wrapper_tracked.pb.cc ../instancechecker.cpp ../main.cpp ../suassuna.cpp ../utils/basics/color.cc ../utils/basics/competition.cc ../utils/basics/quadrant.cc ../utils/basics/side.cc ../utils/basics/wall.cc ../utils/fields/field_ssl2014.cc ../utils/fields/field_ssl2015.cc ../utils/fields/field_ssl2020.cc ../utils/fields/field_vss2008.cc ../utils/fields/fields.cc ../utils/fieldside/fieldside.cc ../utils/filters/kalman/kalman.cpp ../utils/filters/kalman/kalmanstate.cpp ../utils/filters/kalman/matrix.cpp ../utils/freeangles/freeangles.cpp ../utils/freeangles/obstacle.cpp ../utils/graph/edge.cc ../utils/graph/graph.cc ../utils/graph/vertex.cc ../utils/line/line.cc ../utils/utils.cc ../utils/wrtimer/wrtimer.cc ../entity/player/player.cpp ../entity/contromodule/mrcteam.cpp ../entity/player/skills/skill.cpp ../entity/locations.cpp ../entity/contromodule/coach.cpp ../entity/player/playerbus.cpp ../entity/player/playeraccess.cpp ../entity/contromodule/strategy/strategy.cpp ../entity/contromodule/playersdistribution.cpp ../entity/contromodule/strategy/strategystate.cpp ../entity/contromodule/coachutils.cpp ../entity/contromodule/playbook/playbook.cpp ../entity/player/behaviour/behaviour.cpp ../entity/player/behaviour/basics/behaviour_donothing.cpp ../entity/player/skills/basics/skill_donothing.cpp ../utils/knn/knn.cc ../entity/contromodule/strategy/basics/mrcstrategy.cpp ../entity/contromodule/strategy/basics/sslstrategy.cpp ../entity/contromodule/controlmodule.cpp ../entity/contromodule/strategy/basics/sslstrategy_halt.cpp ../entity/contromodule/playbook/basics/playbook_donothing.cpp ../entity/player/behaviour/basics/behaviour_followball.cpp ../entity/player/behaviour/basics/behaviour_positioning.cpp ../entity/player/control/pid.cpp ../utils/mrctimer/mrctimer.cpp ../entity/player/skills/basics/skill_kick.cpp ../entity/player/skills/basics/skill_gkick.cpp ../entity/player/behaviour/basics/behaviour_receiver.cpp ../entity/player/behaviour/basics/behaviour_attacker.cpp ../entity/player/behaviour/basics/behaviour_barrier.cpp ../entity/player/behaviour/basics/behaviour_markplayer.cpp ../entity/player/behaviour/basics/behaviour_penalty_gk.cpp ../entity/player/behaviour/basics/behaviour_cover.cpp ../entity/player/behaviour/basics/behaviour_passing.cpp ../entity/player/role/role.cpp ../entity/player/role/basics/role_default.cpp ../entity/player/role/basics/role_def_midfielder.cpp ../entity/player/role/basics/role_defender.cpp ../entity/player/role/basics/role_secondstriker.cpp ../entity/player/role/basics/role_advancedMidfielder.cpp ../entity/coachview/coachview.cpp ../entity/coachview/mainwindow.cpp ../entity/player/skills/basics/skill_sample.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../entity/coachview/mainwindow.ui $(DISTDIR)/
 
 
@@ -1025,7 +1033,7 @@ tmp/moc/moc_role_centreforward.cpp: ../entity/player/behaviour/mrcbehaviours.h \
 		../utils/filters/kalman/kalmanstate.h \
 		../utils/filters/kalman/matrix.h \
 		../entity/player/behaviour/basics/behaviour_followball.h \
-		../entity/player/behaviour/basics/behaviour_timeout.h \
+		../entity/player/behaviour/basics/behaviour_positioning.h \
 		../entity/player/behaviour/basics/behaviour_goalkeeper.h \
 		../entity/player/behaviour/basics/behaviour_attacker.h \
 		../entity/player/behaviour/basics/behaviour_receiver.h \
@@ -1108,7 +1116,7 @@ tmp/moc/moc_role_goalKeeper.cpp: ../entity/player/role/role.h \
 		../entity/player/skills/basics/skill_interceptball.h \
 		../entity/player/skills/basics/skill_pushball.h \
 		../entity/player/behaviour/basics/behaviour_followball.h \
-		../entity/player/behaviour/basics/behaviour_timeout.h \
+		../entity/player/behaviour/basics/behaviour_positioning.h \
 		../entity/player/behaviour/basics/behaviour_goalkeeper.h \
 		../entity/player/behaviour/basics/behaviour_attacker.h \
 		../entity/player/behaviour/basics/behaviour_receiver.h \
@@ -1416,7 +1424,7 @@ tmp/moc/moc_role_default.cpp: ../entity/player/behaviour/mrcbehaviours.h \
 		../utils/filters/kalman/kalmanstate.h \
 		../utils/filters/kalman/matrix.h \
 		../entity/player/behaviour/basics/behaviour_followball.h \
-		../entity/player/behaviour/basics/behaviour_timeout.h \
+		../entity/player/behaviour/basics/behaviour_positioning.h \
 		../entity/player/behaviour/basics/behaviour_goalkeeper.h \
 		../entity/player/behaviour/basics/behaviour_attacker.h \
 		../entity/player/behaviour/basics/behaviour_receiver.h \
@@ -1496,7 +1504,7 @@ tmp/moc/moc_role_def_midfielder.cpp: ../entity/player/behaviour/mrcbehaviours.h 
 		../utils/filters/kalman/kalmanstate.h \
 		../utils/filters/kalman/matrix.h \
 		../entity/player/behaviour/basics/behaviour_followball.h \
-		../entity/player/behaviour/basics/behaviour_timeout.h \
+		../entity/player/behaviour/basics/behaviour_positioning.h \
 		../entity/player/behaviour/basics/behaviour_goalkeeper.h \
 		../entity/player/behaviour/basics/behaviour_attacker.h \
 		../entity/player/behaviour/basics/behaviour_receiver.h \
@@ -1576,7 +1584,7 @@ tmp/moc/moc_role_defender.cpp: ../entity/player/behaviour/mrcbehaviours.h \
 		../utils/filters/kalman/kalmanstate.h \
 		../utils/filters/kalman/matrix.h \
 		../entity/player/behaviour/basics/behaviour_followball.h \
-		../entity/player/behaviour/basics/behaviour_timeout.h \
+		../entity/player/behaviour/basics/behaviour_positioning.h \
 		../entity/player/behaviour/basics/behaviour_goalkeeper.h \
 		../entity/player/behaviour/basics/behaviour_attacker.h \
 		../entity/player/behaviour/basics/behaviour_receiver.h \
@@ -1656,7 +1664,7 @@ tmp/moc/moc_role_secondstriker.cpp: ../entity/player/behaviour/mrcbehaviours.h \
 		../utils/filters/kalman/kalmanstate.h \
 		../utils/filters/kalman/matrix.h \
 		../entity/player/behaviour/basics/behaviour_followball.h \
-		../entity/player/behaviour/basics/behaviour_timeout.h \
+		../entity/player/behaviour/basics/behaviour_positioning.h \
 		../entity/player/behaviour/basics/behaviour_goalkeeper.h \
 		../entity/player/behaviour/basics/behaviour_attacker.h \
 		../entity/player/behaviour/basics/behaviour_receiver.h \
@@ -1736,7 +1744,7 @@ tmp/moc/moc_role_advancedMidfielder.cpp: ../entity/player/behaviour/mrcbehaviour
 		../utils/filters/kalman/kalmanstate.h \
 		../utils/filters/kalman/matrix.h \
 		../entity/player/behaviour/basics/behaviour_followball.h \
-		../entity/player/behaviour/basics/behaviour_timeout.h \
+		../entity/player/behaviour/basics/behaviour_positioning.h \
 		../entity/player/behaviour/basics/behaviour_goalkeeper.h \
 		../entity/player/behaviour/basics/behaviour_attacker.h \
 		../entity/player/behaviour/basics/behaviour_receiver.h \
@@ -1924,6 +1932,95 @@ tmp/obj/field.o: ../entity/coachview/soccerview/util/field.cpp ../entity/coachvi
 		../entity/coachview/soccerview/util/util.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/field.o ../entity/coachview/soccerview/util/field.cpp
 
+tmp/obj/playbook_kickoff.o: ../entity/contromodule/playbook/basics/playbook_kickoff.cpp ../entity/contromodule/playbook/basics/playbook_kickoff.h \
+		../entity/contromodule/playbook/playbook.h \
+		../entity/referee/SSLReferee/sslgameinfo.h \
+		../utils/basics/color.hh \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
+		../entity/baseentity.h \
+		../entity/referee/SSLReferee/sslreferee.h \
+		../entity/referee/mrcreferee.h \
+		../entity/entity.h \
+		../entity/coachview/coachview.h \
+		../entity/contromodule/coach.h \
+		../entity/contromodule/basecoach.h \
+		../entity/contromodule/controlmodule.h \
+		../utils/mrctimer/mrctimer.h \
+		../include/timer.h \
+		../entity/coachview/soccerview/soccerview.h \
+		../entity/coachview/soccerview/util/timer.h \
+		../entity/coachview/soccerview/util/geometry.h \
+		../entity/coachview/soccerview/util/gvector.h \
+		../entity/coachview/soccerview/util/util.h \
+		../entity/coachview/soccerview/util/field.h \
+		../entity/coachview/soccerview/gltext.h \
+		../entity/locations.h \
+		../utils/fieldside/fieldside.hh \
+		../utils/basics/side.hh \
+		../utils/basics/wall.hh \
+		../entity/contromodule/mrcteam.h \
+		../entity/player/player.h \
+		../entity/world/world.h \
+		../entity/player/baseplayer.h \
+		../utils/fields/fields.hh \
+		../entity/world/worldmapupdater.h \
+		../const/constants.h \
+		../utils/utils.hh \
+		../entity/player/control/pid.h \
+		../utils/filters/kalman/kalman.hpp \
+		../utils/filters/kalman/kalmanstate.h \
+		../utils/filters/kalman/matrix.h \
+		../entity/coachview/mainwindow.h \
+		../entity/contromodule/playersdistribution.h \
+		../utils/wrtimer/wrtimer.hh \
+		../entity/player/behaviour/behaviour.h \
+		../entity/player/playeraccess.h \
+		../entity/player/playerbus.h \
+		../entity/player/role/role.h \
+		../entity/player/role/mrcroles.h \
+		../entity/player/role/basics/role_default.h \
+		../entity/player/behaviour/mrcbehaviours.h \
+		../entity/player/behaviour/basics/behaviour_donothing.h \
+		../entity/player/skills/skills_include.h \
+		../entity/player/skills/basics/skill_donothing.h \
+		../entity/player/skills/skill.h \
+		../entity/player/skills/basics/skill_goto.h \
+		../entity/player/skills/basics/skill_rotateto.h \
+		../entity/player/skills/basics/skill_gotolookto.h \
+		../entity/player/skills/basics/skill_aroundtheball.h \
+		../entity/player/skills/basics/skill_kick.h \
+		../entity/player/skills/basics/skill_gkick.h \
+		../entity/player/skills/basics/skill_dribble.h \
+		../entity/player/skills/basics/skill_interceptball.h \
+		../entity/player/skills/basics/skill_pushball.h \
+		../entity/player/behaviour/basics/behaviour_followball.h \
+		../entity/player/behaviour/basics/behaviour_positioning.h \
+		../entity/player/behaviour/basics/behaviour_goalkeeper.h \
+		../entity/player/behaviour/basics/behaviour_attacker.h \
+		../entity/player/behaviour/basics/behaviour_receiver.h \
+		../utils/freeangles/freeangles.h \
+		../utils/freeangles/obstacle.h \
+		../entity/player/behaviour/basics/behaviour_barrier.h \
+		../entity/player/behaviour/basics/behaviour_markplayer.h \
+		../entity/player/behaviour/basics/behaviour_markball.h \
+		../entity/player/behaviour/basics/behaviour_penalty_gk.h \
+		../entity/player/behaviour/basics/behaviour_penalty_cf.h \
+		../entity/player/behaviour/basics/behaviour_cover.h \
+		../entity/player/behaviour/basics/behaviour_passing.h \
+		../entity/player/behaviour/basics/behaviour_ballreceptor.h \
+		../entity/player/role/basics/role_defender.h \
+		../entity/player/role/basics/role_def_midfielder.h \
+		../entity/player/role/basics/role_secondstriker.h \
+		../entity/player/role/basics/role_centreforward.h \
+		../entity/player/role/basics/role_advancedMidfielder.h \
+		../entity/player/role/basics/role_goalKeeper.h \
+		../entity/player/role/basics/role_timeout.h \
+		../entity/player/role/basics/role_kickoff.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/playbook_kickoff.o ../entity/contromodule/playbook/basics/playbook_kickoff.cpp
+
 tmp/obj/playbook_timeout.o: ../entity/contromodule/playbook/basics/playbook_timeout.cpp ../entity/contromodule/playbook/basics/playbook_timeout.h \
 		../entity/contromodule/playbook/playbook.h \
 		../entity/referee/SSLReferee/sslgameinfo.h \
@@ -1989,7 +2086,7 @@ tmp/obj/playbook_timeout.o: ../entity/contromodule/playbook/basics/playbook_time
 		../entity/player/skills/basics/skill_interceptball.h \
 		../entity/player/skills/basics/skill_pushball.h \
 		../entity/player/behaviour/basics/behaviour_followball.h \
-		../entity/player/behaviour/basics/behaviour_timeout.h \
+		../entity/player/behaviour/basics/behaviour_positioning.h \
 		../entity/player/behaviour/basics/behaviour_goalkeeper.h \
 		../entity/player/behaviour/basics/behaviour_attacker.h \
 		../entity/player/behaviour/basics/behaviour_receiver.h \
@@ -2009,7 +2106,8 @@ tmp/obj/playbook_timeout.o: ../entity/contromodule/playbook/basics/playbook_time
 		../entity/player/role/basics/role_centreforward.h \
 		../entity/player/role/basics/role_advancedMidfielder.h \
 		../entity/player/role/basics/role_goalKeeper.h \
-		../entity/player/role/basics/role_timeout.h
+		../entity/player/role/basics/role_timeout.h \
+		../entity/player/role/basics/role_kickoff.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/playbook_timeout.o ../entity/contromodule/playbook/basics/playbook_timeout.cpp
 
 tmp/obj/playbook_training.o: ../entity/contromodule/playbook/basics/playbook_training.cpp ../entity/contromodule/playbook/basics/playbook_training.h \
@@ -2077,7 +2175,7 @@ tmp/obj/playbook_training.o: ../entity/contromodule/playbook/basics/playbook_tra
 		../entity/player/skills/basics/skill_interceptball.h \
 		../entity/player/skills/basics/skill_pushball.h \
 		../entity/player/behaviour/basics/behaviour_followball.h \
-		../entity/player/behaviour/basics/behaviour_timeout.h \
+		../entity/player/behaviour/basics/behaviour_positioning.h \
 		../entity/player/behaviour/basics/behaviour_goalkeeper.h \
 		../entity/player/behaviour/basics/behaviour_attacker.h \
 		../entity/player/behaviour/basics/behaviour_receiver.h \
@@ -2097,7 +2195,8 @@ tmp/obj/playbook_training.o: ../entity/contromodule/playbook/basics/playbook_tra
 		../entity/player/role/basics/role_centreforward.h \
 		../entity/player/role/basics/role_advancedMidfielder.h \
 		../entity/player/role/basics/role_goalKeeper.h \
-		../entity/player/role/basics/role_timeout.h
+		../entity/player/role/basics/role_timeout.h \
+		../entity/player/role/basics/role_kickoff.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/playbook_training.o ../entity/contromodule/playbook/basics/playbook_training.cpp
 
 tmp/obj/entity.o: ../entity/entity.cpp ../entity/entity.h \
@@ -2529,7 +2628,7 @@ tmp/obj/role_centreforward.o: ../entity/player/role/basics/role_centreforward.cp
 		../utils/filters/kalman/kalmanstate.h \
 		../utils/filters/kalman/matrix.h \
 		../entity/player/behaviour/basics/behaviour_followball.h \
-		../entity/player/behaviour/basics/behaviour_timeout.h \
+		../entity/player/behaviour/basics/behaviour_positioning.h \
 		../entity/player/behaviour/basics/behaviour_goalkeeper.h \
 		../entity/player/behaviour/basics/behaviour_attacker.h \
 		../entity/player/behaviour/basics/behaviour_receiver.h \
@@ -2610,7 +2709,7 @@ tmp/obj/role_goalKeeper.o: ../entity/player/role/basics/role_goalKeeper.cpp ../e
 		../entity/player/skills/basics/skill_interceptball.h \
 		../entity/player/skills/basics/skill_pushball.h \
 		../entity/player/behaviour/basics/behaviour_followball.h \
-		../entity/player/behaviour/basics/behaviour_timeout.h \
+		../entity/player/behaviour/basics/behaviour_positioning.h \
 		../entity/player/behaviour/basics/behaviour_goalkeeper.h \
 		../entity/player/behaviour/basics/behaviour_attacker.h \
 		../entity/player/behaviour/basics/behaviour_receiver.h \
@@ -2625,6 +2724,84 @@ tmp/obj/role_goalKeeper.o: ../entity/player/role/basics/role_goalKeeper.cpp ../e
 		../entity/player/behaviour/basics/behaviour_passing.h \
 		../entity/player/behaviour/basics/behaviour_ballreceptor.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/role_goalKeeper.o ../entity/player/role/basics/role_goalKeeper.cpp
+
+tmp/obj/role_kickoff.o: ../entity/player/role/basics/role_kickoff.cpp ../entity/player/role/basics/role_kickoff.h \
+		../entity/player/role/role.h \
+		../entity/player/baseplayer.h \
+		../entity/player/playeraccess.h \
+		../entity/player/playerbus.h \
+		../entity/referee/SSLReferee/sslgameinfo.h \
+		../utils/basics/color.hh \
+		../include/3rd_party/ssl_gc_referee_message.pb.h \
+		../include/3rd_party/ssl_gc_game_event.pb.h \
+		../include/3rd_party/ssl_gc_common.pb.h \
+		../include/3rd_party/ssl_gc_geometry.pb.h \
+		../entity/baseentity.h \
+		../entity/referee/SSLReferee/sslreferee.h \
+		../entity/referee/mrcreferee.h \
+		../entity/entity.h \
+		../entity/coachview/coachview.h \
+		../entity/contromodule/coach.h \
+		../entity/contromodule/basecoach.h \
+		../entity/contromodule/controlmodule.h \
+		../utils/mrctimer/mrctimer.h \
+		../include/timer.h \
+		../entity/coachview/soccerview/soccerview.h \
+		../entity/coachview/soccerview/util/timer.h \
+		../entity/coachview/soccerview/util/geometry.h \
+		../entity/coachview/soccerview/util/gvector.h \
+		../entity/coachview/soccerview/util/util.h \
+		../entity/coachview/soccerview/util/field.h \
+		../entity/coachview/soccerview/gltext.h \
+		../entity/locations.h \
+		../utils/fieldside/fieldside.hh \
+		../utils/basics/side.hh \
+		../utils/basics/wall.hh \
+		../entity/contromodule/mrcteam.h \
+		../entity/player/player.h \
+		../entity/world/world.h \
+		../utils/fields/fields.hh \
+		../entity/world/worldmapupdater.h \
+		../const/constants.h \
+		../utils/utils.hh \
+		../entity/player/control/pid.h \
+		../utils/filters/kalman/kalman.hpp \
+		../utils/filters/kalman/kalmanstate.h \
+		../utils/filters/kalman/matrix.h \
+		../entity/coachview/mainwindow.h \
+		../entity/contromodule/playersdistribution.h \
+		../utils/wrtimer/wrtimer.hh \
+		../entity/player/behaviour/behaviour.h \
+		../entity/player/behaviour/mrcbehaviours.h \
+		../entity/player/behaviour/basics/behaviour_donothing.h \
+		../entity/player/skills/skills_include.h \
+		../entity/player/skills/basics/skill_donothing.h \
+		../entity/player/skills/skill.h \
+		../entity/player/skills/basics/skill_goto.h \
+		../entity/player/skills/basics/skill_rotateto.h \
+		../entity/player/skills/basics/skill_gotolookto.h \
+		../entity/player/skills/basics/skill_aroundtheball.h \
+		../entity/player/skills/basics/skill_kick.h \
+		../entity/player/skills/basics/skill_gkick.h \
+		../entity/player/skills/basics/skill_dribble.h \
+		../entity/player/skills/basics/skill_interceptball.h \
+		../entity/player/skills/basics/skill_pushball.h \
+		../entity/player/behaviour/basics/behaviour_followball.h \
+		../entity/player/behaviour/basics/behaviour_positioning.h \
+		../entity/player/behaviour/basics/behaviour_goalkeeper.h \
+		../entity/player/behaviour/basics/behaviour_attacker.h \
+		../entity/player/behaviour/basics/behaviour_receiver.h \
+		../utils/freeangles/freeangles.h \
+		../utils/freeangles/obstacle.h \
+		../entity/player/behaviour/basics/behaviour_barrier.h \
+		../entity/player/behaviour/basics/behaviour_markplayer.h \
+		../entity/player/behaviour/basics/behaviour_markball.h \
+		../entity/player/behaviour/basics/behaviour_penalty_gk.h \
+		../entity/player/behaviour/basics/behaviour_penalty_cf.h \
+		../entity/player/behaviour/basics/behaviour_cover.h \
+		../entity/player/behaviour/basics/behaviour_passing.h \
+		../entity/player/behaviour/basics/behaviour_ballreceptor.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/role_kickoff.o ../entity/player/role/basics/role_kickoff.cpp
 
 tmp/obj/role_timeout.o: ../entity/player/role/basics/role_timeout.cpp ../entity/player/role/basics/role_timeout.h \
 		../entity/player/role/role.h \
@@ -2688,7 +2865,7 @@ tmp/obj/role_timeout.o: ../entity/player/role/basics/role_timeout.cpp ../entity/
 		../entity/player/skills/basics/skill_interceptball.h \
 		../entity/player/skills/basics/skill_pushball.h \
 		../entity/player/behaviour/basics/behaviour_followball.h \
-		../entity/player/behaviour/basics/behaviour_timeout.h \
+		../entity/player/behaviour/basics/behaviour_positioning.h \
 		../entity/player/behaviour/basics/behaviour_goalkeeper.h \
 		../entity/player/behaviour/basics/behaviour_attacker.h \
 		../entity/player/behaviour/basics/behaviour_receiver.h \
@@ -3492,7 +3669,7 @@ tmp/obj/suassuna.o: ../suassuna.cpp ../suassuna.h \
 		../entity/player/skills/basics/skill_interceptball.h \
 		../entity/player/skills/basics/skill_pushball.h \
 		../entity/player/behaviour/basics/behaviour_followball.h \
-		../entity/player/behaviour/basics/behaviour_timeout.h \
+		../entity/player/behaviour/basics/behaviour_positioning.h \
 		../entity/player/behaviour/basics/behaviour_goalkeeper.h \
 		../entity/player/behaviour/basics/behaviour_attacker.h \
 		../entity/player/behaviour/basics/behaviour_receiver.h \
@@ -3516,6 +3693,7 @@ tmp/obj/suassuna.o: ../suassuna.cpp ../suassuna.h \
 		../entity/player/role/basics/role_advancedMidfielder.h \
 		../entity/player/role/basics/role_goalKeeper.h \
 		../entity/player/role/basics/role_timeout.h \
+		../entity/player/role/basics/role_kickoff.h \
 		../entity/contromodule/strategy/strategy.h \
 		../entity/contromodule/strategy/strategystate.h \
 		../entity/contromodule/strategy/basics/mrcstrategy.h \
@@ -4467,7 +4645,7 @@ tmp/obj/mrcstrategy.o: ../entity/contromodule/strategy/basics/mrcstrategy.cpp ..
 		../entity/player/skills/basics/skill_interceptball.h \
 		../entity/player/skills/basics/skill_pushball.h \
 		../entity/player/behaviour/basics/behaviour_followball.h \
-		../entity/player/behaviour/basics/behaviour_timeout.h \
+		../entity/player/behaviour/basics/behaviour_positioning.h \
 		../entity/player/behaviour/basics/behaviour_goalkeeper.h \
 		../entity/player/behaviour/basics/behaviour_attacker.h \
 		../entity/player/behaviour/basics/behaviour_receiver.h \
@@ -4488,8 +4666,10 @@ tmp/obj/mrcstrategy.o: ../entity/contromodule/strategy/basics/mrcstrategy.cpp ..
 		../entity/player/role/basics/role_advancedMidfielder.h \
 		../entity/player/role/basics/role_goalKeeper.h \
 		../entity/player/role/basics/role_timeout.h \
+		../entity/player/role/basics/role_kickoff.h \
 		../entity/contromodule/playbook/basics/playbook_timeout.h \
-		../entity/contromodule/playbook/basics/playbook_training.h
+		../entity/contromodule/playbook/basics/playbook_training.h \
+		../entity/contromodule/playbook/basics/playbook_kickoff.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/mrcstrategy.o ../entity/contromodule/strategy/basics/mrcstrategy.cpp
 
 tmp/obj/sslstrategy.o: ../entity/contromodule/strategy/basics/sslstrategy.cpp ../entity/contromodule/strategy/basics/sslstrategy.h \
@@ -4575,7 +4755,7 @@ tmp/obj/sslstrategy_halt.o: ../entity/contromodule/strategy/basics/sslstrategy_h
 		../entity/player/skills/basics/skill_interceptball.h \
 		../entity/player/skills/basics/skill_pushball.h \
 		../entity/player/behaviour/basics/behaviour_followball.h \
-		../entity/player/behaviour/basics/behaviour_timeout.h \
+		../entity/player/behaviour/basics/behaviour_positioning.h \
 		../entity/player/behaviour/basics/behaviour_goalkeeper.h \
 		../entity/player/behaviour/basics/behaviour_attacker.h \
 		../entity/player/behaviour/basics/behaviour_receiver.h \
@@ -4596,8 +4776,10 @@ tmp/obj/sslstrategy_halt.o: ../entity/contromodule/strategy/basics/sslstrategy_h
 		../entity/player/role/basics/role_advancedMidfielder.h \
 		../entity/player/role/basics/role_goalKeeper.h \
 		../entity/player/role/basics/role_timeout.h \
+		../entity/player/role/basics/role_kickoff.h \
 		../entity/contromodule/playbook/basics/playbook_timeout.h \
-		../entity/contromodule/playbook/basics/playbook_training.h
+		../entity/contromodule/playbook/basics/playbook_training.h \
+		../entity/contromodule/playbook/basics/playbook_kickoff.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/sslstrategy_halt.o ../entity/contromodule/strategy/basics/sslstrategy_halt.cpp
 
 tmp/obj/playbook_donothing.o: ../entity/contromodule/playbook/basics/playbook_donothing.cpp ../entity/contromodule/playbook/basics/playbook_donothing.h \
@@ -4665,7 +4847,7 @@ tmp/obj/playbook_donothing.o: ../entity/contromodule/playbook/basics/playbook_do
 		../entity/player/skills/basics/skill_interceptball.h \
 		../entity/player/skills/basics/skill_pushball.h \
 		../entity/player/behaviour/basics/behaviour_followball.h \
-		../entity/player/behaviour/basics/behaviour_timeout.h \
+		../entity/player/behaviour/basics/behaviour_positioning.h \
 		../entity/player/behaviour/basics/behaviour_goalkeeper.h \
 		../entity/player/behaviour/basics/behaviour_attacker.h \
 		../entity/player/behaviour/basics/behaviour_receiver.h \
@@ -4685,7 +4867,8 @@ tmp/obj/playbook_donothing.o: ../entity/contromodule/playbook/basics/playbook_do
 		../entity/player/role/basics/role_centreforward.h \
 		../entity/player/role/basics/role_advancedMidfielder.h \
 		../entity/player/role/basics/role_goalKeeper.h \
-		../entity/player/role/basics/role_timeout.h
+		../entity/player/role/basics/role_timeout.h \
+		../entity/player/role/basics/role_kickoff.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/playbook_donothing.o ../entity/contromodule/playbook/basics/playbook_donothing.cpp
 
 tmp/obj/behaviour_followball.o: ../entity/player/behaviour/basics/behaviour_followball.cpp ../entity/player/behaviour/basics/behaviour_followball.h \
@@ -4746,7 +4929,7 @@ tmp/obj/behaviour_followball.o: ../entity/player/behaviour/basics/behaviour_foll
 		../utils/filters/kalman/matrix.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/behaviour_followball.o ../entity/player/behaviour/basics/behaviour_followball.cpp
 
-tmp/obj/behaviour_timeout.o: ../entity/player/behaviour/basics/behaviour_timeout.cpp ../entity/player/behaviour/basics/behaviour_timeout.h \
+tmp/obj/behaviour_positioning.o: ../entity/player/behaviour/basics/behaviour_positioning.cpp ../entity/player/behaviour/basics/behaviour_positioning.h \
 		../entity/player/behaviour/behaviour.h \
 		../entity/player/baseplayer.h \
 		../entity/player/playeraccess.h \
@@ -4802,7 +4985,7 @@ tmp/obj/behaviour_timeout.o: ../entity/player/behaviour/basics/behaviour_timeout
 		../utils/filters/kalman/kalman.hpp \
 		../utils/filters/kalman/kalmanstate.h \
 		../utils/filters/kalman/matrix.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/behaviour_timeout.o ../entity/player/behaviour/basics/behaviour_timeout.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/obj/behaviour_positioning.o ../entity/player/behaviour/basics/behaviour_positioning.cpp
 
 tmp/obj/pid.o: ../entity/player/control/pid.cpp ../entity/player/control/pid.h \
 		../include/timer.h
@@ -5440,7 +5623,7 @@ tmp/obj/role_default.o: ../entity/player/role/basics/role_default.cpp ../entity/
 		../utils/filters/kalman/kalmanstate.h \
 		../utils/filters/kalman/matrix.h \
 		../entity/player/behaviour/basics/behaviour_followball.h \
-		../entity/player/behaviour/basics/behaviour_timeout.h \
+		../entity/player/behaviour/basics/behaviour_positioning.h \
 		../entity/player/behaviour/basics/behaviour_goalkeeper.h \
 		../entity/player/behaviour/basics/behaviour_attacker.h \
 		../entity/player/behaviour/basics/behaviour_receiver.h \
@@ -5518,7 +5701,7 @@ tmp/obj/role_def_midfielder.o: ../entity/player/role/basics/role_def_midfielder.
 		../utils/filters/kalman/kalmanstate.h \
 		../utils/filters/kalman/matrix.h \
 		../entity/player/behaviour/basics/behaviour_followball.h \
-		../entity/player/behaviour/basics/behaviour_timeout.h \
+		../entity/player/behaviour/basics/behaviour_positioning.h \
 		../entity/player/behaviour/basics/behaviour_goalkeeper.h \
 		../entity/player/behaviour/basics/behaviour_attacker.h \
 		../entity/player/behaviour/basics/behaviour_receiver.h \
@@ -5596,7 +5779,7 @@ tmp/obj/role_defender.o: ../entity/player/role/basics/role_defender.cpp ../entit
 		../utils/filters/kalman/kalmanstate.h \
 		../utils/filters/kalman/matrix.h \
 		../entity/player/behaviour/basics/behaviour_followball.h \
-		../entity/player/behaviour/basics/behaviour_timeout.h \
+		../entity/player/behaviour/basics/behaviour_positioning.h \
 		../entity/player/behaviour/basics/behaviour_goalkeeper.h \
 		../entity/player/behaviour/basics/behaviour_attacker.h \
 		../entity/player/behaviour/basics/behaviour_receiver.h \
@@ -5674,7 +5857,7 @@ tmp/obj/role_secondstriker.o: ../entity/player/role/basics/role_secondstriker.cp
 		../utils/filters/kalman/kalmanstate.h \
 		../utils/filters/kalman/matrix.h \
 		../entity/player/behaviour/basics/behaviour_followball.h \
-		../entity/player/behaviour/basics/behaviour_timeout.h \
+		../entity/player/behaviour/basics/behaviour_positioning.h \
 		../entity/player/behaviour/basics/behaviour_goalkeeper.h \
 		../entity/player/behaviour/basics/behaviour_attacker.h \
 		../entity/player/behaviour/basics/behaviour_receiver.h \
@@ -5752,7 +5935,7 @@ tmp/obj/role_advancedMidfielder.o: ../entity/player/role/basics/role_advancedMid
 		../utils/filters/kalman/kalmanstate.h \
 		../utils/filters/kalman/matrix.h \
 		../entity/player/behaviour/basics/behaviour_followball.h \
-		../entity/player/behaviour/basics/behaviour_timeout.h \
+		../entity/player/behaviour/basics/behaviour_positioning.h \
 		../entity/player/behaviour/basics/behaviour_goalkeeper.h \
 		../entity/player/behaviour/basics/behaviour_attacker.h \
 		../entity/player/behaviour/basics/behaviour_receiver.h \

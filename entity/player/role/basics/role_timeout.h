@@ -28,11 +28,11 @@
 class Role_TimeOut: public Role{
 private:
     // Behaviours
-    Behaviour_TimeOut *_bh_tmt;
+    Behaviour_Positioning *_bh_psn;
 
     // Behaviours ids!
     enum{
-        BHV_TIMEOUT
+        BHV_POSITIONING
     };
 
     // Inherited functions
@@ -47,7 +47,7 @@ public:
     void initializeBehaviours();
     QString name();
 
-    int setOrder(int order) { _order = order; }
+    void setOrder(int order) { _order = order; }
 };
 
 #endif // ROLE_TIMEOUT_H
