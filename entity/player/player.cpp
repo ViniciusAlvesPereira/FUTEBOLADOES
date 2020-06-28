@@ -30,7 +30,7 @@ QString Player::name(){
     return "Player #"+QString::number((int)_team->teamId())+":"+QString::number((int)_playerId);
 }
 
-Player::Player(World *world, MRCTeam *team, Controller *ctr, quint8 playerID, Role *defaultRole, SSLReferee *ref, PID *vxPID, PID *vyPID, PID *vwPID, NavAlgorithm *navAlg) : Entity(Entity::ENT_PLAYER){
+Player::Player(World *world, MRCTeam *team, Controller *ctr, quint8 playerID, Role *defaultRole, SSLReferee *ref, PID *vxPID, PID *vyPID, PID *vwPID, NavigationAlgorithm *navAlg) : Entity(Entity::ENT_PLAYER){
     _world = world;
     _team = team;
     _playerId = playerID;
@@ -47,14 +47,12 @@ Player::Player(World *world, MRCTeam *team, Controller *ctr, quint8 playerID, Ro
     _vyPID = vyPID;
     _vwPID = vwPID;
 
-    _kalman = new KalmanFilter2D();
-    _kalman->setEnabled(true);
-
     // Idle control
     _idleCount = 0;
 
     // Reset player
     reset();
+    setPidActivated(true);
 
 }
 
@@ -65,6 +63,11 @@ Player::~Player(){
         delete _playerAccessSelf;
     if(_playerAccessBus != NULL)
         delete _playerAccessBus;
+
+    delete _nav;
+    delete _vxPID;
+    delete _vyPID;
+    delete _vwPID;
 }
 
 PlayerAccess* Player::access() const {
@@ -112,8 +115,6 @@ void Player::loop(){
         }
     }
     else{
-        // kalman for PID precision
-        _kalman->iterate(position());
         _idleCount = 0;
 
         _mutexRole.lock();
@@ -145,6 +146,17 @@ QString Player::getRoleName() {
         roleName = _role->name();
     _mutexRole.unlock();
     return roleName;
+}
+
+QString Player::getActualBehaviourName() {
+    _mutexRole.lock();
+    QString behaviourName;
+    if(_role == NULL)
+        behaviourName = "UNKNOWN";
+    else
+        behaviourName = _role->getBehaviours().value(_role->getActualBehaviour())->name();
+    _mutexRole.unlock();
+    return behaviourName;
 }
 
 void Player::setRole(Role* b) {
@@ -256,6 +268,16 @@ Angle Player::angleTo(const Position &pos) const{
 
 /* Locomotion algorithms */
 
+std::pair<Angle,float> Player::getNavDirectionDistance(const Position &destination, const Angle &positionToLook, bool avoidTeammates, bool avoidOpponents, bool avoidBall, bool avoidOurGoalArea, bool avoidTheirGoalArea) {
+    _nav->setGoal(destination, positionToLook, avoidTeammates, avoidOpponents, avoidBall, avoidOurGoalArea, avoidTheirGoalArea);
+    Angle direction = _nav->getDirection();
+    float distance = _nav->getDistance();
+
+    std::pair<Angle,float> movement = std::make_pair(direction, distance);
+    movement.first.setValue(movement.first.value() - orientation().value());
+    return movement;
+}
+
 void Player::idle(){
     // Set current position/orientation as desired
     //_nextPosition = position();
@@ -269,11 +291,10 @@ void Player::idle(){
 }
 
 void Player::setSpeed(float x, float y, float theta) {
-    _mutex.lock();
 
     float currSpeedAbs = sqrt(pow(x, 2) + pow(y, 2));
     float incSpeedAbs = currSpeedAbs - _lastSpeedAbs;
-    float maxAcc = 0.5;
+    float maxAcc = 2.0;
 
     if(fabs(incSpeedAbs) > maxAcc && incSpeedAbs > 0){
         float newSpeed = _lastSpeedAbs + maxAcc;
@@ -285,38 +306,21 @@ void Player::setSpeed(float x, float y, float theta) {
     _lastSpeedAbs = sqrt(pow(x, 2) + pow(y, 2));
 
     // watchdog on speed
+    if(isnan(x)) x = 0.0;
+    if(isnan(y)) y = 0.0;
     WR::Utils::limitValue(&x, -2.5, 2.5);
     WR::Utils::limitValue(&y, -2.5, 2.5);
-
-    /*float module = sqrt(pow(x, 2) + pow(y, 2));
-
-    x *= 1.5 / module;    //Velocidade desejada é 2 m/s
-    y *= 1.5 / module;    //Velocidade desejada é 2 m/s
-
-    int nice = 0;
-    nice++;
-
-    float fon = sqrt(pow(x, 2) + pow(y, 2));
-    if (nice / 5 == 0) {
-        std::cout << fon << "\n";
-    }*/
 
     _ctr->setSpeed((int)_team->teamId(), (int)playerId(), x, y, theta);
     _ctr->kick(_team->teamId(), playerId(), 0.0);
 
-    _mutex.unlock();
 }
 
-std::pair<float, float> Player::goTo(Position targetPosition, double offset){
-    Position robot_pos_filtered = getKalmanPredict();
+std::pair<float, float> Player::goTo(Position targetPosition, double offset, bool setHere, double minVel){
     double robot_x, robot_y, robotAngle = orientation().value();
-    if(robot_pos_filtered.isUnknown()){
-        robot_x = position().x();
-        robot_y = position().y();
-    }else{
-        robot_x = robot_pos_filtered.x();
-        robot_y = robot_pos_filtered.y();
-    }
+    robot_x = position().x();
+    robot_y = position().y();
+
     // Define a velocidade do robô para chegar na bola
     long double Vx = (targetPosition.x() - robot_x);
     long double Vy = (targetPosition.y() - robot_y);
@@ -324,41 +328,60 @@ std::pair<float, float> Player::goTo(Position targetPosition, double offset){
     long double moduloDistancia = sqrt(pow(Vx,2)+pow(Vy,2));
     float vxSaida = (Vx * cos(theta) + Vy * sin(theta));
     float vySaida = (Vy * cos(theta) - Vx * sin(theta));
-    double sinal_x = 1.0;
-    double sinal_y = 1.0;
-
-    if(vxSaida < 0) sinal_x = -1.0;
-    if(vySaida < 0) sinal_y = -1.0;
 
     // inverte pra dar frenagem
-    // É interessante colocar *= 0.0 pra realmente "parar" o robô
+    // na simulação é bom colocar *= 0.0 pra ele realmente "parar" o robô
     if(moduloDistancia <= offset){
-        vxSaida *= 0.0;         //Interssante colocr 0.0 na simulação para frenagem efetiva
-        vySaida *= 0.0;         //Interssante colocr 0.0 na simulação para frenagem efetiva
+        vxSaida *= -1.0;
+        vySaida *= -1.0;
     }
 
-    float newVX = _vxPID->calculate(vxSaida, velocity().x());
-    float newVY = _vyPID->calculate(vySaida, velocity().y());
+    float newVX, newVY;
+    if(isPidActivated()){
+        newVX = _vxPID->calculate(vxSaida, velocity().x());
+        newVY = _vyPID->calculate(vySaida, velocity().y());
+    }
 
-    /*if (newVX > 0.0) newVX = log2f(newVX + pow(2, -0.6)) + 0.6;
-    else newVX = -(log2f(-newVX + pow(2, -0.6)) + 0.6);
+    if(isPidActivated()){
+        if(setHere){
+            // aplicar velocidade minima ( só no intercept que goTo vai ser chamado pra ativar aqui ? )
+            if(fabs(newVX) <= minVel){
+                if(newVX < 0) newVX = -minVel;
+                else newVX = minVel;
+            }
 
-    if (newVY > 0.0) newVY = log2f(newVY + pow(2, -0.6)) + 0.6;
-    else newVY = -(log2f(-newVY + pow(2, -0.6)) + 0.6);*/
+            if(fabs(newVY) <= minVel){
+                if(newVY < 0) newVY = -minVel;
+                else newVY = minVel;
+            }
 
-    return std::make_pair(newVX, newVY);
+            setSpeed(newVX, newVY, 0.0);
+        }
+        return std::make_pair(newVX, newVY);
+    }
+    else{
+        if(setHere){
+            // aplicar velocidade minima ( só no intercept que goTo vai ser chamado pra ativar aqui ? )
+            if(fabs(vxSaida) <= minVel){
+                if(vxSaida < 0) vxSaida = -minVel;
+                else vxSaida = minVel;
+            }
+
+            if(fabs(vySaida) <= minVel){
+                if(vySaida < 0) vySaida = -minVel;
+                else vySaida = minVel;
+            }
+
+            setSpeed(vxSaida, vySaida, 0.0);
+        }
+        return std::make_pair(vxSaida, vySaida);
+    }
 }
 
-std::pair<double, double> Player::rotateTo(Position targetPosition, double offset) {
-    Position robot_pos_filtered = getKalmanPredict();
+std::pair<double, double> Player::rotateTo(Position targetPosition, double offset, bool setHere) {
     double robot_x, robot_y, angleOrigin2Robot = orientation().value();
-    if(robot_pos_filtered.isUnknown()){
-        robot_x = position().x();
-        robot_y = position().y();
-    }else{
-        robot_x = robot_pos_filtered.x();
-        robot_y = robot_pos_filtered.y();
-    }
+    robot_x = position().x();
+    robot_y = position().y();
 
     // Define a velocidade angular do robô para visualizar a bola
     double vectorRobot2BallX = (targetPosition.x() - robot_x);
@@ -376,43 +399,47 @@ std::pair<double, double> Player::rotateTo(Position targetPosition, double offse
         angleOrigin2ball = acos(vectorRobot2BallX); //angulo que a bola faz com o eixo x em relação ao robo
     }
 
-    double minValue = 1.5;
-    double maxValue = 3.0;
+    double minValue = 3.0;
+    double maxValue = 6.0;
 
     double speed = 0.0;
 
     angleRobot2Ball = angleOrigin2Robot - angleOrigin2ball;
 
-    if(fabs(angleRobot2Ball) >= M_PI / 52.0){
-        if(abs(angleRobot2Ball) < minValue){
-            if(angleRobot2Ball < 0.0){
-                if (speed != 0.0 && angleRobot2Ball < 0.2) speed = -minValue;    //Inverte a velocidade para frenagem
-                else speed = minValue;
-            }else{
-                if (speed != 0.0 && angleRobot2Ball < 0.2) speed = minValue;     //Inverte a velocidade para frenagem
-                else speed = -minValue;
-            }
+    if(fabs(angleRobot2Ball) >= GEARSystem::Angle::toRadians(1.5)){ // se a dif for de até 1.5 grau
+        if(angleRobot2Ball < 0.0){
+            if(angleRobot2Ball < -GEARSystem::Angle::pi) speed = -maxValue;
+            else speed = maxValue;
         }else{
-            if(angleRobot2Ball < 0.0){
-                if(angleRobot2Ball < -M_PI) speed = -maxValue;
-                else speed = maxValue;
-            }else{
-                if(angleRobot2Ball < M_PI) speed = -maxValue;
-                else speed = maxValue;
-            }
+            if(angleRobot2Ball < GEARSystem::Angle::pi) speed = -maxValue;
+            else speed = maxValue;
+        }
+
+        // Se estiver < 20 graus, seta uma minima para desalecerar um pouco
+        if(fabs(angleRobot2Ball) < GEARSystem::Angle::toRadians(20)){
+            if(angleRobot2Ball < 0.0) speed = (fabs(angleRobot2Ball) / GEARSystem::Angle::toRadians(20)) * minValue;
+            else speed = (fabs(angleRobot2Ball) / GEARSystem::Angle::toRadians(20)) * -minValue;
         }
     }else{
-        speed = 0;
+        speed = 0.0;
     }
 
-    double newSpeed = _vwPID->calculate(speed, angularSpeed().value());
 
-    return std::make_pair(angleRobot2Ball, newSpeed);
+    if(isPidActivated()){
+        double newSpeed = _vwPID->calculate(speed, angularSpeed().value());
+        if(setHere) setSpeed(0.0, 0.0, newSpeed);
+        return std::make_pair(angleRobot2Ball, newSpeed);
+    }
+    else{
+        if(setHere) setSpeed(0.0, 0.0, speed);
+        return std::make_pair(angleRobot2Ball, speed);
+    }
 }
 
-void Player::goToLookTo(Position targetPosition, Position lookToPosition, double offset, double offsetAngular){
-    std::pair<float, float> a = goTo(targetPosition, offset);
-    double theta = rotateTo(lookToPosition, offsetAngular).second;
+void Player::goToLookTo(Position targetPosition, Position lookToPosition, bool avoidTeammates, bool avoidOpponents, bool avoidBall, bool avoidOurGoalArea, bool avoidTheirGoalArea){
+    /*
+    std::pair<float, float> a = goTo(targetPosition, offset, false);
+    std::pair<double, double> b = rotateTo(lookToPosition, offsetAngular, false);
 
     if(fabs(a.first) <= 0.1){
         if(a.first < 0) a.first = -0.1;
@@ -427,62 +454,95 @@ void Player::goToLookTo(Position targetPosition, Position lookToPosition, double
     WR::Utils::limitValue(&a.first, -2.5, 2.5);
     WR::Utils::limitValue(&a.second, -2.5, 2.5);
 
-    setSpeed(a.first, a.second, theta);
+    double dist = WR::Utils::distance(position(), targetPosition);
+    if(dist <= 0.5f){ // se estiver a menos de 50cm do alvo
+        if(fabs(b.first) >= GEARSystem::Angle::toRadians(15)){ // se a diferença for maior que 15 deg
+            setSpeed(0.0, 0.0, b.second); // zera a linear e espera girar
+        }else{
+            setSpeed(a.first, a.second, b.second); // caso esteja de boa, gogo
+        }
+    }
+    else if(dist > 0.5f && dist <= 1.0f){ // se estiver entre 50cm a 1m do alvo
+        if(fabs(b.first) >= GEARSystem::Angle::toRadians(45)){ // se a diferença for maior que 45 deg
+            setSpeed(0.3 * a.first, 0.3 * a.second, b.second); // linear * 0.3 e gira
+        }else{
+            setSpeed(a.first, a.second, b.second); // caso esteja de boa, gogo
+        }
+    }
+    else if(dist > 1.0f){ // se estiver a mais de 1m do alvo
+        if(fabs(b.first) >= GEARSystem::Angle::toRadians(75)){ // se a diferença for maior que 75 deg
+            setSpeed(0.5 * a.first, 0.5 * a.second, b.second); // linear * 0.5 e gira
+        }else{
+            setSpeed(a.first, a.second, b.second); // caso esteja de boa, gogo
+        }
+    }
+    */
+
+    Angle anglePP;
+    std::pair<double, double> help = rotateTo(targetPosition);
+    if(lookToPosition.isUnknown())
+        anglePP = Angle(false, 0.0);
+    else
+        anglePP = Angle(true, help.first);
+
+    std::pair<double, double> rotateSpeed = rotateTo(lookToPosition);
+    std::pair<Angle, float> a = getNavDirectionDistance(targetPosition, anglePP, avoidTeammates, avoidOpponents, avoidBall, avoidOurGoalArea, avoidTheirGoalArea);
+/*
+    double vx = _vxPID->calculate(a.second * cos(a.first.value()), velocity().x());
+    double vy = _vyPID->calculate(a.second * sin(a.first.value()), velocity().y());
+*/
+    double vx = a.second * cos(a.first.value());
+    double vy = a.second * sin(a.first.value());
+    double dist = WR::Utils::distance(position(), targetPosition);
+    if(dist <= 0.5f){ // se estiver a menos de 50cm do alvo
+        if(fabs(rotateSpeed.first) >= GEARSystem::Angle::toRadians(15)){ // se a diferença for maior que 15 deg
+            setSpeed(0.0, 0.0, rotateSpeed.second); // zera a linear e espera girar
+        }else{
+            setSpeed(vx, vy, rotateSpeed.second); // caso esteja de boa, gogo
+        }
+    }
+    else if(dist > 0.5f && dist <= 1.0f){ // se estiver entre 50cm a 1m do alvo
+        if(fabs(rotateSpeed.first) >= GEARSystem::Angle::toRadians(45)){ // se a diferença for maior que 45 deg
+            setSpeed(0.3 * vx, 0.3 * vy, rotateSpeed.second); // linear * 0.3 e gira
+        }else{
+            setSpeed(vx, vy, rotateSpeed.second); // caso esteja de boa, gogo
+        }
+    }
+    else if(dist > 1.0f){ // se estiver a mais de 1m do alvo
+        if(fabs(rotateSpeed.first) >= GEARSystem::Angle::toRadians(75)){ // se a diferença for maior que 75 deg
+            setSpeed(0.5 * vx, 0.5 * vy, rotateSpeed.second); // linear * 0.5 e gira
+        }else{
+            setSpeed(vx, vy, rotateSpeed.second); // caso esteja de boa, gogo
+        }
+    }
 }
 
 void Player::aroundTheBall(Position targetPosition, double offset, double offsetAngular){
-    Position robot_pos_filtered = getKalmanPredict();
-    double robot_x, robot_y, robotAngle = orientation().value();
-    if(robot_pos_filtered.isUnknown()){
-        robot_x = position().x();
-        robot_y = position().y();
-    }else{
-        robot_x = robot_pos_filtered.x();
-        robot_y = robot_pos_filtered.y();
-    }
+    double robot_x, robot_y;
+    robot_x = position().x();
+    robot_y = position().y();
     // Configura o robô para ir até a bola e girar em torno dela
-    std::pair<float, float> a;
-
-    a = goTo(targetPosition, offset);
-    float theta = rotateTo(targetPosition, offsetAngular).second;
-    long double moduloDistancia = sqrt(pow((targetPosition.x() - robot_x),2)+pow((targetPosition.y() - robot_y),2));
-
-    if (moduloDistancia < offset) setSpeed(0.0, 0.2, theta);
-    else setSpeed(a.first, a.second, theta);
+    goTo(targetPosition, offset, true);
+    rotateTo(targetPosition, offsetAngular, true);
 }
 
-void Player::kick(bool isPass, float kickZPower){
-    _mutex.lock();
-    if(isPass){
-        _ctr->kick(_team->teamId(), playerId(), 3.0);
-        if(kickZPower > 0.0){
-            _ctr->chipKick(_team->teamId(), playerId(), 3.0); // rever esse power dps
-        }
+void Player::kick(float power, bool isChipKick){
+    if(!isChipKick){
+        _ctr->kick(_team->teamId(), playerId(), power);
     }
     else{
-        _ctr->kick(_team->teamId(), playerId(), 6.0);
-        if(kickZPower > 0.0){
-            _ctr->chipKick(_team->teamId(), playerId(), 6.0); // rever esse power dps
-        }
+        _ctr->chipKick(_team->teamId(), playerId(), power); // rever esse power dps
     }
-    _mutex.unlock();
 }
 
 void Player::setGoal(Position pos){
     _nav->setGoal(pos, orientation(), true, true, false, true, true);
 }
 
-QList<Position> Player::getPath() const {
+QLinkedList<Position> Player::getPath() const {
     return _nav->getPath();
 }
 
 void Player::dribble(bool isActive){
-    _mutex.lock();
     _ctr->holdBall(_team->teamId(), playerId(), isActive);
-    _mutex.unlock();
-}
-
-Position Player::getKalmanPredict(){
-    _kalman->predict();
-    return _kalman->getPosition();
 }

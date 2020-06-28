@@ -26,5 +26,6 @@
 #include "basics/playbook_timeout.h"
 #include "basics/playbook_training.h"
 #include "basics/playbook_kickoff.h"
+#include "basics/playbook_directKick.h"
 
 #endif // MRCPLAYBOOK_H

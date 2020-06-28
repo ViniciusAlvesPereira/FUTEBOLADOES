@@ -30,10 +30,11 @@ class Behaviour;
 class Skill;
 class Navigation;
 class Role;
-class NavAlgorithm;
+class NavigationAlgorithm;
 class ControlAlgorithm;
 class PlayerUtils;
 class Locations;
 class grsSimulator;
 class CoachView;
+
 #endif // BASEPLAYER_HH

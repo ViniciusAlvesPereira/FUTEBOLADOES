@@ -37,6 +37,7 @@ public:
     QString name();
 
     Position setTimeOutPosition (Position desiredPosition) { _desiredPosition = desiredPosition; }
+    Position getBestPosition(int quadrant);
 };
 
 #endif // BEHAVIOUR_POSITIONING_H

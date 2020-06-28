@@ -32,6 +32,9 @@ float MRCConstants::_FPPSmoothPathResolution = 0.3f;
 
 /* Soccer constants */
 int MRCConstants::_qtPlayers                 = 12;
+float MRCConstants::_maxKickPower            = 6.0;
+float MRCConstants::_robotRadius             = 0.09f;
+float MRCConstants::_ballRadius              = 0.025f;
 
 MRCConstants::MRCConstants()
 {

@@ -28,15 +28,18 @@ QString SSLStrategy_Halt::name() {
 }
 
 SSLStrategy_Halt::SSLStrategy_Halt() {
-    _pb_KickOff = NULL;
+   // _pb_KickOff = NULL;
+    _pb_DirectKick = NULL;
+    //_pb_Training = NULL;
 }
 
 void SSLStrategy_Halt::configure(int numOurPlayers) {
-    usesPlaybook(_pb_KickOff = new Playbook_KickOff());
+    //usesPlaybook(_pb_KickOff = new Playbook_KickOff());
+    usesPlaybook(_pb_DirectKick = new Playbook_DirectKick());
 }
 
 void SSLStrategy_Halt::run(int numOurPlayers) {
     QList<quint8> allPlayers = dist()->getAllPlayers();
     if(!allPlayers.isEmpty())
-        _pb_KickOff->addPlayers(allPlayers);
+        _pb_DirectKick->addPlayers(allPlayers);
 }

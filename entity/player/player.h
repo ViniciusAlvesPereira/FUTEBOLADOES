@@ -29,14 +29,13 @@
 #include <bits/stdc++.h>
 #include <entity/locations.h>
 #include <entity/player/control/pid.h>
-#include <utils/filters/kalman/kalman.hpp>
 
 #define IDLE_COUNT 10
 
 class Player : public Entity
 {
 public:
-    Player(World *world, MRCTeam *team, Controller *ctr, quint8 playerID, Role *defaultRole, SSLReferee *ref, PID *vxPID, PID *vyPID, PID *vwPID, NavAlgorithm *navAlg);
+    Player(World *world, MRCTeam *team, Controller *ctr, quint8 playerID, Role *defaultRole, SSLReferee *ref, PID *vxPID, PID *vyPID, PID *vwPID, NavigationAlgorithm *navAlg);
     ~Player();
     QString name();
     void reset();
@@ -51,8 +50,6 @@ public:
     // Robot locomotion
     // algoritmos de controle básicos ficam aqui
     void idle();
-
-    QMutex _mutex;
 
     // Auxiliary methods
     // Position
@@ -93,23 +90,26 @@ public:
 
     // Player skills
     void setSpeed(float x, float y, float theta);
-    std::pair<float, float> goTo(Position targetPosition, double _offset = 0.2);
-    std::pair<double, double> rotateTo(Position targetPosition, double offset = 0.2);
-    void goToLookTo(Position targetPosition, Position lookToPosition, double offset = 0.2, double offsetAngular = 0.2);
+    std::pair<float, float> goTo(Position targetPosition, double _offset = 0.2, bool setHere = true, double minVel = 0.1);
+    std::pair<double, double> rotateTo(Position targetPosition, double offset = 0.2, bool setHere = true);
+    void goToLookTo(Position targetPosition, Position lookToPosition, bool avoidTeammates, bool avoidOpponents, bool avoidBall, bool avoidOurGoalArea, bool avoidTheirGoalArea);
     void aroundTheBall(Position targetPosition, double offset, double offsetAngular = 0.2);
-    void kick(bool isPass, float kickZPower = 0.0);
+    void kick(float power, bool isChipKick = false);
     void dribble(bool isActive);
 
     // Role
     void setRole(Role *b);
     QString getRoleName();
+    QString getActualBehaviourName();
 
     // pp
-    QList<Position> getPath() const;
+    QLinkedList<Position> getPath() const;
     void setGoal(Position pos);
+    std::pair<Angle, float> getNavDirectionDistance(const Position &destination, const Angle &positionToLook, bool avoidTeammates, bool avoidOpponents, bool avoidBall, bool avoidOurGoalArea, bool avoidTheirGoalArea);
 
-    // Kalman Filtering (for more control)
-    Position getKalmanPredict();
+    // PID
+    void setPidActivated(bool val) { _pidActivated = val; }
+    bool isPidActivated() { return _pidActivated; }
 
 private:
     // Entity inherit virtual methods
@@ -154,10 +154,10 @@ private:
     float _aError;
 
     // PID's
+    bool _pidActivated;
     PID *_vxPID;
     PID *_vyPID;
     PID *_vwPID;
-    KalmanFilter2D *_kalman;
 
 
 };

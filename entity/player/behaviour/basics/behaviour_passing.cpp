@@ -32,7 +32,7 @@ Behaviour_Passing::Behaviour_Passing() {
 
 void Behaviour_Passing::configure() {
     usesSkill(_skill_kick = new Skill_Kick());
-    _skill_kick->setIsPass(true);
+   // _skill_kick->setIsPass(true);
 };
 
 void Behaviour_Passing::run() {
@@ -43,11 +43,11 @@ void Behaviour_Passing::run() {
 
     if (passId == NO_PASS) {
         _skill_kick->setAim(loc()->theirGoal());
-        _skill_kick->setZPower(5.0);
+        //_skill_kick->setZPower(5.0);
     } else {
         Position passDestination = PlayerBus::ourPlayer(passId)->position();
         _skill_kick->setAim(passDestination);
-        _skill_kick->setZPower(0.0);
+        //_skill_kick->setZPower(0.0);
     }
     _mutex.unlock();
 }

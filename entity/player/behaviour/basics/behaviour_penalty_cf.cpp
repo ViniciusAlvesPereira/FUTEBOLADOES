@@ -42,7 +42,7 @@ void Behaviour_Penalty_CF::configure() {
 
 void Behaviour_Penalty_CF::run() {
 
-    _skill_kick->setIsPass(false);
+    _skill_kick->setPower(MRCConstants::_maxKickPower);
 
     /*const float minAngle = WR::Utils::getAngle(loc()->ball(), loc()->ourGoalRightPost());
     const float maxAngle = WR::Utils::getAngle(loc()->ball(), loc()->ourGoalLeftPost());
@@ -70,7 +70,6 @@ void Behaviour_Penalty_CF::run() {
 
     _skill_goToLookTo->setAimPosition(Aim);
     _skill_kick->setAim(Aim);
-    _skill_goToLookTo->setOffsetToBall(0.2f);
     _skill_goToLookTo->setDesiredPosition(loc()->ball());
     loc()->theirGoalLeftPost().y();
     if (player()->distBall() < 0.2f) {

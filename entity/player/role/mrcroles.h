@@ -31,5 +31,7 @@
 #include <entity/player/role/basics/role_goalKeeper.h>
 #include <entity/player/role/basics/role_timeout.h>
 #include <entity/player/role/basics/role_kickoff.h>
+#include <entity/player/role/basics/role_kickerAtk.h>
+#include <entity/player/role/basics/role_theirDirectKick.h>
 
 #endif // MRCROLES_H

@@ -1,9 +1,9 @@
 /***
- * Maracatronics Robotics
- * Federal University of Pernambuco (UFPE) at Recife
- * http://www.maracatronics.com/
+ * Warthog Robotics
+ * University of Sao Paulo (USP) at Sao Carlos
+ * http://www.warthog.sc.usp.br/
  *
- * This file is part of Armorial project.
+ * This file is part of WRCoach project.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,19 +19,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ***/
 
-#include "skill_gkick.h"
-#include <entity/player/skills/skills_include.h>
+#include "rrtvertex.h"
 
-QString Skill_GKick::name() {
-    return "Skill_GKick";
-}
-
-Skill_GKick::Skill_GKick() {
-    _isPass = false;
-    _aimPosition = loc()->ball();
-}
-
-void Skill_GKick::run() {
-    player()->goToLookTo(loc()->ball(), _aimPosition, true, true, false, false, false);
-    player()->kick(MRCConstants::_maxKickPower, true);
+RRTVertex::RRTVertex(const Position &pos) {
+    _pos = pos;
 }

@@ -37,5 +37,15 @@ void Behaviour_Positioning::configure() {
 void Behaviour_Positioning::run() {
     _skill_GoToLookTo->setDesiredPosition(_desiredPosition);
     _skill_GoToLookTo->setAimPosition(loc()->ball());
-    _skill_GoToLookTo->setOffsetToBall(0.0);
+    //_skill_GoToLookTo->setOffsetToBall(0.0);
+}
+
+Position Behaviour_Positioning::getBestPosition(int quadrant){
+
+    int _quadrant;
+    Position ball;
+
+    _quadrant = quadrant;
+
+    return ball;
 }

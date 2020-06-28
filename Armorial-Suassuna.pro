@@ -41,6 +41,7 @@ SOURCES += \
     entity/coachview/soccerview/gltext.cpp \
     entity/coachview/soccerview/soccerview.cpp \
     entity/coachview/soccerview/util/field.cpp \
+    entity/contromodule/playbook/basics/playbook_directKick.cpp \
     entity/contromodule/playbook/basics/playbook_kickoff.cpp \
     entity/contromodule/playbook/basics/playbook_timeout.cpp \
     entity/contromodule/playbook/basics/playbook_training.cpp \
@@ -49,12 +50,20 @@ SOURCES += \
     entity/player/behaviour/basics/behaviour_goalkeeper.cpp \
     entity/player/behaviour/basics/behaviour_markball.cpp \
     entity/player/behaviour/basics/behaviour_penalty_cf.cpp \
+    entity/player/navigation/fana/fana.cpp \
     entity/player/navigation/fpp/fastpathplanning.cpp \
     entity/player/navigation/navalgorithm.cpp \
 	entity/player/navigation/navigation.cpp \
+    entity/player/navigation/rrt/rrt.cpp \
+    entity/player/navigation/rrt/rrtnode.cpp \
+    entity/player/navigation/rrt/rrtobstacle.cpp \
+    entity/player/navigation/rrt/rrttree.cpp \
+    entity/player/navigation/rrt/rrtvertex.cpp \
     entity/player/role/basics/role_centreforward.cpp \
     entity/player/role/basics/role_goalKeeper.cpp \
+    entity/player/role/basics/role_kickerAtk.cpp \
     entity/player/role/basics/role_kickoff.cpp \
+    entity/player/role/basics/role_theirDirectKick.cpp \
     entity/player/role/basics/role_timeout.cpp \
     entity/player/skills/basics/skill_pushball.cpp \
     entity/player/skills/basics/skill_aroundtheball.cpp \
@@ -62,6 +71,7 @@ SOURCES += \
     entity/player/skills/basics/skill_goto.cpp \
     entity/player/skills/basics/skill_gotolookto.cpp \
     entity/player/skills/basics/skill_interceptball.cpp \
+    entity/player/skills/basics/skill_pushball2.cpp \
     entity/player/skills/basics/skill_rotateto.cpp \
     entity/referee/mrcreferee.cpp \
     entity/world/world.cpp \
@@ -175,17 +185,26 @@ HEADERS += \
     entity/coachview/soccerview/util/gvector.h \
     entity/coachview/soccerview/util/timer.h \
     entity/coachview/soccerview/util/util.h \
+    entity/contromodule/playbook/basics/playbook_directKick.h \
     entity/contromodule/playbook/basics/playbook_kickoff.h \
     entity/contromodule/playbook/basics/playbook_timeout.h \
     entity/contromodule/playbook/basics/playbook_training.h \
     entity/entity.h \
     entity/player/behaviour/basics/behaviour_ballreceptor.h \
+    entity/player/navigation/fana/fana.h \
     entity/player/navigation/fpp/fastpathplanning.h \
     entity/player/navigation/navalgorithm.h \
     entity/player/navigation/navigation.h \
+    entity/player/navigation/rrt/rrt.h \
+    entity/player/navigation/rrt/rrtnode.h \
+    entity/player/navigation/rrt/rrtobstacle.h \
+    entity/player/navigation/rrt/rrttree.h \
+    entity/player/navigation/rrt/rrtvertex.h \
     entity/player/role/basics/role_centreforward.h \
     entity/player/role/basics/role_goalKeeper.h \
+    entity/player/role/basics/role_kickerAtk.h \
     entity/player/role/basics/role_kickoff.h \
+    entity/player/role/basics/role_theirDirectKick.h \
     entity/player/role/basics/role_timeout.h \
     entity/player/skills/basics/skill_pushball.h \
     entity/player/skills/basics/skill_aroundtheball.h \
@@ -193,6 +212,7 @@ HEADERS += \
     entity/player/skills/basics/skill_goto.h \
     entity/player/skills/basics/skill_gotolookto.h \
     entity/player/skills/basics/skill_interceptball.h \
+    entity/player/skills/basics/skill_pushball2.h \
     entity/player/skills/basics/skill_rotateto.h \
     entity/referee/mrcreferee.h \
     entity/world/world.h \

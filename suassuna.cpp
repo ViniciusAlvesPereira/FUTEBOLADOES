@@ -28,6 +28,7 @@
 #include <utils/freeangles/freeangles.h>
 #include <entity/player/navigation/navalgorithm.h>
 #include <entity/player/navigation/fpp/fastpathplanning.h>
+#include <entity/player/navigation/fana/fana.h>
 
 Suassuna::Suassuna(quint8 teamId, Colors::Color teamColor, FieldSide fieldSide)
     : _teamId(teamId), _teamColor(teamColor), _fieldSide(fieldSide){
@@ -36,7 +37,7 @@ Suassuna::Suassuna(quint8 teamId, Colors::Color teamColor, FieldSide fieldSide)
 
     // Create GUI
     _ourGUI = new CoachView();
-    
+
     // Default field setup
     _defaultField = new Fields::SSL2020();
 
@@ -169,7 +170,7 @@ void Suassuna::setupOurPlayers() {
         PID *vxPID = new PID(0.4, 0.0, 0.0, 2.5, -2.5);
         PID *vyPID = new PID(0.4, 0.0, 0.0, 2.5, -2.5);
         PID *vwPID = new PID(0.9, 0.001, 0.003, 3.0, -3.0);
-        NavAlgorithm *navAlg = new FastPathPlanning();
+        NavigationAlgorithm *navAlg = new FANA();
         Player *player = new Player(_world, _ourTeam, _ctr, playerList.at(i), new Role_Default(), _ref, vxPID, vyPID, vwPID, navAlg);
         // Enable
         player->enable(true);

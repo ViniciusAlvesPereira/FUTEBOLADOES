@@ -19,33 +19,44 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ***/
 
-#ifndef SKILL_GOTOLOOKTO_H
-#define SKILL_GOTOLOOKTO_H
+#ifndef SKILL_PUSHBALL2_H
+#define SKILL_PUSHBALL2_H
 
 #include <entity/player/skills/skill.h>
 
-class Skill_GoToLookTo : public Skill {
+class Skill_PushBall2 : public Skill {
 private:
+    // Parameters
+    Position _destination;
+    Position _aim;
+
+    // Internal
+    Position _currPos;
+    Position _lastPos;
+    double _maxPushDistance;
+    double _pushedDistance;
+
+    // State machine
+    enum {
+        STATE_POS,
+        STATE_PUSH,
+        STATE_DONE
+    };
+    int _state;
+
     void run();
-    Position _desiredPosition;
-    Position _aimPosition;
-    bool _avoidTeammates;
-    bool _avoidOpponents;
-    bool _avoidBall;
-    bool _avoidOurGoalArea;
-    bool _avoidTheirGoalArea;
+    bool isBehindBall(Position posObjective);
+    bool isBallInFront();
+    bool isInFrontOfObjective();
 
 public:
-    Skill_GoToLookTo();
+    Skill_PushBall2();
     QString name();
-
-    void setDesiredPosition(Position pos) { _desiredPosition = pos; }
-    void setAimPosition(Position pos) { _aimPosition = pos; }
-    void setAvoidTeammates(bool cond) { _avoidTeammates = cond; }
-    void setAvoidOpponents(bool cond) { _avoidOpponents = cond; }
-    void setAvoidBall(bool cond) { _avoidBall = cond; }
-    void setAvoidOurGoalArea(bool cond) { _avoidOurGoalArea = cond; }
-    void setAvoidTheirGoalArea(bool cond) { _avoidTheirGoalArea = cond; }
+    void setDestination(const Position &destination) { _destination = destination; }
+    void setAim(const Position &aim) { _aim = aim; }
+    void setMaxPushDistance(double dist) { _maxPushDistance = dist; }
+    double getMaxPushDistance() { return _maxPushDistance; }
+    double getPushedDistance() { return _pushedDistance; }
 };
 
-#endif // SKILL_GOTOLOOKTO_H
+#endif // SKILL_PUSHBALL2_H

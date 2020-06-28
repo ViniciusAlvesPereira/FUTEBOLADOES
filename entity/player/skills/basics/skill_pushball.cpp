@@ -68,7 +68,9 @@ void Skill_PushBall::run(){
 
     switch (_state) {
     case STATE_POS: {
+        player()->dribble(false);
         _currPos.setUnknown();
+        _distPushed = 0.0;
         desiredPos = behindBall;
 
         if(player()->isNearbyPosition(behindBall, 0.03f))
@@ -76,12 +78,14 @@ void Skill_PushBall::run(){
     }
         break;
     case STATE_PUSH: {
+        player()->dribble(true);
         desiredPos = WR::Utils::threePoints(loc()->ball(), player()->position(), 0.3f, GEARSystem::Angle::pi);
 
         if(_currPos.isUnknown()){
             _distPushed = 0.0;
             _currPos = loc()->ball();
         }
+
         _lastPos = _currPos;
         _currPos = loc()->ball();
         _distPushed += WR::Utils::distance(_lastPos, _currPos);
@@ -97,17 +101,13 @@ void Skill_PushBall::run(){
         if(_distPushed >= _maxPushDistance){
             player()->idle();
         }
-
-        if(player()->distBall() > 0.1f){
-            _currPos.setUnknown();
-        }
     }
         break;
     }
 
     // goToLookTo
     Position lookPos = WR::Utils::threePoints(_destination, loc()->ball(), 1000.0f, GEARSystem::Angle::pi);
-    player()->goToLookTo(desiredPos, lookPos, 0.01);
+    player()->goToLookTo(desiredPos, lookPos, true, true, false, true, true);
 }
 
 bool Skill_PushBall::isBehindBall(Position posObjective){

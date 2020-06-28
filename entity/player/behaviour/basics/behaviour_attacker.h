@@ -35,15 +35,23 @@ private:
     int _state;
 
     QList<quint8> _recvs;
-    MRCTimer *_timer;
 
     quint8 _bestReceiver;
     Position _kickPosition;
     QMutex _mutex;
 
-    Position getBestKickPosition();
-    bool isBehindBall(Position posObjective);
+    Position getBestAimPosition();
+    Position calcImpactPositionInGoal();
+    bool isBallInFront();
+    bool isBallAlignedToGoal();
+    bool hasBallAnyPathTo(Position posObjective);
     quint8 getBestReceiver();
+
+    // Quadrant
+    int getBestQuadrant();
+    Position getQuadrantBarycenter(int quadrant);
+    std::pair<Position, Position> getQuadrantInitialPosition(int quadrant);
+    Position getBestPosition(int quadrant);
 
 public:
     Behaviour_Attacker();
@@ -51,17 +59,32 @@ public:
 
     Skill_Kick *_sk_kick;
     Skill_GoToLookTo *_sk_goto;
-    Skill_PushBall *_sk_push;
+    Skill_PushBall2 *_sk_push;
 
     enum{
-        STATE_ATTACK,
-        STATE_WAIT,
+        SKT_KICK,
+        SKT_PUSH,
+        SKT_GOTO
+    };
+
+    enum{
+        STATE_GOTO,
         STATE_KICK,
-        STATE_PUSH
+        STATE_PUSH,
+        STATE_PASS,
+        STATE_CANTKICK
+    };
+
+    enum{
+        NO_QUADRANT,
+        QUADRANT_UP,
+        QUADRANT_MID,
+        QUADRANT_BOT
     };
 
     void addReceiver(quint8 recvId) { _recvs.push_back(recvId); }
     void clearReceivers() { _recvs.clear(); }
+
 
 signals:
     void goingToShoot(quint8 id);

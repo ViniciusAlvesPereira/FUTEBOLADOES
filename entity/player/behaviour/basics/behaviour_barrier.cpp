@@ -30,18 +30,21 @@ QString Behaviour_Barrier::name() {
 }
 
 Behaviour_Barrier::Behaviour_Barrier() {
+    setMarkBall();
     setD(0.2);
     setRadius(1.4); // radius from our goal center
 
     _sk_goto = NULL;
     _sk_gk = NULL;
     _sk_kick = NULL;
+    _sk_push = NULL;
 }
 
 void Behaviour_Barrier::configure() {
     usesSkill(_sk_goto = new Skill_GoToLookTo());
     usesSkill(_sk_gk = new Skill_InterceptBall());
     usesSkill(_sk_kick = new Skill_Kick());
+    usesSkill(_sk_push = new Skill_PushBall2());
 
     // Setting initial skill
     setInitialSkill(_sk_goto);
@@ -49,21 +52,59 @@ void Behaviour_Barrier::configure() {
     // Transitions
     addTransition(STATE_GOTO, _sk_kick, _sk_goto);
     addTransition(STATE_GOTO, _sk_gk, _sk_goto);
+    addTransition(STATE_GOTO, _sk_push, _sk_goto);
 
     addTransition(STATE_GK, _sk_goto, _sk_gk);
     addTransition(STATE_GK, _sk_kick, _sk_gk);
+    addTransition(STATE_GK, _sk_push, _sk_gk);
 
     addTransition(STATE_KICK, _sk_goto, _sk_kick);
     addTransition(STATE_KICK, _sk_gk, _sk_kick);
+    addTransition(STATE_KICK, _sk_push, _sk_kick);
+
+    addTransition(STATE_PUSH, _sk_goto, _sk_push);
+    addTransition(STATE_PUSH, _sk_gk, _sk_push);
+    addTransition(STATE_PUSH, _sk_kick, _sk_push);
 };
 
 void Behaviour_Barrier::run() {
+    Position markPosition;
+    if(_markNearestPlayer){
+        if(PlayerBus::theirPlayerAvailable(_markPlayerId))
+            markPosition = PlayerBus::theirPlayer(_markPlayerId)->position();
+        else
+            markPosition = loc()->ball();
+    }
+    else
+        markPosition = loc()->ball();
+
     // Pos barrier
-    Position goalProjection = WR::Utils::projectPointAtSegment(loc()->ourGoalRightMidPost(), loc()->ourGoalLeftMidPost(), loc()->ball());
-    Position desiredPosition = WR::Utils::threePoints(goalProjection, loc()->ball(), _radius, 0.0f);
+    Position goalProjection = WR::Utils::projectPointAtSegment(loc()->ourGoalRightMidPost(), loc()->ourGoalLeftMidPost(), markPosition);
+    Position desiredPosition = WR::Utils::threePoints(goalProjection, markPosition, _radius, 0.0f);
 
     // Position to look
-    Position aimPosition = WR::Utils::threePoints(loc()->ourGoal(), loc()->ball(), 1000.0f, 0.0); // high distance (always will look)
+    Position aimPosition = WR::Utils::threePoints(loc()->ourGoal(), markPosition, 1000.0f, 0.0); // high distance (always will look)
+
+    // Angle
+    const Position projected(true, loc()->ourGoal().x(), markPosition.y(), 0.0);
+    float bx = WR::Utils::distance(markPosition, projected);
+    float by = markPosition.y();
+    float angle = atan2(by, bx);
+
+    // Position variation
+    if(loc()->ourSide().isCenter())
+        _d = 0.0f;
+    float dx = _d*sin(angle);
+    float dy = _d*cos(angle);
+    if(loc()->ourSide().isLeft())
+        dy = -dy;
+    if((loc()->ourSide().isRight() && markPosition.y() >= 0.015) || (loc()->ourSide().isLeft() && markPosition.y() < -0.015)) {
+        dx = -dx;
+        dy = -dy;
+    }
+
+    // Adjust position
+    desiredPosition.setPosition(desiredPosition.x()+dx, desiredPosition.y()+dy, 0.0);
 
     // Error goal (desiredPosition sometimes goes off the field)
     if(loc()->ourSide().isRight() && desiredPosition.x() > loc()->ourGoal().x()-ERROR_GOAL_OFFSET){
@@ -75,20 +116,30 @@ void Behaviour_Barrier::run() {
     // settings of goto
     _sk_goto->setDesiredPosition(desiredPosition);
     _sk_goto->setAimPosition(aimPosition);
+    _sk_goto->setAvoidBall(false);
 
     // settings of intercept
     _sk_gk->setInterceptAdvance(true);
     _sk_gk->setPositionToLook(loc()->theirGoal());
 
     _sk_kick->setAim(loc()->theirGoal());
-    _sk_kick->setIsPass(false);
+    _sk_kick->setPower(MRCConstants::_maxKickPower);
+    _sk_kick->setIsChip(true);
+
+    _sk_push->setAim(loc()->theirGoal());
+    _sk_push->setDestination(desiredPosition);
 
     // Transitions
     if(player()->distBall() > INTERCEPT_MINBALLDIST && isBallComingToGoal(INTERCEPT_MINBALLVELOCITY)) {
         enableTransition(STATE_GK);
     } else {
-        if(player()->distBall() <= 0.2){
-            enableTransition(STATE_KICK);
+        if(player()->distBall() <= 0.3f && !loc()->isInsideOurArea(loc()->ball(), 1.05f)){
+            if(!isBehindBall(loc()->theirGoal())){
+                enableTransition(STATE_PUSH);
+            }
+            else{
+                enableTransition(STATE_KICK);
+            }
         }else{
             enableTransition(STATE_GOTO);
         }
@@ -117,4 +168,14 @@ bool Behaviour_Barrier::isBallComingToGoal(float minSpeed, float postsFactor){
     float angDiffLeft = fabs(WR::Utils::angleDiff(angVel, angLeftPost));
 
     return (angDiffRight<angDiffPosts && angDiffLeft<angDiffPosts);
+}
+
+bool Behaviour_Barrier::isBehindBall(Position posObjective){
+    Position posBall = loc()->ball();
+    Position posPlayer = player()->position();
+    float anglePlayer = WR::Utils::getAngle(posBall, posPlayer);
+    float angleDest = WR::Utils::getAngle(posBall, posObjective);
+    float diff = WR::Utils::angleDiff(anglePlayer, angleDest);
+
+    return (diff>GEARSystem::Angle::pi/1.5f);
 }
