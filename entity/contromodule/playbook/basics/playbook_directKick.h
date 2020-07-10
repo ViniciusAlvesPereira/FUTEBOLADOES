@@ -15,6 +15,8 @@ private:
     Role_SecondStriker *_rl_ss;
     Role_CentreForward *_rl_cf;
 
+    QList<Role_Default*> _rl_default;
+
     //Referee
     //SSLGameInfo _gameInfo;
 

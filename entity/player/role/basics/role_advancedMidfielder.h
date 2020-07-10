@@ -39,6 +39,7 @@ private:
     Behaviour_BallReceptor *_bh_brp;
     Behaviour_Passing *_bh_psg;
     Behaviour_MarkPlayer *_bh_mkp;
+    Behaviour_Barrier *_bh_rr;
 
     //Referee
     SSLGameInfo *_gameInfo;
@@ -56,7 +57,8 @@ private:
         BHV_DONOTHING,
         BHV_BALLRECEPTOR,
         BHV_PASSING,
-        BHV_MARKPLAYER
+        BHV_MARKPLAYER,
+        BHV_BARRIER
     };
 
     // Inherited functions
@@ -86,7 +88,6 @@ public:
     Role_AdvancedMidfielder();
     void initializeBehaviours();
     void kickerAtkID(quint8 kickerID){_kickerID = kickerID;}
-    void kickDecision(quint8 kickGoal){_kickGoal = kickGoal;}
     QString name();
 };
 

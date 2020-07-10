@@ -33,14 +33,6 @@ void Playbook_IndirectKick::configure(int numPlayers) {
                 }
             }
         }
-        _rl_amf->kickerAtkID(kickerID);
-        _rl_amf->kickDecision(false);
-
-        _rl_ss->kickerAtkID(kickerID);
-        _rl_ss->kickDecision(false);
-
-        _rl_cf->kickerAtkID(kickerID);
-        _rl_ss->kickDecision(false);
     }
 }
 

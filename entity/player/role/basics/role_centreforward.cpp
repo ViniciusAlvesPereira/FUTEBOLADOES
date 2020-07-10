@@ -55,6 +55,7 @@ void Role_CentreForward::run(){
     quint8 idWithPoss = playerWithPoss(ourPoss);
     static bool previousPoss = false;
 
+
     if(_gameInfo->gameOn()){
         if (ourPoss == false) {
             if (idWithPoss == BALLPOSS_NONE) {
@@ -86,11 +87,11 @@ void Role_CentreForward::run(){
             }
         }
     }
-    else if(_gameInfo->directKick() && _gameInfo->indirectKick()){
+    else if(_gameInfo->directKick() || _gameInfo->indirectKick()){
 
-        if(_kickerID == player()->playerId()){
+        if(_kickerID){
             previousPoss = true;
-            if(_kickGoal || _gameInfo->directKick()){
+            if(_gameInfo->directKick()){
                 setBehaviour(BHV_ATTACKER);
             }
             else{
@@ -107,7 +108,7 @@ void Role_CentreForward::run(){
                 previousPoss = true;
              }
         }
-        else if(_gameInfo->STATE_THEIRDIRECTKICK || _gameInfo->STATE_THEIRINDIRECTKICK ){
+        else if(_gameInfo->STATE_THEIRDIRECTKICK || _gameInfo->STATE_THEIRINDIRECTKICK){
             _bh_mkp->setMarkBetweenBall(true);
             markID(idWithPoss);
             setBehaviour(BHV_MARKPLAYER);

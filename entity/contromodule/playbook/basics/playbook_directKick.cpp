@@ -22,7 +22,7 @@
 #include "playbook_directKick.h"
 
 QString Playbook_DirectKick::name() {
-    return "Playbook_KickOff";
+    return "Playbook_DirectKick";
 }
 
 Playbook_DirectKick::Playbook_DirectKick() {
@@ -34,7 +34,7 @@ int Playbook_DirectKick::maxNumPlayer() {
 
 void Playbook_DirectKick::configure(int numPlayers) {
 
-    _ourDirectKick = false; //definir pelo referee
+    _ourDirectKick = true; //definir pelo referee
 
     usesRole(_rl_gk = new Role_GoalKeeper());
     usesRole(_rl_df = new Role_Defender());
@@ -43,62 +43,86 @@ void Playbook_DirectKick::configure(int numPlayers) {
     usesRole(_rl_ss = new Role_SecondStriker());
     usesRole(_rl_cf = new Role_CentreForward());
 
+    for (int i = 0; i < 3; i++) {
+        Role_Default *_rl_def;
+        usesRole(_rl_def = new Role_Default());
+        _rl_default.push_back(_rl_def);
+    }
+
     if(_ourDirectKick){
-        float smallerDist = 0;
-        for(quint8 i; i <= numPlayers - 4; i++){
+        float smallerDist = 200;
+        for(quint8 i = 3; i < numPlayers; i++){
             if(PlayerBus::ourPlayerAvailable(i)){
                 float distanceToBall = PlayerBus::ourPlayer(i)->distanceTo(loc()->ball());
-
                 if(smallerDist > distanceToBall){
                     smallerDist = distanceToBall;
                     kickerID = i;
+
                 }
             }
         }
-        _rl_amf->kickerAtkID(kickerID);
-        _rl_ss->kickerAtkID(kickerID);
-        _rl_cf->kickerAtkID(kickerID);
     }
+    if(kickerID==5)
+        _rl_amf->kickerAtkID(true);
+    else
+        _rl_amf->kickerAtkID(false);
+    if(kickerID==4)
+        _rl_cf->kickerAtkID(true);
+    else
+        _rl_cf->kickerAtkID(false);
+    if(kickerID==3){
+        _rl_ss->kickerAtkID(true);
+    }else
+        _rl_ss->kickerAtkID(false);
 }
 
 void Playbook_DirectKick::run(int numPlayers) {
 
-    for(int i = 0; i < numPlayers; i++) {
-        quint8 playerId = dist()->getPlayer();
-
-        if (i == numPlayers - 6) {
-            setPlayerRole(playerId, _rl_amf);
-        }
-        if (i == numPlayers - 5) {
-            setPlayerRole(playerId, _rl_cf);
-        }
-        if (i == numPlayers - 4) {
-            setPlayerRole(playerId, _rl_ss);
-        }
-        if (i == numPlayers - 3) {
-            setPlayerRole(playerId, _rl_dmf);
-        }
-        if (i == numPlayers - 2) {
-            setPlayerRole(playerId, _rl_df);
-        }
-        if (i == numPlayers - 1) {
-            setPlayerRole(playerId, _rl_gk);
-        }
-    }
-    for(quint8 i = 0; i < numPlayers-4; i++) {
-
+    for(quint8 i = 0; i < 3; i++) {
+        setPlayerRole(i, _rl_default[i]);
     }
 
-    //PassInformation:
-        //AMF
-    connect(_rl_amf, SIGNAL(sendPassId(quint8)), _rl_cf, SLOT(receivePassId(quint8)), Qt::DirectConnection);
-    connect(_rl_amf, SIGNAL(sendPassId(quint8)), _rl_ss, SLOT(receivePassId(quint8)), Qt::DirectConnection);
+    for(quint8 i = 3; i < numPlayers; i++) {
 
-        //SS
-    connect(_rl_ss, SIGNAL(sendPassId(quint8)), _rl_amf, SLOT(receivePassId(quint8)), Qt::DirectConnection);
-    connect(_rl_ss, SIGNAL(sendPassId(quint8)), _rl_cf, SLOT(receivePassId(quint8)), Qt::DirectConnection);
+        if (i == 5) {
+            setPlayerRole(i, _rl_amf);
+        }
+        if (i == 4) {
+            setPlayerRole(i, _rl_cf);
+        }
+        if (i == 3) {
+            setPlayerRole(i, _rl_ss);
+        }
+        if (i == numPlayers - 300) {
+            setPlayerRole(i, _rl_dmf);
+        }
+        if (i == numPlayers - 200) {
+            setPlayerRole(i, _rl_df);
+        }
+        if (i == numPlayers - 100) {
+            setPlayerRole(i, _rl_gk);
+        }
+    }
 
+    connect(_rl_gk, SIGNAL(sendPassId(quint8)), _rl_cf, SLOT(receivePassId(quint8)), Qt::DirectConnection);
+    connect(_rl_gk, SIGNAL(sendPassId(quint8)), _rl_ss, SLOT(receivePassId(quint8)), Qt::DirectConnection);
+    connect(_rl_gk, SIGNAL(sendPassId(quint8)), _rl_amf, SLOT(receivePassId(quint8)), Qt::DirectConnection);
+    connect(_rl_gk, SIGNAL(sendPassId(quint8)), _rl_dmf, SLOT(receivePassId(quint8)), Qt::DirectConnection);
+    connect(_rl_gk, SIGNAL(sendPassId(quint8)), _rl_df, SLOT(receivePassId(quint8)), Qt::DirectConnection);
+        //DF
+    connect(_rl_df, SIGNAL(sendPassId(quint8)), _rl_cf, SLOT(receivePassId(quint8)), Qt::DirectConnection);
+    connect(_rl_df, SIGNAL(sendPassId(quint8)), _rl_ss, SLOT(receivePassId(quint8)), Qt::DirectConnection);
+    connect(_rl_df, SIGNAL(sendPassId(quint8)), _rl_amf, SLOT(receivePassId(quint8)), Qt::DirectConnection);
+    connect(_rl_df, SIGNAL(sendPassId(quint8)), _rl_dmf, SLOT(receivePassId(quint8)), Qt::DirectConnection);
+        //DMF
+    connect(_rl_dmf, SIGNAL(sendPassId(quint8)), _rl_cf, SLOT(receivePassId(quint8)), Qt::DirectConnection);
+    connect(_rl_dmf, SIGNAL(sendPassId(quint8)), _rl_ss, SLOT(receivePassId(quint8)), Qt::DirectConnection);
+    connect(_rl_dmf, SIGNAL(sendPassId(quint8)), _rl_amf, SLOT(receivePassId(quint8)), Qt::DirectConnection);
+    connect(_rl_dmf, SIGNAL(sendPassId(quint8)), _rl_df, SLOT(receivePassId(quint8)), Qt::DirectConnection);
+
+    //MarkPlayer Communication:
         //CF
-    connect(_rl_cf, SIGNAL(sendPassId(quint8)), _rl_amf, SLOT(receivePassId(quint8)), Qt::DirectConnection);
-    connect(_rl_cf, SIGNAL(sendPassId(quint8)), _rl_ss, SLOT(receivePassId(quint8)), Qt::DirectConnection);
+    connect(_rl_cf, SIGNAL(sendMarkInformation(float)), _rl_ss, SLOT(receiveMarkInformation(float)), Qt::DirectConnection);
+        //SS
+    connect(_rl_ss, SIGNAL(sendMarkInformation(float)), _rl_cf, SLOT(receiveMarkInformation(float)), Qt::DirectConnection);
 }

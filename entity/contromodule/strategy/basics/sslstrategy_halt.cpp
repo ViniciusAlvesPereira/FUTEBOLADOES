@@ -30,12 +30,13 @@ QString SSLStrategy_Halt::name() {
 SSLStrategy_Halt::SSLStrategy_Halt() {
    // _pb_KickOff = NULL;
     _pb_DirectKick = NULL;
-    //_pb_Training = NULL;
+   // _pb_Training = NULL;
 }
 
 void SSLStrategy_Halt::configure(int numOurPlayers) {
-    //usesPlaybook(_pb_KickOff = new Playbook_KickOff());
+    //usesPlaybook(_pb_Training = new Playbook_Training());
     usesPlaybook(_pb_DirectKick = new Playbook_DirectKick());
+    //usesPlaybook(_pb_KickOff = new Playbook_KickOff());
 }
 
 void SSLStrategy_Halt::run(int numOurPlayers) {

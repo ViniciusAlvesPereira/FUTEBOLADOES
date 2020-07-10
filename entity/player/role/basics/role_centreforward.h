@@ -85,7 +85,6 @@ public:
     Role_CentreForward();
     void initializeBehaviours();
     void kickerAtkID(quint8 kickerID){_kickerID = kickerID;}
-    void kickDecision(quint8 kickGoal){_kickGoal = kickGoal;}
     QString name();
 };
 

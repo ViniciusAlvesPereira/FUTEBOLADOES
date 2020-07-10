@@ -37,6 +37,7 @@ void Role_AdvancedMidfielder::initializeBehaviours(){
     usesBehaviour(BHV_BALLRECEPTOR, _bh_brp = new Behaviour_BallReceptor());
     usesBehaviour(BHV_PASSING, _bh_psg= new Behaviour_Passing());
     usesBehaviour(BHV_MARKPLAYER, _bh_mkp = new Behaviour_MarkPlayer());
+    usesBehaviour(BHV_BARRIER, _bh_rr = new Behaviour_Barrier());
 }
 
 void Role_AdvancedMidfielder::configure(){
@@ -79,9 +80,9 @@ void Role_AdvancedMidfielder::run(){
     }
     else if(_gameInfo->directKick() || _gameInfo->indirectKick()){
 
-        if(_kickerID == player()->playerId()){
+        if(_kickerID){
             previousPoss = true;
-            if(_kickGoal || _gameInfo->directKick()){
+            if(_gameInfo->directKick()){
                 setBehaviour(BHV_ATTACKER);
             }
             else{
@@ -89,6 +90,7 @@ void Role_AdvancedMidfielder::run(){
                 setBehaviour(BHV_PASSING);
             }
         }
+
         else if(_gameInfo->STATE_OURDIRECTKICK || _gameInfo->STATE_OURINDIRECTKICK){
 
             if(PlayerBus::ourPlayerAvailable(_kickerID)){
@@ -97,13 +99,14 @@ void Role_AdvancedMidfielder::run(){
                 setBehaviour(BHV_RECEIVER);
                 previousPoss = true;
              }
-        }
-        else if(_gameInfo->STATE_THEIRDIRECTKICK || _gameInfo->STATE_THEIRINDIRECTKICK ){
+        }    
+        else if(_gameInfo->STATE_THEIRDIRECTKICK || _gameInfo->STATE_THEIRINDIRECTKICK){
 
             _playerWithPoss = playerWithPoss(ourPoss);
             _bh_mkp->setTargetID(_playerWithPoss);
-            _bh_mkp->setMarkDistance(0.6);
+            _bh_mkp->setMarkDistance(0.8);
             setBehaviour(BHV_MARKPLAYER);
+
         }
     }
 }
