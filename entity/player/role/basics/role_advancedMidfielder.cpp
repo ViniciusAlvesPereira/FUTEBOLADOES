@@ -20,6 +20,7 @@
  ***/
 
 #include "role_advancedMidfielder.h"
+#include <entity/referee/SSLReferee/sslgameinfo.h>
 
 QString Role_AdvancedMidfielder::name(){
     return "Role_AdvancedMidfielder";
@@ -34,6 +35,8 @@ void Role_AdvancedMidfielder::initializeBehaviours(){
     usesBehaviour(BHV_ATTACKER, _bh_atk = new Behaviour_Attacker());
     usesBehaviour(BHV_DONOTHING, _bh_dnt = new Behaviour_DoNothing());
     usesBehaviour(BHV_BALLRECEPTOR, _bh_brp = new Behaviour_BallReceptor());
+    usesBehaviour(BHV_PASSING, _bh_psg= new Behaviour_Passing());
+    usesBehaviour(BHV_MARKPLAYER, _bh_mkp = new Behaviour_MarkPlayer());
 }
 
 void Role_AdvancedMidfielder::configure(){
@@ -43,30 +46,64 @@ void Role_AdvancedMidfielder::configure(){
 }
 
 void Role_AdvancedMidfielder::run(){
+    _gameInfo = ref()->getGameInfo(player()->team()->teamColor());
+
     bool ourPoss = ourTeamPossession();
     static bool previousPoss = false;
 
-    if (ourPoss == false) {
-        quint8 idWithPoss = playerWithPoss(ourPoss);
-        if (idWithPoss == BALLPOSS_NONE) {
-            if (_isPassComing == true) {
-                _bh_brp->setPlayerId(player()->playerId());
-                setBehaviour(BHV_BALLRECEPTOR);
-            } else if (previousPoss == true) setBehaviour(BHV_DONOTHING);
+
+    if(_gameInfo->gameOn()){
+        if (ourPoss == false) {
+            quint8 idWithPoss = playerWithPoss(ourPoss);
+            if (idWithPoss == BALLPOSS_NONE) {
+                if (_isPassComing == true) {
+                    _bh_brp->setPlayerId(player()->playerId());
+                    setBehaviour(BHV_BALLRECEPTOR);
+                } else if (previousPoss == true) setBehaviour(BHV_DONOTHING);
+            } else {
+                setBehaviour(BHV_MARKBALL);
+                previousPoss = false;
+                _isPassComing = false;
+            }
         } else {
-            setBehaviour(BHV_MARKBALL);
-            previousPoss = false;
-            _isPassComing = false;
+            quint8 idWithPoss = playerWithPoss(ourPoss);
+            if (idWithPoss == player()->playerId()) {
+                setBehaviour(BHV_ATTACKER);
+                previousPoss = true;
+            } else {
+                _bh_rcv->setAttackerId(idWithPoss);
+                setBehaviour(BHV_RECEIVER);
+                previousPoss = true;
+            }
         }
-    } else {
-        quint8 idWithPoss = playerWithPoss(ourPoss);
-        if (idWithPoss == player()->playerId()) {
-            setBehaviour(BHV_ATTACKER);
+    }
+    else if(_gameInfo->directKick() || _gameInfo->indirectKick()){
+
+        if(_kickerID == player()->playerId()){
             previousPoss = true;
-        } else {
-            _bh_rcv->setAttackerId(idWithPoss);
-            setBehaviour(BHV_RECEIVER);
-            previousPoss = true;
+            if(_kickGoal || _gameInfo->directKick()){
+                setBehaviour(BHV_ATTACKER);
+            }
+            else{
+                _bh_psg->setPlayerId(player()->playerId());
+                setBehaviour(BHV_PASSING);
+            }
+        }
+        else if(_gameInfo->STATE_OURDIRECTKICK || _gameInfo->STATE_OURINDIRECTKICK){
+
+            if(PlayerBus::ourPlayerAvailable(_kickerID)){
+
+                _bh_rcv->setAttackerId(_kickerID);
+                setBehaviour(BHV_RECEIVER);
+                previousPoss = true;
+             }
+        }
+        else if(_gameInfo->STATE_THEIRDIRECTKICK || _gameInfo->STATE_THEIRINDIRECTKICK ){
+
+            _playerWithPoss = playerWithPoss(ourPoss);
+            _bh_mkp->setTargetID(_playerWithPoss);
+            _bh_mkp->setMarkDistance(0.6);
+            setBehaviour(BHV_MARKPLAYER);
         }
     }
 }

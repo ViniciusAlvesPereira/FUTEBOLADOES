@@ -35,7 +35,13 @@ PlayerAccess::~PlayerAccess() {
 void PlayerAccess::kick(float power) {
     if(_self==false)
         return;
-    _player->kick(false);
+    _player->kick(power, false);
+}
+
+void PlayerAccess::dribble(double enabled) {
+    if(_self==false)
+        return;
+    _player->dribble(enabled);
 }
 
 quint8 PlayerAccess::playerId() const {
@@ -129,6 +135,11 @@ Angle PlayerAccess::angleTo(const Position &pos) const {
 QString PlayerAccess::roleName(){
     return _player->getRoleName();
 }
+
+void PlayerAccess::idle(){
+    _player->idle();
+}
+
 /*
 float PlayerAccess::lError() const {
     return _player->lError();

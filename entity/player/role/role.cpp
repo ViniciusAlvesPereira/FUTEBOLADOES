@@ -34,19 +34,27 @@ Role::Role() {
     _loc = NULL;
     _initialized = false;
     _configureEnabled = true; // for set behaviours
+    _actualBehaviour = -1;
 }
 
 Role::~Role() {
     // Delete behaviours
     QHash<int, Behaviour*>:: iterator it;
     for(it = _behaviourList.begin(); it != _behaviourList.end(); it++){
-        delete *it;
+        if((*it) == NULL)
+            continue;
+        else
+            delete *it;
     }
     _behaviourList.clear();
 }
 
 Locations* Role::loc() {
     return _ourTeam->loc();
+}
+
+SSLReferee* Role::ref(){
+    return _ref;
 }
 
 void Role::initialize(MRCTeam *ourTeam, MRCTeam *theirTeam, Locations *loc, SSLReferee *ref){
@@ -57,6 +65,8 @@ void Role::initialize(MRCTeam *ourTeam, MRCTeam *theirTeam, Locations *loc, SSLR
 
     // Configure Role
     _configureEnabled = true;
+    _bh_dn = new Behaviour_DoNothing();
+    _bh_tm = new Behaviour_TimeOut();
     initializeBehaviours();
     configure();
     _configureEnabled = false;
@@ -76,15 +86,43 @@ void Role::runRole(){
         return ;
     }
 
-    // Run role (child)
-    run();
+    // Disabling dribble when occur an stop
+    if(!player()->canKickBall())
+        player()->dribble(false);
 
-    // Run Behaviour
-    if(_behaviour->isInitialized() == false){
-        _behaviour->initialize(_loc);
+    if(!_ref->getGameInfo(player()->team()->teamColor())->canMove()){
+        // If is in halt
+        if(_bh_dn->isInitialized() == false)
+            _bh_dn->initialize(_loc);
+
+        // Configure
+        _bh_dn->setPlayer(_player, _playerAccess);
+        _bh_dn->runBehaviour();
     }
-    _behaviour->setPlayer(_player, _playerAccess);
-    _behaviour->runBehaviour();
+    else if(_ref->getGameInfo(player()->team()->teamColor())->timeOut()){
+        // If is in timeout
+        if(_bh_tm->isInitialized() == false)
+            _bh_tm->initialize(_loc);
+
+        // Configure
+        _bh_tm->setPlayer(_player, _playerAccess);
+        _bh_tm->getPlayerTimeOutId();
+        _bh_tm->runBehaviour();
+    }
+    else{
+        // reset timeout
+        _bh_tm->reset();
+
+        // Run role (child)
+        run();
+
+        // Run Behaviour
+        if(_behaviour->isInitialized() == false){
+            _behaviour->initialize(_loc);
+        }
+        _behaviour->setPlayer(_player, _playerAccess);
+        _behaviour->runBehaviour();
+    }
 }
 
 bool Role::canKickBall() const {

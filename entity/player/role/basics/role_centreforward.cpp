@@ -43,62 +43,76 @@ void Role_CentreForward::initializeBehaviours(){
 }
 
 void Role_CentreForward::configure(){
-    standardDistance = abs(loc()->ourGoal().x() - loc()->theirGoal().x());
-    markChoice = false;
+    _standardDistance = abs(loc()->ourGoal().x() - loc()->theirGoal().x());
+    _markChoice = false;
     _isPassComing = false;
 }
 
 void Role_CentreForward::run(){
+    _gameInfo = ref()->getGameInfo(player()->team()->teamColor());
+
     bool ourPoss = ourTeamPossession();
+    quint8 idWithPoss = playerWithPoss(ourPoss);
     static bool previousPoss = false;
 
-    if (ourPoss == false) {
-        quint8 idWithPoss = playerWithPoss(ourPoss);
-        if (idWithPoss == BALLPOSS_NONE) {
-            if (_isPassComing == true) {
-                _bh_brp->setPlayerId(player()->playerId());
-                setBehaviour(BHV_BALLRECEPTOR);
-            } else if (previousPoss == true) setBehaviour(BHV_DONOTHING);
-        } else {
-            if (PlayerBus::theirPlayer(idWithPoss)->distanceTo(player()->position()) < 1.0) {
-                setBehaviour(BHV_MARKBALL);
-                previousPoss = false;
-                _isPassComing = false;
+    if(_gameInfo->gameOn()){
+        if (ourPoss == false) {
+            if (idWithPoss == BALLPOSS_NONE) {
+                if (_isPassComing == true) {
+                    _bh_brp->setPlayerId(player()->playerId());
+                    setBehaviour(BHV_BALLRECEPTOR);
+                } else if (previousPoss == true) setBehaviour(BHV_DONOTHING);
             } else {
-                QList<marking> markOptions;
-                for (quint8 i = 0; i < MRCConstants::_qtPlayers; i++) {
-                    if (PlayerBus::theirPlayerAvailable(i)) {
-                        if (i != idWithPoss) {
-                            marking fon;
-                            fon.distance = PlayerBus::theirPlayer(i)->distanceTo(PlayerBus::theirPlayer(idWithPoss)->position());
-                            fon.id = i;
-                            markOptions.push_back(fon);
-                        }
-                    }
+                if (PlayerBus::theirPlayer(idWithPoss)->distanceTo(player()->position()) < 1.0) {
+                    setBehaviour(BHV_MARKBALL);
+                    previousPoss = false;
+                    _isPassComing = false;
+                } else {
+                    markID(idWithPoss);
+                    setBehaviour(BHV_MARKPLAYER);
+                    previousPoss = false;
+                    _isPassComing = false;
                 }
-                for (int x = 0; x < markOptions.size() - 1; x++) {
-                    for (int y = x; y < markOptions.size(); y++) {
-                        if (markOptions[x].distance > markOptions[y].distance) markOptions.swap(x, y);
-                    }
-                }
-                standardDistance = PlayerBus::theirPlayer(markOptions[0].id)->distanceTo(player()->position());
-                emit sendMarkInformation(standardDistance);
-                if (markChoice == true) _bh_mkp->setTargetID(markOptions[0].id);
-                else _bh_mkp->setTargetID(markOptions[1].id);
-                setBehaviour(BHV_MARKPLAYER);
-                previousPoss = false;
-                _isPassComing = false;
+            }
+        } else {
+            quint8 idWithPoss = playerWithPoss(ourPoss);
+            if (idWithPoss == player()->playerId()) {
+                setBehaviour(BHV_ATTACKER);
+                previousPoss = true;
+            } else {
+                _bh_rcv->setAttackerId(idWithPoss);
+                setBehaviour(BHV_RECEIVER);
+                previousPoss = true;
             }
         }
-    } else {
-        quint8 idWithPoss = playerWithPoss(ourPoss);
-        if (idWithPoss == player()->playerId()) {
-            setBehaviour(BHV_ATTACKER);
+    }
+    else if(_gameInfo->directKick() && _gameInfo->indirectKick()){
+
+        if(_kickerID == player()->playerId()){
             previousPoss = true;
-        } else {
-            _bh_rcv->setAttackerId(idWithPoss);
-            setBehaviour(BHV_RECEIVER);
-            previousPoss = true;
+            if(_kickGoal || _gameInfo->directKick()){
+                setBehaviour(BHV_ATTACKER);
+            }
+            else{
+                _bh_psg->setPlayerId(player()->playerId());
+                setBehaviour(BHV_PASSING);
+            }
+        }
+        else if(_gameInfo->STATE_OURDIRECTKICK || _gameInfo->STATE_OURINDIRECTKICK){
+
+            if(PlayerBus::ourPlayerAvailable(_kickerID)){
+
+                _bh_rcv->setAttackerId(_kickerID);
+                setBehaviour(BHV_RECEIVER);
+                previousPoss = true;
+             }
+        }
+        else if(_gameInfo->STATE_THEIRDIRECTKICK || _gameInfo->STATE_THEIRINDIRECTKICK ){
+            _bh_mkp->setMarkBetweenBall(true);
+            markID(idWithPoss);
+            setBehaviour(BHV_MARKPLAYER);
+            previousPoss = false;
+            _isPassComing = false;
         }
     }
 }
@@ -140,9 +154,9 @@ quint8 Role_CentreForward::playerWithPoss(bool ourPoss) {
 
 void Role_CentreForward::receiveMarkInformation(float distance) {
     _mutex.lock();
-    if (standardDistance < distance) {
-        markChoice = true;
-    } else markChoice = false;
+    if (_standardDistance < distance) {
+        _markChoice = true;
+    } else _markChoice = false;
     _mutex.unlock();
 }
 
@@ -153,3 +167,40 @@ void Role_CentreForward::receivePassId(quint8 passId) {
     }
     _mutex.unlock();
 }
+
+void Role_CentreForward::markID(quint8 idWithPoss){
+
+    quint8 _idWithPoss;
+    float _distance;
+
+    _idWithPoss = idWithPoss;
+
+    QList<marking> markOptions;
+    for (quint8 i = 0; i < MRCConstants::_qtPlayers; i++) {
+        if (PlayerBus::theirPlayerAvailable(i)) {
+            if (i != _idWithPoss) {
+                marking fon;
+                fon.distance = PlayerBus::theirPlayer(i)->distanceTo(PlayerBus::theirPlayer(idWithPoss)->position());
+                fon.id = i;
+                markOptions.push_back(fon);
+            }
+        }
+    }
+    for (int x = 0; x < markOptions.size() - 1; x++) {
+        for (int y = x; y < markOptions.size(); y++) {
+            if (markOptions[x].distance > markOptions[y].distance) markOptions.swap(x, y);
+        }
+    }
+    _distance = PlayerBus::theirPlayer(markOptions[0].id)->distanceTo(player()->position());
+    setStandardDistance(_distance);
+
+    if (_markChoice == true) _bh_mkp->setTargetID(markOptions[0].id);
+    else _bh_mkp->setTargetID(markOptions[1].id);
+}
+
+void Role_CentreForward:: setStandardDistance(float standardDistance){
+
+    _standardDistance = standardDistance;
+    emit sendMarkInformation(standardDistance);
+}
+

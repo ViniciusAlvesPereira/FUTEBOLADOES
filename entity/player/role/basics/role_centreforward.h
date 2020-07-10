@@ -35,6 +35,14 @@ private:
     Behaviour_Attacker *_bh_atk;
     Behaviour_DoNothing *_bh_dnt;
     Behaviour_BallReceptor *_bh_brp;
+    Behaviour_Passing *_bh_psg;
+
+    //Referee
+    SSLGameInfo *_gameInfo;
+
+    //Variaveis
+    bool _kickerID;
+    bool _kickGoal;
 
     // Behaviours ids!
     enum{
@@ -43,7 +51,8 @@ private:
         BHV_RECEIVER,
         BHV_ATTACKER,
         BHV_DONOTHING,
-        BHV_BALLRECEPTOR
+        BHV_BALLRECEPTOR,
+        BHV_PASSING
     };
 
     // Inherited functions
@@ -54,16 +63,19 @@ private:
     QMutex _mutex;
 
     // Global variables
-    float standardDistance;
-    bool markChoice;
+    float _standardDistance;
+    bool _markChoice;
     bool _isPassComing;
 
     // Auxiliary functions
     bool ourTeamPossession();
     quint8 playerWithPoss(bool ourPoss);
+    void setStandardDistance(float standardDistance);
+    void markID(quint8 idWithPoss);
 
 signals:
     void sendMarkInformation(float distance);
+    void sendPassId(quint8 passId);
 
 public slots:
     void receiveMarkInformation(float distance);
@@ -72,6 +84,8 @@ public slots:
 public:
     Role_CentreForward();
     void initializeBehaviours();
+    void kickerAtkID(quint8 kickerID){_kickerID = kickerID;}
+    void kickDecision(quint8 kickGoal){_kickGoal = kickGoal;}
     QString name();
 };
 

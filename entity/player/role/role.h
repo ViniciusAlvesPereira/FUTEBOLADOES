@@ -29,7 +29,7 @@
 #include <entity/referee/SSLReferee/sslreferee.h>
 #include <entity/contromodule/mrcteam.h>
 #include <entity/contromodule/playersdistribution.h>
-#include <entity/player/behaviour/behaviour.h>
+#include <entity/player/behaviour/mrcbehaviours.h>
 #include <QObject>
 
 class Role : public QObject {
@@ -58,6 +58,11 @@ public:
     // PlayerAcess
     PlayerAccess* player();
 
+    // Global behaviours
+    Behaviour_DoNothing *_bh_dn;
+    Behaviour_TimeOut *_bh_tm;
+    bool _reachedDesiredPos;
+
 protected:
     // Behaviour list functions
     void usesBehaviour(int id, Behaviour *behaviour);
@@ -67,6 +72,7 @@ protected:
 
     // Utils, loc and player access
     Locations* loc();
+    SSLReferee* ref();
 
 private:
     // Implemented by role children

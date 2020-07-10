@@ -1,40 +1,18 @@
-/***
- * Maracatronics Robotics
- * Federal University of Pernambuco (UFPE) at Recife
- * http://www.maracatronics.com/
- *
- * This file is part of Armorial project.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- ***/
+#include "playbook_indirectkick.h"
 
-#include "playbook_directKick.h"
-
-QString Playbook_DirectKick::name() {
+QString Playbook_IndirectKick::name() {
     return "Playbook_KickOff";
 }
 
-Playbook_DirectKick::Playbook_DirectKick() {
+Playbook_IndirectKick::Playbook_IndirectKick(){  
 }
 
-int Playbook_DirectKick::maxNumPlayer() {
+int Playbook_IndirectKick::maxNumPlayer() {
     return INT_MAX;
 }
 
-void Playbook_DirectKick::configure(int numPlayers) {
-
-    _ourDirectKick = false; //definir pelo referee
+void Playbook_IndirectKick::configure(int numPlayers) {
+    _ourIndirectKick = false; //definir pelo referee
 
     usesRole(_rl_gk = new Role_GoalKeeper());
     usesRole(_rl_df = new Role_Defender());
@@ -43,7 +21,7 @@ void Playbook_DirectKick::configure(int numPlayers) {
     usesRole(_rl_ss = new Role_SecondStriker());
     usesRole(_rl_cf = new Role_CentreForward());
 
-    if(_ourDirectKick){
+    if(_ourIndirectKick){
         float smallerDist = 0;
         for(quint8 i; i <= numPlayers - 4; i++){
             if(PlayerBus::ourPlayerAvailable(i)){
@@ -56,12 +34,17 @@ void Playbook_DirectKick::configure(int numPlayers) {
             }
         }
         _rl_amf->kickerAtkID(kickerID);
+        _rl_amf->kickDecision(false);
+
         _rl_ss->kickerAtkID(kickerID);
+        _rl_ss->kickDecision(false);
+
         _rl_cf->kickerAtkID(kickerID);
+        _rl_ss->kickDecision(false);
     }
 }
 
-void Playbook_DirectKick::run(int numPlayers) {
+void Playbook_IndirectKick::run(int numPlayers) {
 
     for(int i = 0; i < numPlayers; i++) {
         quint8 playerId = dist()->getPlayer();
@@ -88,7 +71,6 @@ void Playbook_DirectKick::run(int numPlayers) {
     for(quint8 i = 0; i < numPlayers-4; i++) {
 
     }
-
     //PassInformation:
         //AMF
     connect(_rl_amf, SIGNAL(sendPassId(quint8)), _rl_cf, SLOT(receivePassId(quint8)), Qt::DirectConnection);
@@ -102,3 +84,4 @@ void Playbook_DirectKick::run(int numPlayers) {
     connect(_rl_cf, SIGNAL(sendPassId(quint8)), _rl_amf, SLOT(receivePassId(quint8)), Qt::DirectConnection);
     connect(_rl_cf, SIGNAL(sendPassId(quint8)), _rl_ss, SLOT(receivePassId(quint8)), Qt::DirectConnection);
 }
+

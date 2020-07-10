@@ -42,6 +42,7 @@ SOURCES += \
     entity/coachview/soccerview/soccerview.cpp \
     entity/coachview/soccerview/util/field.cpp \
     entity/contromodule/playbook/basics/playbook_directKick.cpp \
+    entity/contromodule/playbook/basics/playbook_indirectkick.cpp \
     entity/contromodule/playbook/basics/playbook_kickoff.cpp \
     entity/contromodule/playbook/basics/playbook_timeout.cpp \
     entity/contromodule/playbook/basics/playbook_training.cpp \
@@ -50,6 +51,7 @@ SOURCES += \
     entity/player/behaviour/basics/behaviour_goalkeeper.cpp \
     entity/player/behaviour/basics/behaviour_markball.cpp \
     entity/player/behaviour/basics/behaviour_penalty_cf.cpp \
+    entity/player/behaviour/basics/behaviour_timeout.cpp \
     entity/player/navigation/fana/fana.cpp \
     entity/player/navigation/fpp/fastpathplanning.cpp \
     entity/player/navigation/navalgorithm.cpp \
@@ -186,11 +188,13 @@ HEADERS += \
     entity/coachview/soccerview/util/timer.h \
     entity/coachview/soccerview/util/util.h \
     entity/contromodule/playbook/basics/playbook_directKick.h \
+    entity/contromodule/playbook/basics/playbook_indirectkick.h \
     entity/contromodule/playbook/basics/playbook_kickoff.h \
     entity/contromodule/playbook/basics/playbook_timeout.h \
     entity/contromodule/playbook/basics/playbook_training.h \
     entity/entity.h \
     entity/player/behaviour/basics/behaviour_ballreceptor.h \
+    entity/player/behaviour/basics/behaviour_timeout.h \
     entity/player/navigation/fana/fana.h \
     entity/player/navigation/fpp/fastpathplanning.h \
     entity/player/navigation/navalgorithm.h \

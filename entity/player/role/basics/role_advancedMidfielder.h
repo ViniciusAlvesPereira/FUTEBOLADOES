@@ -26,6 +26,7 @@
 #include <entity/player/role/role.h>
 #include <entity/player/behaviour/basics/behaviour_receiver.h>
 #include <entity/player/skills/skills_include.h>
+#include <entity/referee/SSLReferee/sslgameinfo.h>
 
 class Role_AdvancedMidfielder : public Role {
     Q_OBJECT
@@ -36,6 +37,16 @@ private:
     Behaviour_Attacker *_bh_atk;
     Behaviour_DoNothing *_bh_dnt;
     Behaviour_BallReceptor *_bh_brp;
+    Behaviour_Passing *_bh_psg;
+    Behaviour_MarkPlayer *_bh_mkp;
+
+    //Referee
+    SSLGameInfo *_gameInfo;
+
+    //Variaveis
+    bool _kickerID;
+    bool _kickGoal;
+    quint8 _playerWithPoss;
 
     // Behaviours ids!
     enum{
@@ -43,7 +54,9 @@ private:
         BHV_RECEIVER,
         BHV_ATTACKER,
         BHV_DONOTHING,
-        BHV_BALLRECEPTOR
+        BHV_BALLRECEPTOR,
+        BHV_PASSING,
+        BHV_MARKPLAYER
     };
 
     // Inherited functions
@@ -63,12 +76,17 @@ private:
     quint8 playerWithPoss(bool ourPoss);
     bool ourPlayerDist();
 
+signals:
+    void sendPassId(quint8 passId);
+
 public slots:
     void receivePassId(quint8 passId);
 
 public:
     Role_AdvancedMidfielder();
     void initializeBehaviours();
+    void kickerAtkID(quint8 kickerID){_kickerID = kickerID;}
+    void kickDecision(quint8 kickGoal){_kickGoal = kickGoal;}
     QString name();
 };
 

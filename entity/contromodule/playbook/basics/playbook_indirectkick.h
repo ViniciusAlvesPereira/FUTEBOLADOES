@@ -1,10 +1,10 @@
-#ifndef PLAYBOOK_DIRECTKICK_H
-#define PLAYBOOK_DIRECTKICK_H
+#ifndef PLAYBOOK_INDIRECTKICK_H
+#define PLAYBOOK_INDIRECTKICK_H
 
 #include <entity/contromodule/playbook/playbook.h>
 #include <entity/player/role/mrcroles.h>
 
-class Playbook_DirectKick: public Playbook {
+class Playbook_IndirectKick: public Playbook {
 private:
 
     // Roles
@@ -23,12 +23,11 @@ private:
     int maxNumPlayer();
 
     // Global Variables
-    bool _ourDirectKick;
+    bool _ourIndirectKick;
     quint8 kickerID;
-
 public:
-    Playbook_DirectKick();
+    Playbook_IndirectKick();
     QString name();
 };
 
-#endif // PLAYBOOK_DIRECTKICK_H
+#endif // PLAYBOOK_INDIRECTKICK_H

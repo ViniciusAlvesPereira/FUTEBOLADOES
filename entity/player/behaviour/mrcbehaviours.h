@@ -36,5 +36,5 @@
 #include <entity/player/behaviour/basics/behaviour_cover.h>
 #include <entity/player/behaviour/basics/behaviour_passing.h>
 #include <entity/player/behaviour/basics/behaviour_ballreceptor.h>
-
+#include <entity/player/behaviour/basics/behaviour_timeout.h>
 #endif // MRCBEHAVIOURS_H
