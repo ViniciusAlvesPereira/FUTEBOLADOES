@@ -1,10 +1,12 @@
-#ifndef PLAYBOOK_INDIRECTKICK_H
-#define PLAYBOOK_INDIRECTKICK_H
+#ifndef PLAYBOOK_FREEKICK_H
+#define PLAYBOOK_FREEKICK_H
 
 #include <entity/contromodule/playbook/playbook.h>
 #include <entity/player/role/mrcroles.h>
+#include <entity/player/player.h>
+#include <entity/referee/SSLReferee/sslgameinfo.h>
 
-class Playbook_IndirectKick: public Playbook {
+class Playbook_FreeKick: public Playbook {
 private:
 
     // Roles
@@ -16,18 +18,19 @@ private:
     Role_CentreForward *_rl_cf;
 
     //Referee
-    //SSLGameInfo _gameInfo;
+    SSLReferee _gameInfo;
 
     void configure(int numPlayers);
     void run(int numPlayers);
     int maxNumPlayer();
 
     // Global Variables
-    bool _ourIndirectKick;
+    bool _ourDirectKick;
     quint8 kickerID;
+
 public:
-    Playbook_IndirectKick();
+    Playbook_FreeKick();
     QString name();
 };
 
-#endif // PLAYBOOK_INDIRECTKICK_H
+#endif // PLAYBOOK_FREEKICK_H

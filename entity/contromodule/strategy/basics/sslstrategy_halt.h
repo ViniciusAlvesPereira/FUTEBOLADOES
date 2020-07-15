@@ -28,8 +28,7 @@
 class SSLStrategy_Halt : public StrategyState {
 private:
     // Playbooks
-    Playbook_KickOff *_pb_KickOff;
-    Playbook_DirectKick *_pb_DirectKick;
+    Playbook_FreeKick *_pb_FreeKick;
     Playbook_Training *_pb_Training;
 
     void configure(int numOurPlayers);

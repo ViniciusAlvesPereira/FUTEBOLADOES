@@ -3,6 +3,7 @@
 
 #include <entity/contromodule/playbook/playbook.h>
 #include <entity/player/role/mrcroles.h>
+#include <entity/referee/SSLReferee/sslgameinfo.h>
 
 class Playbook_DirectKick: public Playbook {
 private:
@@ -14,8 +15,6 @@ private:
     Role_AdvancedMidfielder *_rl_amf;
     Role_SecondStriker *_rl_ss;
     Role_CentreForward *_rl_cf;
-
-    QList<Role_Default*> _rl_default;
 
     //Referee
     //SSLGameInfo _gameInfo;

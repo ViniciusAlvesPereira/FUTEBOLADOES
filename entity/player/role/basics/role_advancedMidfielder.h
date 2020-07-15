@@ -37,7 +37,6 @@ private:
     Behaviour_Attacker *_bh_atk;
     Behaviour_DoNothing *_bh_dnt;
     Behaviour_BallReceptor *_bh_brp;
-    Behaviour_Passing *_bh_psg;
     Behaviour_MarkPlayer *_bh_mkp;
     Behaviour_Barrier *_bh_rr;
 
@@ -56,7 +55,6 @@ private:
         BHV_ATTACKER,
         BHV_DONOTHING,
         BHV_BALLRECEPTOR,
-        BHV_PASSING,
         BHV_MARKPLAYER,
         BHV_BARRIER
     };

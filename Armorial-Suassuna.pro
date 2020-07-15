@@ -41,8 +41,7 @@ SOURCES += \
     entity/coachview/soccerview/gltext.cpp \
     entity/coachview/soccerview/soccerview.cpp \
     entity/coachview/soccerview/util/field.cpp \
-    entity/contromodule/playbook/basics/playbook_directKick.cpp \
-    entity/contromodule/playbook/basics/playbook_indirectkick.cpp \
+    entity/contromodule/playbook/basics/playbook_freekick.cpp \
     entity/contromodule/playbook/basics/playbook_kickoff.cpp \
     entity/contromodule/playbook/basics/playbook_timeout.cpp \
     entity/contromodule/playbook/basics/playbook_training.cpp \
@@ -187,8 +186,7 @@ HEADERS += \
     entity/coachview/soccerview/util/gvector.h \
     entity/coachview/soccerview/util/timer.h \
     entity/coachview/soccerview/util/util.h \
-    entity/contromodule/playbook/basics/playbook_directKick.h \
-    entity/contromodule/playbook/basics/playbook_indirectkick.h \
+    entity/contromodule/playbook/basics/playbook_freekick.h \
     entity/contromodule/playbook/basics/playbook_kickoff.h \
     entity/contromodule/playbook/basics/playbook_timeout.h \
     entity/contromodule/playbook/basics/playbook_training.h \

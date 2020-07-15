@@ -91,13 +91,8 @@ void Role_SecondStriker::run(){
 
         if(_kickerID){
             previousPoss = true;
-            if(_gameInfo->directKick()){
-                setBehaviour(BHV_ATTACKER);
-            }
-            else{
-                _bh_psg->setPlayerId(player()->playerId());
-                setBehaviour(BHV_PASSING);
-            }
+            setBehaviour(BHV_ATTACKER);
+
         }
         else if(_gameInfo->STATE_OURDIRECTKICK || _gameInfo->STATE_OURINDIRECTKICK){
 

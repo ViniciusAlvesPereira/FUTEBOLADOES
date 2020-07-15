@@ -19,22 +19,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ***/
 
-#include "playbook_directKick.h"
+#include "playbook_freekick.h"
 
-QString Playbook_DirectKick::name() {
-    return "Playbook_DirectKick";
+QString Playbook_FreeKick::name() {
+    return "Playbook_FreeKick";
 }
 
-Playbook_DirectKick::Playbook_DirectKick() {
+Playbook_FreeKick::Playbook_FreeKick() {
 }
 
-int Playbook_DirectKick::maxNumPlayer() {
+int Playbook_FreeKick::maxNumPlayer() {
     return INT_MAX;
 }
 
-void Playbook_DirectKick::configure(int numPlayers) {
+void Playbook_FreeKick::configure(int numPlayers) {
 
-    _ourDirectKick = true; //definir pelo referee
+    _ourDirectKick = true; //definir pelo refere
 
     usesRole(_rl_gk = new Role_GoalKeeper());
     usesRole(_rl_df = new Role_Defender());
@@ -70,7 +70,7 @@ void Playbook_DirectKick::configure(int numPlayers) {
         _rl_ss->kickerAtkID(false);
 }
 
-void Playbook_DirectKick::run(int numPlayers) {
+void Playbook_FreeKick::run(int numPlayers) {
 
     for(quint8 i = 3; i < numPlayers; i++) {
 

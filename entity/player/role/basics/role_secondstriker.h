@@ -35,7 +35,6 @@ private:
     Behaviour_Attacker *_bh_atk;
     Behaviour_DoNothing *_bh_dnt;
     Behaviour_BallReceptor *_bh_brp;
-    Behaviour_Passing *_bh_psg;
 
     //Referee
     SSLGameInfo *_gameInfo;
@@ -52,8 +51,7 @@ private:
         BHV_RECEIVER,
         BHV_ATTACKER,
         BHV_DONOTHING,
-        BHV_BALLRECEPTOR,
-        BHV_PASSING
+        BHV_BALLRECEPTOR
     };
 
     // Inherited functions
